@@ -149,6 +149,7 @@ public class GameManager : MonoBehaviour {
 
         }
 
+        // METTRE UN TIME ICI
 
         // Generateur de logs pour test
         /*
