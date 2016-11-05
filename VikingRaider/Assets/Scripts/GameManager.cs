@@ -116,12 +116,21 @@ public class GameManager : MonoBehaviour {
         // 
 
         string lines = "";
+        Time tps = new Time();
 
-        for (int k = 0; k < TownList.Count; k++)
+        for (int t = 0; t < 9; t++)
         {
-            Villes city = TownList[k];
-            lines = lines + city.nameVilles + ": fortif = " + city.fortification.ToString() + ", gold = " + city.gold.ToString() + ", garnisons = " + city.garnison.number.ToString() + ", capture = " + city.capture.ToString() + ", perception = " + city.perception.ToString() + ", productivity = " + city.productivity.ToString() + ", fear = " + city.fear.ToString() + ", pos = " + city.pos.ToString() + "\r\n";      
+            lines = lines + "Tour " + tps.currentTurn + ", Raid = " + tps.raidcount.ToString() + "\r\n \r\n";
+            for (int k = 0; k < TownList.Count; k++)
+            {
+                Villes city = TownList[k];
+                lines = lines + city.nameVilles + ": fortif = " + city.fortification.ToString() + ", gold = " + city.gold.ToString() + ", garnisons = " + city.garnison.number.ToString() + ", capture = " + city.capture.ToString() + ", perception = " + city.perception.ToString() + ", productivity = " + city.productivity.ToString() + ", pos = " + city.pos.ToString() + "\r\n";
+            }
+            lines = lines + "\r\n \r\n \r\n";
+            tps.raidcount += 1;
+            tps.updateTurn(this);
         }
+        
 
         // Write the string to a file.
         System.IO.StreamWriter file = new System.IO.StreamWriter("f:\\test.txt");

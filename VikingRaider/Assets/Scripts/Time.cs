@@ -20,6 +20,8 @@ public class Time : MonoBehaviour
     public void updateTurn(GameManager gamemanager)
     {
         //update villes
+        currentTurn += 1;
+
         for (int i = 0; i < gamemanager.TownList.Count; i++)
         {
             gamemanager.TownList[i].gold =
@@ -69,7 +71,7 @@ public class Time : MonoBehaviour
                         break;
                 }
             }
-            else if (raidcount == 4)
+            else if (raidcount == 7)
             {
                 switch (gamemanager.TownList[i].garnison.number)
                 {
@@ -114,11 +116,10 @@ public class Time : MonoBehaviour
                         break;
                 }
             }
-            else if (gamemanager.TownList[i].garnison.number<120)
+            else if (gamemanager.TownList[i].garnison.number<120 && raidcount > 7)
             {
                 gamemanager.TownList[i].garnison.number = 120;
             }
-            currentTurn += 1;
 
             //update event
             //TODO
