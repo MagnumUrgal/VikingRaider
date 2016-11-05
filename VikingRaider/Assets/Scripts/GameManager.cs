@@ -35,9 +35,9 @@ public class GameManager : MonoBehaviour {
         List<int> nbrList = new List<int>
         {
             80, 100, 120,
-            180, 250, 320,
-            380, 400, 440,
-            480, 520, 550 
+            150, 180, 200,
+            220, 250, 280,
+            350, 400, 480
         };
 
         List<int> posList = new List<int>
@@ -79,13 +79,13 @@ public class GameManager : MonoBehaviour {
             switch (randProd)
             {
                 case 0:
-                    Prod = 0.95f;
+                    Prod = 0.98f;
                     break;
                 case 1:
-                    Prod = 1.05f;
+                    Prod = 1.00f;
                     break;
                 case 2:
-                    Prod = 1.2f;
+                    Prod = 1.02f;
                     break;
             }
 
@@ -107,10 +107,35 @@ public class GameManager : MonoBehaviour {
             posList.RemoveAt(randPos);
 
             // création de la ville
-            Villes City = new Villes(nameList[i], Fortif, Gold, garnison, Capt, Perc, Prod, 0, knights, Pos);
+            Villes City = new Villes(nameList[i], Fortif, Gold, garnison, Capt, Perc, Prod, knights, Pos);
 
             // ajout de la ville créée à la liste
             TownList.Add(City);
         }
+
+        // 
+
+        string lines = "";
+        Time tps = new Time();
+
+        for (int t = 0; t < 9; t++)
+        {
+            lines = lines + "Tour " + tps.currentTurn + ", Raid = " + tps.raidcount.ToString() + "\r\n \r\n";
+            for (int k = 0; k < TownList.Count; k++)
+            {
+                Villes city = TownList[k];
+                lines = lines + city.nameVilles + ": fortif = " + city.fortification.ToString() + ", gold = " + city.gold.ToString() + ", garnisons = " + city.garnison.number.ToString() + ", capture = " + city.capture.ToString() + ", perception = " + city.perception.ToString() + ", productivity = " + city.productivity.ToString() + ", pos = " + city.pos.ToString() + "\r\n";
+            }
+            lines = lines + "\r\n \r\n \r\n";
+            tps.raidcount += 1;
+            tps.updateTurn(this);
+        }
+        
+
+        // Write the string to a file.
+        System.IO.StreamWriter file = new System.IO.StreamWriter("f:\\test.txt");
+        file.WriteLine(lines);
+
+        file.Close();
     }
 }
