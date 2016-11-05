@@ -14,11 +14,11 @@ public class Persos : MonoBehaviour
 
 public class Soldat : Persos
 {
-    protected int atk { get; set; }
-    protected int def { get; set; }
-    protected int moral { get; set; }
-    protected int intimidate { get; set; }
-    protected int number { get; set; }
+    public int atk { get; set; }
+    public int def { get; set; }
+    public int moral { get; set; }
+    public int intimidate { get; set; }
+    public int number { get; set; }
 
     public Soldat(int _atk, int _def, int _moral, int _intimidate, int _number, string _name) : base(_name)
     {
@@ -42,9 +42,9 @@ public class Soldat : Persos
 
 public class Espion : Persos
 {
-    protected int fuite { get; set; }
-    protected int perception { get; set; }
-    protected int discretion { get; set; }
+    public int fuite { get; set; }
+    public int perception { get; set; }
+    public int discretion { get; set; }
 
     public Espion(int _fuite, int _perception, int _discretion, string _name) : base(_name)
     {
