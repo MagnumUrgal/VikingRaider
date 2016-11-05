@@ -13,7 +13,7 @@ public class CameraMouvement : MonoBehaviour {
     {
         if (Input.GetMouseButton(1))
         {
-            Vector3 cursorPos = this.GetComponent<Camera>().ScreenToWorldPoint(Input.mousePosition);
+            //Vector3 cursorPos = this.GetComponent<Camera>().ScreenToWorldPoint(Input.mousePosition);
             //transform.Translate(cursorPos - this.GetComponent<Camera>());
             //transform.LookAt(cursorPos);
         }
