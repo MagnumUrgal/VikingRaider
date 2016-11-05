@@ -35,9 +35,9 @@ public class GameManager : MonoBehaviour {
         List<int> nbrList = new List<int>
         {
             80, 100, 120,
-            180, 250, 320,
-            380, 400, 440,
-            480, 520, 550 
+            150, 180, 200,
+            220, 250, 280,
+            3500, 400, 480
         };
 
         List<int> posList = new List<int>
