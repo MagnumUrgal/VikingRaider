@@ -128,7 +128,7 @@ public class Actions : MonoBehaviour {
         //TODO Urgal
         Soldat garderoyale = new Soldat(7, 8, 100, 0, 100, "garderoyale");
         Soldat no_one = new Soldat(0, 0, 0, 0, 0, "personne");
-        Villes roi = new Villes("roi", 0, 0, garderoyale, 0, 0, 0, no_one, no_one, 0, 0);
+        Villes roi = new Villes("roi", 0, 0, garderoyale, 0, 0, 0, no_one, no_one, 0);
         bool end = false;
         int initialSoldiersNumber = joueur.viking.number;
         int initialMercenaireNumber = joueur.merc_moyens.number;
