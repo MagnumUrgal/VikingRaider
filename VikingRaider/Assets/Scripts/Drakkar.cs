@@ -11,6 +11,7 @@ public class Drakkar : MonoBehaviour
     public Soldat merc_moyens { get; set; }
     public Soldat merc_forts { get; set; }
     public List<Espion> espion_list;
+    public int min_members;
 
     public Drakkar(string _name, int _or, Soldat _viking, Soldat _mfaibles, Soldat _mmoyens, Soldat _mforts)
     {
@@ -21,5 +22,6 @@ public class Drakkar : MonoBehaviour
         merc_moyens = _mmoyens;
         merc_forts = _mforts;
         espion_list = new List<Espion>(3);
+        min_members = 50;
     }
 }
