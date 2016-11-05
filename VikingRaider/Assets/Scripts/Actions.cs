@@ -122,6 +122,49 @@ public class Actions : MonoBehaviour {
         return result;
     }
 
+    public void BattleRoyale(Drakkar joueur)
+    {
+        //TODO Urgal
+        Soldat garderoyale = new Soldat(7, 8, 0, 100, 100, "garderoyale");
+        Soldat no_one = new Soldat(0, 0, 0, 0, 0, "personne");
+        Villes roi = new Villes("roi", 0, 0, garderoyale, 0, 0, 0, no_one, 0);
+        bool end = false;
+        int initialSoldiersNumber = joueur.viking.number;
+        int initialMercenaireNumber = joueur.merc_moyens.number;
+        while (!end )
+        {
+            int attaque_joueur = vikings_atk(joueur);
+            if (attaque_joueur >= garni_def(roi))
+            {
+                joueur.gold += 999999;
+                //TODO Urgal : victoire totale
+                end = true;
+            }
+            //diminution de la garnison
+            roi.garnison.number = (int)Math.Floor((float)attaque_joueur / (roi.garnison.def));                    
+            //fin du tour des vikings, tour de la garnison
+            int attaque_garni = garni_atk(roi);
+            if (attaque_garni > vikings_def(joueur))
+            {
+                //TODO Urgal : le joueur Game Over
+                end = true;
+            }
+            else if (attaque_garni > joueur.merc_moyens.number * joueur.merc_moyens.def)
+            {
+                //cas du rekt des merc ou de pas de merc
+                attaque_garni -= joueur.merc_moyens.number * joueur.merc_moyens.def;
+                joueur.merc_moyens.number = 0;
+                //diminution de l'équipage
+                joueur.viking.number = (int)Math.Floor((float)attaque_garni / joueur.viking.def);                
+            }
+            else
+            {
+                //diminution de l'équipage
+                joueur.merc_moyens.number = (int)Math.Floor((float)attaque_garni / joueur.merc_moyens.def);                
+            }
+        }           
+    }
+
     //résolution
     public void Pillage(Drakkar joueur, Villes town, Time time)
     {
@@ -231,12 +274,13 @@ public class Actions : MonoBehaviour {
             else
             {
                 //diminution de l'équipage
-                joueur.viking.number = (int)Math.Floor((float)attaque_garni / joueur.viking.def);
+                joueur.merc_moyens.number = (int)Math.Floor((float)attaque_garni / joueur.merc_moyens.def);
                 if (garni_inti(town) > vikings_moral(joueur))
                 {
                     end = true;
                     //Urgal : cas ou les vikings se barrent
-                    UIManager.DrawPillageResult(town.gold, initialSoldiersNumber - joueur.viking.number, initialMercenaireNumber - joueur.merc_moyens.number, ResultType.PILLAGELOST);
+                    UIManager.DrawPillageResult(town.gold, initialSoldiersNumber - joueur.viking.number,
+                        initialMercenaireNumber - joueur.merc_moyens.number, ResultType.PILLAGELOST);
                 }
             }
             //sinon on continue
