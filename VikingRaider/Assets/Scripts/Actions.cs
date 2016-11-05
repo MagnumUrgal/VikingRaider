@@ -104,8 +104,8 @@ public class Actions : MonoBehaviour {
     }
     public int garni_def(Villes town)
     {
-        int result = town.garnison.def * town.garnison.number
-            + town.knights.def * town.knights.number;
+        int result = (town.garnison.def+town.fortification) * town.garnison.number
+            + (town.knights.def + town.fortification) * town.knights.number;
         return result;
     }
     public int garni_moral(Villes town)
@@ -122,8 +122,9 @@ public class Actions : MonoBehaviour {
     }
 
     //résolution
-    public void Pillage(Drakkar joueur, Villes town)
+    public void Pillage(Drakkar joueur, Villes town, Time time)
     {
+        time.raidcount += 1;
         bool end = false;
         //Urgal : print pertes humaines
         int initialSoldiersNumber = joueur.viking.number;
@@ -145,17 +146,18 @@ public class Actions : MonoBehaviour {
             else if (attaque_joueur >= town.knights.number * town.knights.def)
             {
                 //cas du rekt des chevaliers ou de pas de chevaliers
-                attaque_joueur -= town.knights.number * town.knights.def;
+                attaque_joueur -= town.knights.number * (town.knights.def + town.fortification);
                 town.knights.number = 0;
                 if (attaque_joueur > 0)
                 {
                     //diminution de la garnison
-                    town.garnison.number = (int)Math.Floor((float) attaque_joueur / town.garnison.def);
+                    town.garnison.number = (int)Math.Floor((float) attaque_joueur / (town.garnison.def + town.fortification));
                     if (vikings_inti(joueur)>garni_moral(town))
                     {
                         joueur.gold += town.gold;
                         //Urgal : cas ou la ville se rend
-                        UIManager.DrawPillageResult(town.gold, initialSoldiersNumber - joueur.viking.number, initialMercenaireNumber - joueur.merc_moyens.number, ResultType.PILLAGESURRENDER);
+                        UIManager.DrawPillageResult(town.gold, initialSoldiersNumber - joueur.viking.number, 
+                            initialMercenaireNumber - joueur.merc_moyens.number, ResultType.PILLAGESURRENDER);
                         town.gold = 0;
                         end = true;
                     }
@@ -165,7 +167,8 @@ public class Actions : MonoBehaviour {
                 {
                     joueur.gold += town.gold;
                     //Urgal : cas ou plus d'attaque restante, mais les defenseurs se rendent quand même
-                    UIManager.DrawPillageResult(town.gold, initialSoldiersNumber - joueur.viking.number, initialMercenaireNumber - joueur.merc_moyens.number, ResultType.PILLAGEWIN);
+                    UIManager.DrawPillageResult(town.gold, initialSoldiersNumber - joueur.viking.number,
+                        initialMercenaireNumber - joueur.merc_moyens.number, ResultType.PILLAGEWIN);
                     town.gold = 0;
                     end = true;
                 }
@@ -175,13 +178,14 @@ public class Actions : MonoBehaviour {
             {
                 //cas ou les knights se font pas tous peter
                 //diminution de la garnison
-                town.knights.number = (int)Math.Floor((float)attaque_joueur / town.knights.def);
+                town.knights.number = (int)Math.Floor((float)attaque_joueur / (town.knights.def + town.fortification));
                 if (vikings_inti(joueur) > garni_moral(town))
                 {
                     end = true;
                     joueur.gold += town.gold;
                     //Urgal : cas où la ville se rend
-                    UIManager.DrawPillageResult(town.gold, initialSoldiersNumber - joueur.viking.number, initialMercenaireNumber - joueur.merc_moyens.number, ResultType.PILLAGESURRENDER);
+                    UIManager.DrawPillageResult(town.gold, initialSoldiersNumber - joueur.viking.number,
+                        initialMercenaireNumber - joueur.merc_moyens.number, ResultType.PILLAGESURRENDER);
                     town.gold = 0;
                 }
                 //sinon on continue

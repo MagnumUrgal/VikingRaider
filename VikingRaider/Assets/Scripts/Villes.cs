@@ -27,7 +27,7 @@ public class Villes : MonoBehaviour
     public int capture { get; set; }
     public int perception { get; set; }
     public float productivity { get; set; }
-    public int fear { get; set; }
+    //public int fear { get; set; }
     public bool is_event { get; set; }
     public bool is_knights { get; set; }
     public Soldat knights { get; set; }
@@ -49,7 +49,7 @@ public class Villes : MonoBehaviour
         capture = _capture;
         perception = _perception;
         productivity = _productivity;
-        fear = _fear;
+        //fear = _fear;
         knights = _knights;
         pos = _pos;
     }
