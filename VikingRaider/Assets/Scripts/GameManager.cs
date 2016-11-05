@@ -1,15 +1,20 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System;
 
 public class GameManager : MonoBehaviour {
 
     public string gameName;
     public Drakkar drakkar;
-    public List<Villes> TownList;    
+    public List<Villes> TownList;
+    public bool king;
 
 	// Use this for initialization
 	void Start () {
+
+        //init du roi
+        king = false;
 
         // init gameName ici avec les input du joueur
 
@@ -51,7 +56,7 @@ public class GameManager : MonoBehaviour {
         for (int i = 0; i < nameList.Count; i++)
         {
             // rand garnisons
-            int randGarn = Random.Range(0, nbrList.Count);
+            int randGarn = UnityEngine.Random.Range(0, nbrList.Count);
             int garnNum = nbrList[randGarn];
             nbrList.RemoveAt(randGarn);
 
@@ -59,7 +64,7 @@ public class GameManager : MonoBehaviour {
 
             // rand fortification
             int Fortif = 0;
-            int randFortif = Random.Range(0, 3);
+            int randFortif = UnityEngine.Random.Range(0, 3);
             switch (randFortif)
             {
                 case 0:
@@ -74,7 +79,7 @@ public class GameManager : MonoBehaviour {
             }
 
             // rand productivity
-            int randProd = Random.Range(0, 3);
+            int randProd = UnityEngine.Random.Range(0, 3);
             float Prod = 0.0f;
             switch (randProd)
             {
@@ -90,19 +95,19 @@ public class GameManager : MonoBehaviour {
             }
 
             // rand capture
-            int randCapt = Random.Range(0, 4);
+            int randCapt = UnityEngine.Random.Range(0, 4);
             int Capt = randCapt + 1;
 
             // rand perception
-            int randPerc = Random.Range(0, 4);
+            int randPerc = UnityEngine.Random.Range(0, 4);
             int Perc = randPerc;
 
             // rand gold
-            int randGold = Random.Range(40, 76);
+            int randGold = UnityEngine.Random.Range(40, 76);
             int Gold = randGold * 1000;
 
             // rand pos   
-            int randPos = Random.Range(0, posList.Count);
+            int randPos = UnityEngine.Random.Range(0, posList.Count);
             int Pos = posList[randPos];
             posList.RemoveAt(randPos);
 
@@ -113,8 +118,9 @@ public class GameManager : MonoBehaviour {
             TownList.Add(City);
         }
 
-        // 
 
+        // Generateur de logs pour test
+        /*
         string lines = "";
         Time tps = new Time();
 
@@ -137,5 +143,16 @@ public class GameManager : MonoBehaviour {
         file.WriteLine(lines);
 
         file.Close();
+        */
+    }
+    public void defeat (Drakkar joueur)
+    {
+        //TODO Urgal
+    }
+    public int victory (Drakkar joueur)
+    {
+        //TODO Urgal
+        int score = (int)Math.Floor ((double) joueur.gold / (joueur.viking.number + 1));
+        return score;
     }
 }
