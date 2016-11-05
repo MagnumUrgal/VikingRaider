@@ -122,7 +122,7 @@ public class Actions : MonoBehaviour {
             {
                 town.knights.number = 0;
                 town.garnison.number = 0;
-                joueur.or += town.gold;
+                joueur.gold += town.gold;
                 town.gold = 0;
                 end = true;
                 //victoire 
@@ -138,7 +138,7 @@ public class Actions : MonoBehaviour {
                     town.garnison.number = (int)Math.Floor((float) attaque_joueur / town.garnison.def);
                     if (vikings_inti(joueur)>garni_moral(town))
                     {
-                        joueur.or += town.gold;
+                        joueur.gold += town.gold;
                         town.gold = 0;
                         end = true;
                         //cas ou la ville se rend
@@ -148,7 +148,7 @@ public class Actions : MonoBehaviour {
                 else if (vikings_inti(joueur) > garni_moral(town))
                 {
                     //cas ou plus d'attaque restante, mais les defenseurs se rendent quand même
-                    joueur.or += town.gold;
+                    joueur.gold += town.gold;
                     town.gold = 0;
                     end = true;
                 }
@@ -162,7 +162,7 @@ public class Actions : MonoBehaviour {
                 if (vikings_inti(joueur) > garni_moral(town))
                 {
                     end = true;
-                    joueur.or += town.gold;
+                    joueur.gold += town.gold;
                     town.gold = 0;
                     //cas ou la ville se rend 
                 }

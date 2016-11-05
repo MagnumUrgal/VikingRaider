@@ -24,4 +24,17 @@ public class Drakkar : MonoBehaviour
         espion_list = new List<Espion>(3);
         min_members = 50;
     }
+
+    // supprime l'élément de la liste en cas d'égalité sur le nom
+    public void delEspion(Espion espion)
+    {
+        for (int i = 0; i < espion_list.Capacity; i++)
+        {
+            if (espion_list[i].name == espion.name)
+            {
+                espion_list.RemoveAt(i);
+            }
+        }
+    }
+
 }
