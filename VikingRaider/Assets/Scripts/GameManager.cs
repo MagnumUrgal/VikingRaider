@@ -34,6 +34,7 @@ public class GameManager : MonoBehaviour {
         drakkar = new Drakkar(gameName, 0, viking, merc, 8);
 
         // init des villes
+
         Soldat knights = new Soldat(3, 3, 4, 2, 20, "Chevaliers Errants");
         Soldat trebuchet = new Soldat(20, 1, 20, 15, 1, "Trébuchet");
         Soldat no_one = new Soldat(0, 0, 0, 0, 0, "personne");
@@ -185,5 +186,22 @@ public class GameManager : MonoBehaviour {
         //TODO Urgal
         int score = (int)Math.Floor ((double) joueur.gold / (joueur.viking.number + 1));
         return score;
+    }
+    public int partir (Drakkar joueur)
+    {
+        if (joueur.min_members < joueur.viking.number)
+        {
+            //TODO Urgal
+            //END GAME pop-up victoire
+            int score = (int)Math.Floor((double)joueur.gold / (joueur.viking.number + 1));
+            return score;
+        }
+        else
+        {
+            //TODO Urgal
+            //popup de "nope, pas assez de gens pour rentrer, trouve de quoi recruter"
+            return 0;
+        }
+
     }
 }

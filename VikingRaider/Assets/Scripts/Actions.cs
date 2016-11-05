@@ -101,25 +101,25 @@ public class Actions : MonoBehaviour {
     public int garni_atk(Villes town)
     {
         int result = town.garnison.atk*town.garnison.number
-            +town.knights.atk*town.knights.number;
+            +town.knights.atk*town.knights.number+town.trebuchet.atk;
         return result;
     }
     public int garni_def(Villes town)
     {
         int result = (town.garnison.def+town.fortification) * town.garnison.number
-            + (town.knights.def + town.fortification) * town.knights.number;
+            + (town.knights.def + town.fortification) * town.knights.number+town.trebuchet.def;
         return result;
     }
     public int garni_moral(Villes town)
     {
         int result = town.garnison.moral * town.garnison.number
-            + town.knights.moral * town.knights.number;
+            + town.knights.moral * town.knights.number+town.trebuchet.moral;
         return result;
     }
     public int garni_inti(Villes town)
     {
         int result = town.garnison.intimidate * town.garnison.number
-            + town.knights.intimidate * town.knights.number;
+            + town.knights.intimidate * town.knights.number+town.trebuchet.intimidate;
         return result;
     }
 
