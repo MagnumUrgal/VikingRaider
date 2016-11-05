@@ -35,7 +35,28 @@ public class Villes : MonoBehaviour
     public int raided { get; set; }
 
 
-    public Villes(string _name, int _fortif, int _gold, Soldat _unite, 
+    public Villes(string _name, int _fortif, int _gold, Soldat _unite,
+        int _capture, int _perception, float _productivity, Soldat _knights, int _pos)
+    {
+        is_event = false;
+        is_knights = false;
+        is_king = false;
+        nameVilles = _name;
+        fortification = _fortif;
+        gold = _gold;
+        gold_known = new Known();
+        garnison = _unite;
+        garni_known = new Known();
+        capture = _capture;
+        perception = _perception;
+        productivity = _productivity;
+        fear = 1f;
+        knights = _knights;
+        pos = _pos;
+        raided = 43;
+    }
+
+    public void set(string _name, int _fortif, int _gold, Soldat _unite,
         int _capture, int _perception, float _productivity, Soldat _knights, int _pos)
     {
         is_event = false;
