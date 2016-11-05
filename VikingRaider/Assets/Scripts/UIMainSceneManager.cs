@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 public enum ResultType { GARNISON, GOLD, DEADSPY, PILLAGEWIN, PILLAGESURRENDER, PILLAGELOST, PILLAGEGAMEOVER };
 
@@ -14,6 +15,7 @@ public class UIMainSceneManager : MonoBehaviour
     private GameObject HistoriquePanel;
     private GameObject MenuPanel;
     private GameObject Notifications;
+    //private GameObject Villages;
 
     private Text GarnisonText;
     private Text GoldText;
@@ -38,6 +40,7 @@ public class UIMainSceneManager : MonoBehaviour
         HistoriquePanel = GameObject.Find("HistoriquePanel");
         MenuPanel = GameObject.Find("MenuPanel");
         Notifications = GameObject.Find("Notifications");
+        //Villages = GameObject.Find("Villages");
         //logoButton = GameObject.Find("LogoButton").GetComponent<Button>();
 
 
@@ -230,6 +233,12 @@ public class UIMainSceneManager : MonoBehaviour
     }
 
     void drawVilleInfo(Villes ville)
+    {
+
+    }
+
+    //C'est une classe Villes sans s en vrai, ne représente qu'une ville
+    public void InstantiateCity(Villes city)
     {
 
     }

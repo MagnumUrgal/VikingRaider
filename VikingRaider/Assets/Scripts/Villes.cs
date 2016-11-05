@@ -78,4 +78,25 @@ public Villes(string _name, int _fortif, int _gold, Soldat _unite,
         raided = 43;
         special = new Special();
     }
+
+    public void set(string _name, int _fortif, int _gold, Soldat _unite,
+        int _capture, int _perception, float _productivity, Soldat _knights, int _pos)
+    {
+        is_event = false;
+        is_knights = false;
+        is_king = false;
+        nameVilles = _name;
+        fortification = _fortif;
+        gold = _gold;
+        gold_known = new Known();
+        garnison = _unite;
+        garni_known = new Known();
+        capture = _capture;
+        perception = _perception;
+        productivity = _productivity;
+        fear = 1f;
+        knights = _knights;
+        pos = _pos;
+        raided = 43;
+    }
 }
