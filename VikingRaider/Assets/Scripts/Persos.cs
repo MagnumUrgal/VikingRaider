@@ -4,7 +4,7 @@ using System.Collections;
 
 public class Persos : MonoBehaviour
 {
-    protected string namePerso { get; set; }
+    public string namePerso { get; set; }
 
     public Persos(string _name)
     {
