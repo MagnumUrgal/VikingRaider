@@ -8,12 +8,14 @@ public class Time : MonoBehaviour
     public int currentTurn { get; set; }
     public bool event_occuring { get; set; }
     public int raidcount { get; set; }
+    public int max_turn { get; set; }
 
     public Time()
     {
         currentTurn = 0;
         event_occuring = false;
         raidcount = 0;
+        max_turn = 42;
 
     }
 
@@ -26,6 +28,12 @@ public class Time : MonoBehaviour
         {
             gamemanager.TownList[i].gold =
                 (int)Math.Floor(gamemanager.TownList[i].gold * gamemanager.TownList[i].productivity);
+            gamemanager.TownList[i].productivity += 0.005f;
+            if (gamemanager.TownList[i].raided>3)
+            {
+                gamemanager.TownList[i].raided = 43;
+                gamemanager.TownList[i].gold = 30000;
+            }
             if (raidcount == 3)
             {
                 switch (gamemanager.TownList[i].garnison.number)
@@ -116,9 +124,16 @@ public class Time : MonoBehaviour
                         break;
                 }
             }
-            else if (gamemanager.TownList[i].garnison.number<120 && raidcount > 7)
+            else if (raidcount > 7)
             {
+                if (gamemanager.TownList[i].garnison.number < 120)
                 gamemanager.TownList[i].garnison.number = 120;
+                else
+                {
+                    gamemanager.TownList[i].garnison.number = (int) Math.Floor 
+                        (gamemanager.TownList[i].garnison.number * gamemanager.TownList[i].fear);              
+                        
+                }
             }
 
             //update event

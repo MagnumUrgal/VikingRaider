@@ -79,13 +79,13 @@ public class GameManager : MonoBehaviour {
             switch (randProd)
             {
                 case 0:
-                    Prod = 0.95f;
+                    Prod = 0.98f;
                     break;
                 case 1:
-                    Prod = 1.05f;
+                    Prod = 1.00f;
                     break;
                 case 2:
-                    Prod = 1.2f;
+                    Prod = 1.02f;
                     break;
             }
 
@@ -107,7 +107,7 @@ public class GameManager : MonoBehaviour {
             posList.RemoveAt(randPos);
 
             // création de la ville
-            Villes City = new Villes(nameList[i], Fortif, Gold, garnison, Capt, Perc, Prod, 0, knights, Pos);
+            Villes City = new Villes(nameList[i], Fortif, Gold, garnison, Capt, Perc, Prod, knights, Pos);
 
             // ajout de la ville créée à la liste
             TownList.Add(City);

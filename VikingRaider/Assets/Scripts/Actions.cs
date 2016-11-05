@@ -44,6 +44,7 @@ public class Actions : MonoBehaviour {
     {
         if (town.perception>spy.discretion)
         {
+            time.max_turn -= 1;
             if (town.capture>spy.fuite)
             {
                 //Urgal : delete espion
@@ -124,7 +125,10 @@ public class Actions : MonoBehaviour {
     //résolution
     public void Pillage(Drakkar joueur, Villes town, Time time)
     {
+        time.max_turn -= 1;
         time.raidcount += 1;
+        town.fear += 0.05f;
+        town.productivity = 0.95f;
         bool end = false;
         //Urgal : print pertes humaines
         int initialSoldiersNumber = joueur.viking.number;
