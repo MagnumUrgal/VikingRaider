@@ -37,7 +37,7 @@ public class GameManager : MonoBehaviour {
             80, 100, 120,
             150, 180, 200,
             220, 250, 280,
-            3500, 400, 480
+            350, 400, 480
         };
 
         List<int> posList = new List<int>
@@ -112,5 +112,21 @@ public class GameManager : MonoBehaviour {
             // ajout de la ville créée à la liste
             TownList.Add(City);
         }
+
+        // 
+
+        string lines = "";
+
+        for (int k = 0; k < TownList.Count; k++)
+        {
+            Villes city = TownList[k];
+            lines = lines + city.nameVilles + ": fortif = " + city.fortification.ToString() + ", gold = " + city.gold.ToString() + ", garnisons = " + city.garnison.number.ToString() + ", capture = " + city.capture.ToString() + ", perception = " + city.perception.ToString() + ", productivity = " + city.productivity.ToString() + ", fear = " + city.fear.ToString() + ", pos = " + city.pos.ToString() + "\r\n";      
+        }
+
+        // Write the string to a file.
+        System.IO.StreamWriter file = new System.IO.StreamWriter("f:\\test.txt");
+        file.WriteLine(lines);
+
+        file.Close();
     }
 }
