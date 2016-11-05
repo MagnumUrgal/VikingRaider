@@ -6,13 +6,23 @@ using System;
 public class GameManager : MonoBehaviour {
 
     public string gameName;
-    public Drakkar drakkar;
     public List<Villes> TownList;
     public bool king;
+    private GameObject Villages;
 
-	// Use this for initialization
-	void Start () {
+    [HideInInspector]
+    public Drakkar drakkar;
 
+    //Urgal : liaison avec UIMainSceneManager
+    public UIMainSceneManager UImanager;
+
+    // Use this for initialization
+    void Start()
+    {
+        Debug.Log("caca1");
+        //Urgal : liaison avec UIMainSceneManager
+        UImanager = GameObject.Find("Canvas").GetComponent<UIMainSceneManager>();
+        Villages = GameObject.Find("Villages");
         //init du roi
         king = false;
 
@@ -25,6 +35,7 @@ public class GameManager : MonoBehaviour {
 
         // init des villes
         Soldat knights = new Soldat(3, 3, 4, 2, 20, "Chevaliers Errants");
+        Soldat trebuchet = new Soldat(20, 1, 20, 15, 1, "Trébuchet");
         TownList = new List<Villes>();
 
         // listes des noms
@@ -52,6 +63,17 @@ public class GameManager : MonoBehaviour {
             6, 7, 8,
             9, 10, 11
         };
+
+        List<int> spotList = new List<int>
+            {
+            0, 1, 2,
+            3, 4, 5,
+            6, 7, 8,
+            9, 10, 11,
+            12, 13, 14,
+            15, 16, 17,
+            18, 19
+            };
 
         for (int i = 0; i < nameList.Count; i++)
         {
@@ -111,11 +133,19 @@ public class GameManager : MonoBehaviour {
             int Pos = posList[randPos];
             posList.RemoveAt(randPos);
 
-            // création de la ville
-            Villes City = new Villes(nameList[i], Fortif, Gold, garnison, Capt, Perc, Prod, knights, Pos);
+            int rand = UnityEngine.Random.Range(0, spotList.Count);
+            int childNum = spotList[rand];
+            spotList.RemoveAt(rand);
+
+            Villes city = Villages.transform.GetChild(childNum).gameObject.AddComponent<Villes>() as Villes;
+            city.set(nameList[i], Fortif, Gold, garnison, Capt, Perc, Prod, knights, Pos);
+
 
             // ajout de la ville créée à la liste
-            TownList.Add(City);
+            TownList.Add(city);
+            UImanager.InstantiateCity(city);
+
+
         }
 
 
