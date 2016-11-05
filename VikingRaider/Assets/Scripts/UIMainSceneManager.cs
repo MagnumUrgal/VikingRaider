@@ -15,14 +15,11 @@ public class UIMainSceneManager : MonoBehaviour
     private GameObject HistoriquePanel;
     private GameObject MenuPanel;
     private GameObject Notifications;
-    //private GameObject Villages;
-
+    private GameObject CityInfoPanel;
 
     private GameObject fortFortFortifie;
     private GameObject fortPeuFortifie;
     private GameObject fortNonFortifie;
-
-    private Texture2D villeInfoTexture;
 
     private Text GarnisonText;
     private Text GoldText;
@@ -36,24 +33,21 @@ public class UIMainSceneManager : MonoBehaviour
     //private Button GoldButton;
 
     // Use this for initialization
-    void Start()
+    void Awake()
     {
-        fortFortFortifie = (GameObject)Resources.Load("");
-        fortPeuFortifie = (GameObject)Resources.Load("");
-        fortNonFortifie = (GameObject)Resources.Load("");
-        villeInfoTexture = (Texture2D)Resources.Load("");
+        fortFortFortifie = (GameObject)Resources.Load("ville_fortFortifié");
+        fortPeuFortifie = (GameObject)Resources.Load("ville_peuFortifié");
+        fortNonFortifie = (GameObject)Resources.Load("ville_nonFortifié");
 
         botPanel = GameObject.Find("BotPanelButtons");
         topPanel = GameObject.Find("TopPanelButtons");
         botPanelHover = GameObject.Find("BotPanelHoverButtons");
-        //GoldButton = GameObject.Find("GoldButton").GetComponent<Button>();
         EquipagePanel = GameObject.Find("EquipagePanel");
         AmeliorationPanel = GameObject.Find("AmeliorationPanel");
         HistoriquePanel = GameObject.Find("HistoriquePanel");
         MenuPanel = GameObject.Find("MenuPanel");
         Notifications = GameObject.Find("Notifications");
-        //Villages = GameObject.Find("Villages");
-        //logoButton = GameObject.Find("LogoButton").GetComponent<Button>();
+        CityInfoPanel = GameObject.Find("CityInfoPanel");
 
 
         GarnisonText = GameObject.Find("GarnisonText").GetComponent<Text>();
@@ -70,20 +64,28 @@ public class UIMainSceneManager : MonoBehaviour
         HistoriquePanel.SetActive(false);
         MenuPanel.SetActive(false);
         Notifications.SetActive(false);
+        CityInfoPanel.SetActive(false);
 
         updateSizeWindow();
     }
 
-    void Update()
+    void OnGUI()
     {
-        RaycastHit hit;
-        bool b = Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit);
-        Debug.DrawRay(Camera.main.ScreenPointToRay(Input.mousePosition).origin, Camera.main.ScreenPointToRay(Input.mousePosition).direction);
-        if (b && hit.collider.GetComponent<Villes>())
+        if (!EquipagePanel.activeSelf && !AmeliorationPanel.activeSelf && !HistoriquePanel.activeSelf && !MenuPanel.activeSelf && !Notifications.activeSelf 
+            && !RectTransformUtility.RectangleContainsScreenPoint(CityInfoPanel.GetComponentInChildren<RectTransform>(), Input.mousePosition))
         {
-            Villes cursorOnThisVille;
-            cursorOnThisVille = hit.collider.GetComponent<Villes>();
-            drawVilleInfo(cursorOnThisVille, Input.mousePosition);
+            RaycastHit hit;
+            bool b = Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit);
+            if (b && hit.collider.GetComponent<Villes>())
+            {
+                Villes cursorOnThisVille;
+                cursorOnThisVille = hit.collider.GetComponent<Villes>();
+                drawVilleInfo(cursorOnThisVille, Input.mousePosition);
+            }
+            else
+            {
+                CityInfoPanel.SetActive(false);
+            }
         }
     }
 
@@ -212,15 +214,15 @@ public class UIMainSceneManager : MonoBehaviour
     {
         if (resultType == ResultType.GARNISON)
         {
-            GarnisonText.text = "Votre espion " + spy.name + " revient victorieux de sa mission d'espionnage dans la ville [ville todo]. Il y a découvert l'étendue des forces présentes : " + info + " hommes.";
+            GarnisonText.text = "Votre espion " + spy.namePerso + " revient victorieux de sa mission d'espionnage dans la ville [ville todo]. Il y a découvert l'étendue des forces présentes : " + info + " hommes.";
         }
         else if (resultType == ResultType.GOLD)
         {
-            GoldText.text = "Votre espion " + spy.name + " revient victorieux de sa mission d'espionnage dans la ville [ville todo]. Il y a découvert l'étendue des richesses présentes : " + info + " Or.";
+            GoldText.text = "Votre espion " + spy.namePerso + " revient victorieux de sa mission d'espionnage dans la ville [ville todo]. Il y a découvert l'étendue des richesses présentes : " + info + " Or.";
         }
         else if (resultType == ResultType.DEADSPY)
         {
-            DeadSpyText.text = "Votre espion " + spy.name + " n'est jamais revenu de sa mission d'espionnage dans la ville [ville todo].";
+            DeadSpyText.text = "Votre espion " + spy.namePerso + " n'est jamais revenu de sa mission d'espionnage dans la ville [ville todo].";
         }
     }
 
@@ -246,9 +248,33 @@ public class UIMainSceneManager : MonoBehaviour
 
     void drawVilleInfo(Villes ville, Vector2 mouseScreenPos)
     {
-        //GUI.Box(new Rect(mouseScreenPos.x, mouseScreenPos.y, 100, 90), villeInfoTexture);
-        //GUI.Box(new Rect(mouseScreenPos.x, mouseScreenPos.y, 100, 90), "Nom : " + ville.name + "\n Garnison connue :" + ville.garni_known);
+        if (!CityInfoPanel.activeSelf)
+        {
+            CityInfoPanel.SetActive(true);
+            CityInfoPanel.GetComponent<RectTransform>().anchoredPosition = mouseScreenPos;
+            string toPrint = "Nom : " + ville.nameVilles + "\n" + "Fortifications : " + ville.fortification + "\n";
+            if (ville.garni_known.is_known)
+            {
+                if (ville.garni_known.turn_known > 10)
+                    toPrint = toPrint + "<color=red> Garnison : " + ville.garni_known.value_known + "</color>\n";
 
+                else if (ville.garni_known.turn_known > 4)
+                    toPrint = toPrint + "<color=orange> Garnison : " + ville.garni_known.value_known + "</color>\n";
+                else
+                    toPrint = toPrint + "<color=green> Garnison : " + ville.garni_known.value_known + "</color>\n";
+            }
+            if (ville.gold_known.is_known)
+            {
+                if (ville.gold_known.turn_known > 10)
+                    toPrint = toPrint + "<color=red> Or : " + ville.gold_known.value_known + "</color>\n";
+
+                else if (ville.garni_known.turn_known > 4)
+                    toPrint = toPrint + "<color=orange> Or : " + ville.gold_known.value_known + "</color>\n";
+                else
+                    toPrint = toPrint + "<color=green> Or : " + ville.gold_known.value_known + "</color>\n";
+            }
+            CityInfoPanel.transform.GetChild(0).GetComponent<Text>().text = toPrint;
+        }
     }
 
     //C'est une classe Villes sans s en vrai, ne représente qu'une ville
@@ -268,7 +294,10 @@ public class UIMainSceneManager : MonoBehaviour
             obj = (GameObject)Instantiate(fortFortFortifie, city.transform);
         }
 
-        obj.name = city.name + city.fortification;
+        obj.name = city.nameVilles + city.fortification;
+        obj.transform.localPosition = new Vector3(0, 0, 0);
+        obj.transform.localRotation = Quaternion.identity;
+        obj.transform.localScale = new Vector3(1, 1, 1);
     }
 
 }

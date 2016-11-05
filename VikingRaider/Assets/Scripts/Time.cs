@@ -16,7 +16,6 @@ public class Time : MonoBehaviour
         event_occuring = false;
         raidcount = 0;
         max_turn = 42;
-
     }
 
     void Start()
@@ -48,7 +47,6 @@ public void updateTurn(GameManager gamemanager)
         }
         else
         {
-
             for (int i = 0; i < gamemanager.TownList.Count; i++)
             {
                 gamemanager.TownList[i].gold =
@@ -163,6 +161,10 @@ public void updateTurn(GameManager gamemanager)
 
                 //update event
                 //TODO
+                if (event_occuring)
+                {
+
+                }
             }
         }
     }

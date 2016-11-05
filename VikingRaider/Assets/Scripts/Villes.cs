@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Known : MonoBehaviour
+public class Known
 {
     public bool is_known { get; set; }
     public int value_known { get; set; }
@@ -15,7 +15,7 @@ public class Known : MonoBehaviour
     }
 }
 
-public class Special : MonoBehaviour
+public class Special
 {
     public bool knights { get; set; }
     public bool trebuchet { get; set; }
