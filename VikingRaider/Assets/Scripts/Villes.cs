@@ -26,15 +26,16 @@ public class Villes : MonoBehaviour
     public bool is_king { get; set; }
     public int capture { get; set; }
     public int perception { get; set; }
-    public int productivity { get; set; }
+    public float productivity { get; set; }
     public int fear { get; set; }
     public bool is_event { get; set; }
     public bool is_knights { get; set; }
     public Soldat knights { get; set; }
+    public int pos { get; set; }
 
 
     public Villes(string _name, int _fortif, int _gold, Soldat _unite, 
-        int _capture, int _perception, int _productivity, int _fear, Soldat _knights)
+        int _capture, int _perception, float _productivity, int _fear, Soldat _knights, int _pos)
     {
         is_event = false;
         is_knights = false;
@@ -50,5 +51,6 @@ public class Villes : MonoBehaviour
         productivity = _productivity;
         fear = _fear;
         knights = _knights;
+        pos = _pos;
     }
 }
