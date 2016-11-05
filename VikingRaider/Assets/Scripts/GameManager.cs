@@ -80,7 +80,7 @@ public class GameManager : MonoBehaviour {
             15, 16, 17,
             18, 19
             };
-
+        
         for (int i = 0; i < nameList.Count; i++)
         {
             // rand garnisons
@@ -105,6 +105,7 @@ public class GameManager : MonoBehaviour {
                     Fortif = 3;
                     break;
             }
+
 
             // rand productivity
             int randProd = UnityEngine.Random.Range(0, 3);
@@ -153,7 +154,15 @@ public class GameManager : MonoBehaviour {
 
 
         }
+        int trebuchet_city = UnityEngine.Random.Range(0, 11);
+        TownList[trebuchet_city].trebuchet = trebuchet;
+        TownList[trebuchet_city].is_trebuchet = true;
 
+        int knight_start_city = UnityEngine.Random.Range(0, 11);
+        TownList[knight_start_city].knights = knights;
+        TownList[knight_start_city].is_knights = true;
+
+        // METTRE UN TIME ICI
 
         // Generateur de logs pour test
         /*
@@ -190,5 +199,22 @@ public class GameManager : MonoBehaviour {
         //TODO Urgal
         int score = (int)Math.Floor ((double) joueur.gold / (joueur.viking.number + 1));
         return score;
+    }
+    public int partir (Drakkar joueur)
+    {
+        if (joueur.min_members < joueur.viking.number)
+        {
+            //TODO Urgal
+            //END GAME pop-up victoire
+            int score = (int)Math.Floor((double)joueur.gold / (joueur.viking.number + 1));
+            return score;
+        }
+        else
+        {
+            //TODO Urgal
+            //popup de "nope, pas assez de gens pour rentrer, trouve de quoi recruter"
+            return 0;
+        }
+
     }
 }

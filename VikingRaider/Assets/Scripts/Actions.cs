@@ -37,7 +37,18 @@ public class Actions : MonoBehaviour {
             //Urgal : espionnage de l'or
             UIManager.DrawSpyResult(town.gold_known.value_known, ResultType.GOLD, spy);
         }
-
+        if (town.is_knights)
+        {
+            //todo urgal, add message knights
+        }
+        if (town.is_trebuchet)
+        {
+            //todo urgal, add message trebuchet
+        }
+        if (town.is_event)
+        {
+            //todo urgal, use (town.current_id) dans la fonction (getdescrpevent de time) qui renvoie un string
+        }
     }
     
 
@@ -101,25 +112,25 @@ public class Actions : MonoBehaviour {
     public int garni_atk(Villes town)
     {
         int result = town.garnison.atk*town.garnison.number
-            +town.knights.atk*town.knights.number;
+            +town.knights.atk*town.knights.number+town.trebuchet.atk;
         return result;
     }
     public int garni_def(Villes town)
     {
         int result = (town.garnison.def+town.fortification) * town.garnison.number
-            + (town.knights.def + town.fortification) * town.knights.number;
+            + (town.knights.def + town.fortification) * town.knights.number+town.trebuchet.def;
         return result;
     }
     public int garni_moral(Villes town)
     {
         int result = town.garnison.moral * town.garnison.number
-            + town.knights.moral * town.knights.number;
+            + town.knights.moral * town.knights.number+town.trebuchet.moral;
         return result;
     }
     public int garni_inti(Villes town)
     {
         int result = town.garnison.intimidate * town.garnison.number
-            + town.knights.intimidate * town.knights.number;
+            + town.knights.intimidate * town.knights.number+town.trebuchet.intimidate;
         return result;
     }
 
@@ -185,6 +196,8 @@ public class Actions : MonoBehaviour {
             {
                 town.knights.number = 0;
                 town.garnison.number = 0;
+                town.is_knights = false;
+                town.is_trebuchet = false;
                 joueur.gold += town.gold;
                 //Urgal : victoire 
                 UIManager.DrawPillageResult(town.gold, initialSoldiersNumber - joueur.viking.number, initialMercenaireNumber - joueur.merc_moyens.number, ResultType.PILLAGEWIN);
@@ -196,6 +209,7 @@ public class Actions : MonoBehaviour {
                 //cas du rekt des chevaliers ou de pas de chevaliers
                 attaque_joueur -= town.knights.number * (town.knights.def + town.fortification);
                 town.knights.number = 0;
+                town.is_knights = false;
                 if (attaque_joueur > 0)
                 {
                     //diminution de la garnison
