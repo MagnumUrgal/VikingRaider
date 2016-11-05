@@ -2,7 +2,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class Persos : MonoBehaviour
+public class Persos
 {
     public string namePerso { get; set; }
 

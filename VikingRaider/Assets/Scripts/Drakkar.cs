@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class Drakkar : MonoBehaviour
+public class Drakkar
 {
     public string nameDrakkar { get; set; }
     public int gold { get; set; }
@@ -30,7 +30,7 @@ public class Drakkar : MonoBehaviour
     {
         for (int i = 0; i < espion_list.Capacity; i++)
         {
-            if (espion_list[i].name == espion.name)
+            if (espion_list[i].namePerso == espion.namePerso)
             {
                 espion_list.RemoveAt(i);
                 break;

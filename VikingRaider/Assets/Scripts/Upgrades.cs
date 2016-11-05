@@ -20,7 +20,7 @@ public class Upgrades : MonoBehaviour
     public void recrutSoldat(Drakkar drakkar, string _name, int n)
     {
         // potentiellement refaire le systeme de switch
-        if (drakkar.viking.name == _name)
+        if (drakkar.viking.namePerso == _name)
         {
             drakkar.viking.add(n);
             drakkar.gold -= costViking;
@@ -30,7 +30,7 @@ public class Upgrades : MonoBehaviour
         //    drakkar.merc_faibles.add(n);
         //    drakkar.gold -= costMercFai;
         //}
-        else if (drakkar.merc_moyens.name == _name)
+        else if (drakkar.merc_moyens.namePerso == _name)
         {
             drakkar.merc_moyens.add(n);
             drakkar.gold -= costMercMoy;

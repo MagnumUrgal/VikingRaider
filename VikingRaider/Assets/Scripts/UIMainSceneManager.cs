@@ -17,6 +17,12 @@ public class UIMainSceneManager : MonoBehaviour
     private GameObject Notifications;
     //private GameObject Villages;
 
+    private GameObject fortFortFortifie;
+    private GameObject fortPeuFortifie;
+    private GameObject fortNonFortifie;
+
+    //private Texture2D villeInfoTexture;
+
     private Text GarnisonText;
     private Text GoldText;
     private Text DeadSpyText;
@@ -29,8 +35,13 @@ public class UIMainSceneManager : MonoBehaviour
     //private Button GoldButton;
 
     // Use this for initialization
-    void Start()
+    void Awake()
     {
+        fortFortFortifie = (GameObject)Resources.Load("ville_fortFortifié");
+        fortPeuFortifie = (GameObject)Resources.Load("ville_peuFortifié");
+        fortNonFortifie = (GameObject)Resources.Load("ville_nonFortifié");
+        //villeInfoTexture = (Texture2D)Resources.Load("");
+
         botPanel = GameObject.Find("BotPanelButtons");
         topPanel = GameObject.Find("TopPanelButtons");
         botPanelHover = GameObject.Find("BotPanelHoverButtons");
@@ -71,7 +82,7 @@ public class UIMainSceneManager : MonoBehaviour
         {
             Villes cursorOnThisVille;
             cursorOnThisVille = hit.collider.GetComponent<Villes>();
-            drawVilleInfo(cursorOnThisVille);
+            drawVilleInfo(cursorOnThisVille, Input.mousePosition);
         }
     }
 
@@ -200,15 +211,15 @@ public class UIMainSceneManager : MonoBehaviour
     {
         if (resultType == ResultType.GARNISON)
         {
-            GarnisonText.text = "Votre espion " + spy.name + " revient victorieux de sa mission d'espionnage dans la ville [ville todo]. Il y a découvert l'étendue des forces présentes : " + info + " hommes.";
+            GarnisonText.text = "Votre espion " + spy.namePerso + " revient victorieux de sa mission d'espionnage dans la ville [ville todo]. Il y a découvert l'étendue des forces présentes : " + info + " hommes.";
         }
         else if (resultType == ResultType.GOLD)
         {
-            GoldText.text = "Votre espion " + spy.name + " revient victorieux de sa mission d'espionnage dans la ville [ville todo]. Il y a découvert l'étendue des richesses présentes : " + info + " Or.";
+            GoldText.text = "Votre espion " + spy.namePerso + " revient victorieux de sa mission d'espionnage dans la ville [ville todo]. Il y a découvert l'étendue des richesses présentes : " + info + " Or.";
         }
         else if (resultType == ResultType.DEADSPY)
         {
-            DeadSpyText.text = "Votre espion " + spy.name + " n'est jamais revenu de sa mission d'espionnage dans la ville [ville todo].";
+            DeadSpyText.text = "Votre espion " + spy.namePerso + " n'est jamais revenu de sa mission d'espionnage dans la ville [ville todo].";
         }
     }
 
@@ -232,15 +243,34 @@ public class UIMainSceneManager : MonoBehaviour
         }
     }
 
-    void drawVilleInfo(Villes ville)
+    void drawVilleInfo(Villes ville, Vector2 mouseScreenPos)
     {
+        //GUI.Box(new Rect(mouseScreenPos.x, mouseScreenPos.y, 100, 90), villeInfoTexture);
+        //GUI.Box(new Rect(mouseScreenPos.x, mouseScreenPos.y, 100, 90), "Nom : " + ville.name + "\n Garnison connue :" + ville.garni_known);
 
     }
 
     //C'est une classe Villes sans s en vrai, ne représente qu'une ville
     public void InstantiateCity(Villes city)
     {
+        GameObject obj;
+        if (city.fortification == 0)
+        {
+            obj = (GameObject)Instantiate(fortNonFortifie, city.transform);
+        }
+        else if(city.fortification == 1)
+        {
+            obj = (GameObject)Instantiate(fortPeuFortifie, city.transform);
+        }
+        else
+        {
+            obj = (GameObject)Instantiate(fortFortFortifie, city.transform);
+        }
 
+        obj.name = city.nameVilles + city.fortification;
+        obj.transform.localPosition = new Vector3(0, 0, 0);
+        obj.transform.localRotation = Quaternion.identity;
+        obj.transform.localScale = new Vector3(1, 1, 1);
     }
 
 }
