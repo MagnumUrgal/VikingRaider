@@ -7,9 +7,9 @@ public class Drakkar : MonoBehaviour
     public string nameDrakkar { get; set; }
     public int or { get; set; }
     public Soldat viking { get; set; }
-    public Soldat merc_faibles { get; set; }
+   // public Soldat merc_faibles { get; set; }
     public Soldat merc_moyens { get; set; }
-    public Soldat merc_forts { get; set; }
+   // public Soldat merc_forts { get; set; }
     public List<Espion> espion_list;
     public int min_members;
 
@@ -18,9 +18,9 @@ public class Drakkar : MonoBehaviour
         nameDrakkar = _name;
         or = _or;
         viking = _viking;
-        merc_faibles = _mfaibles;
+       // merc_faibles = _mfaibles;
         merc_moyens = _mmoyens;
-        merc_forts = _mforts;
+       // merc_forts = _mforts;
         espion_list = new List<Espion>(3);
         min_members = 50;
     }
