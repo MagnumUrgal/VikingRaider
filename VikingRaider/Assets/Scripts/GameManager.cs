@@ -138,7 +138,7 @@ public class GameManager : MonoBehaviour {
             spotList.RemoveAt(rand);
 
             Villes city = Villages.transform.GetChild(childNum).gameObject.AddComponent<Villes>() as Villes;
-            city.set(nameList[i], Fortif, Gold, garnison, Capt, Perc, Prod, knights, Pos, 0);
+            city.set(nameList[i], Fortif, Gold, garnison, Capt, Perc, Prod, knights, Pos);
 
 
             // ajout de la ville créée à la liste
