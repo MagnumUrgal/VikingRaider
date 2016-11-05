@@ -68,6 +68,8 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\Drakkar.cs" />
     <Compile Include="Assets\Scripts\Persos.cs" />
+    <Compile Include="Assets\Scripts\UIMainSceneManager.cs" />
+    <Compile Include="Assets\Scripts\UIMenuSceneManager.cs" />
     <Compile Include="Assets\Scripts\Villes.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
