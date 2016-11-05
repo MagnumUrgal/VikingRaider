@@ -16,7 +16,7 @@ public class UIMainSceneManager : MonoBehaviour
     private GameObject MenuPanel;
     private GameObject Notifications;
     private GameObject CityInfoPanel;
-
+    private GameObject ChoseSpyPanel;
     private GameObject fortFortFortifie;
     private GameObject fortPeuFortifie;
     private GameObject fortNonFortifie;
@@ -28,9 +28,12 @@ public class UIMainSceneManager : MonoBehaviour
     private Text PillageLostText;
     private Text PillageSurrenderText;
     private Text GameOverText;
+    
+    public Sprite voidSpySprite;
 
-    //private Button logoButton;
-    //private Button GoldButton;
+    [HideInInspector]
+    public Villes cursorOnThisVille;
+    public Drakkar drakkar; //is set by the GameManager
 
     // Use this for initialization
     void Awake()
@@ -38,6 +41,7 @@ public class UIMainSceneManager : MonoBehaviour
         fortFortFortifie = (GameObject)Resources.Load("ville_fortFortifié");
         fortPeuFortifie = (GameObject)Resources.Load("ville_peuFortifié");
         fortNonFortifie = (GameObject)Resources.Load("ville_nonFortifié");
+        //voidSpySprite = //(Sprite)Resources.Load("voidSpySprite"); //TODO
 
         botPanel = GameObject.Find("BotPanelButtons");
         topPanel = GameObject.Find("TopPanelButtons");
@@ -48,7 +52,7 @@ public class UIMainSceneManager : MonoBehaviour
         MenuPanel = GameObject.Find("MenuPanel");
         Notifications = GameObject.Find("Notifications");
         CityInfoPanel = GameObject.Find("CityInfoPanel");
-
+        ChoseSpyPanel = GameObject.Find("ChoseSpyPanel");
 
         GarnisonText = GameObject.Find("GarnisonText").GetComponent<Text>();
         GoldText = GameObject.Find("GoldText").GetComponent<Text>();
@@ -65,8 +69,14 @@ public class UIMainSceneManager : MonoBehaviour
         MenuPanel.SetActive(false);
         Notifications.SetActive(false);
         CityInfoPanel.SetActive(false);
+        ChoseSpyPanel.SetActive(false);
 
         updateSizeWindow();
+    }
+
+    void Start()
+    {
+
     }
 
     void OnGUI()
@@ -78,12 +88,12 @@ public class UIMainSceneManager : MonoBehaviour
             bool b = Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit);
             if (b && hit.collider.GetComponent<Villes>())
             {
-                Villes cursorOnThisVille;
                 cursorOnThisVille = hit.collider.GetComponent<Villes>();
                 drawVilleInfo(cursorOnThisVille, Input.mousePosition);
             }
             else
             {
+                cursorOnThisVille = null;
                 CityInfoPanel.SetActive(false);
             }
         }
@@ -300,4 +310,61 @@ public class UIMainSceneManager : MonoBehaviour
         obj.transform.localScale = new Vector3(1, 1, 1);
     }
 
+    public void OnSpyButton()
+    {
+        if(cursorOnThisVille != null)
+        {
+            ChoseSpyPanel.SetActive(true);
+            int i = 0;
+            foreach (Espion e in drakkar.espion_list)
+            {
+                //Les sprites des espions doivent porter le nom exact du personnage
+                ChoseSpyPanel.transform.GetChild(i).GetComponent<Image>().sprite = (Sprite)Resources.Load(e.namePerso);
+                i++;
+            }
+            if(drakkar.espion_list.Count < 3)
+            {
+                ChoseSpyPanel.transform.GetChild(2).GetComponent<Image>().sprite = voidSpySprite;
+            }
+            if(drakkar.espion_list.Count < 1)
+            {
+                ChoseSpyPanel.transform.GetChild(1).GetComponent<Image>().sprite = voidSpySprite;
+            }
+            if (drakkar.espion_list.Count == 0)
+            {
+                ChoseSpyPanel.transform.GetChild(0).GetComponent<Image>().sprite = voidSpySprite;
+            }
+        }
+    }
+
+    public void OnSpyOneButton()
+    {
+        if(drakkar.espion_list.Count > 0)
+        {
+
+        }
+    }
+
+    public void OnSpyTwoButton()
+    {
+        if (drakkar.espion_list.Count > 1)
+        {
+
+        }
+
+    }
+
+    public void OnSpyThreeButton()
+    {
+
+        if (drakkar.espion_list.Count > 2)
+        {
+
+        }
+    }
+
+    public void OnRaidButton()
+    {
+
+    }
 }

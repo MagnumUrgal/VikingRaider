@@ -16,15 +16,10 @@ public class GameManager : MonoBehaviour {
     //Urgal : liaison avec UIMainSceneManager
     public UIMainSceneManager UImanager;
 
-    // Use this for initialization
-    void Start()
+    void Awake()
     {
-        Debug.Log("caca1");
         //Urgal : liaison avec UIMainSceneManager
         UImanager = GameObject.Find("Canvas").GetComponent<UIMainSceneManager>();
-        Villages = GameObject.Find("Villages");
-        //init du roi
-        king = false;
 
         // init gameName ici avec les input du joueur
 
@@ -32,6 +27,16 @@ public class GameManager : MonoBehaviour {
         Soldat viking = new Soldat(3, 3, 3, 3, 30, "Vikings");
         Soldat merc = new Soldat(1, 1, 1, 1, 0, "Mercenaires");
         drakkar = new Drakkar(gameName, 0, viking, merc, 8);
+
+        UImanager.drakkar = drakkar;
+    }
+
+    // Use this for initialization
+    void Start()
+    {
+        Villages = GameObject.Find("Villages");
+        //init du roi
+        king = false;
 
         // init des villes
         Soldat knights = new Soldat(3, 3, 4, 2, 20, "Chevaliers Errants");
