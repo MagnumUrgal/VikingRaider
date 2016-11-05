@@ -26,8 +26,6 @@ public class Events : MonoBehaviour
     }
 }
 
-
-
 public class townEvents : Events
 {
     public int modifFortif { get; set; }

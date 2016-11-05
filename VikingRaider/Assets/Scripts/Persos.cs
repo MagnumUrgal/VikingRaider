@@ -45,11 +45,15 @@ public class Espion : Persos
     public int fuite { get; set; }
     public int perception { get; set; }
     public int discretion { get; set; }
+    public string description { get; set; }
+    public bool owned { get; set; }
 
-    public Espion(int _fuite, int _perception, int _discretion, string _name) : base(_name)
+    public Espion(int _fuite, int _perception, int _discretion, string _name, string _descr) : base(_name)
     {
+        owned = false;
         fuite = _fuite;
         perception = _perception;
         discretion = _discretion;
+        description = _descr;
     }
 }
