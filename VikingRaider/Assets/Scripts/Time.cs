@@ -11,6 +11,7 @@ public class Time : MonoBehaviour
     public Events current_event { get; set; }
     public int CurrentEventTurn { get; set; }
     public string CurrentEventTown { get; set; }
+    
 
     public Soldat no_one;
     public Soldat escorte;
@@ -51,7 +52,7 @@ public class Time : MonoBehaviour
     public void applyEventCity(townEvents ev, Villes city)
     {
         CurrentEventTurn = ev.nbRound;
-
+        city.current_event = ev.id;
         Soldat army = city.garnison;
         army.atk += ev.modifAtk;
         army.def += ev.modifDef;
@@ -66,6 +67,28 @@ public class Time : MonoBehaviour
         city.fear += ev.modifFear;
         // voir si le cast suivant ne produit pas d'erreurs
         city.gold = city.gold * (int)ev.goldmult;
+    }
+
+    public string getdescrpevent (int id)
+    {
+        switch (id)
+        {
+            case 0:
+                return None.description;
+            case 1:
+                return mariage.description;
+            case 2:
+                return epidemie.description;
+            case 3:
+                return priest.description;
+            case 4:
+                return famine.description;
+            case 5:
+                return Hollandais.description;
+            default:
+                return "error, event does not exit";
+                    }
+        
     }
 
     public void disapplyEventCity(townEvents ev, Villes city)
@@ -312,13 +335,34 @@ public class Time : MonoBehaviour
                         else
                         {
                             int randCity = UnityEngine.Random.Range(0, gamemanager.TownList.Count);
-                            CurrentEventTown = gamemanager.TownList[i].nameVilles;
-                            applyEventCity((townEvents)current_event, gamemanager.TownList[i]);
+                            CurrentEventTown = gamemanager.TownList[randCity].nameVilles;
+                            applyEventCity((townEvents)current_event, gamemanager.TownList[randCity]);
                         }
                     }
                     else
                     {
                         factProba -= 1;
+                    }
+                }
+                //gestion des chevaliers
+                if (gamemanager.TownList[i].is_knights)
+                {
+                    if (currentTurn%3==0)
+                    {
+                        if(i>0)
+                        {
+                            gamemanager.TownList[i - 1].knights = gamemanager.TownList[i].knights;
+                            gamemanager.TownList[i].knights = no_one;
+                            gamemanager.TownList[i - 1].is_knights = true;
+                            gamemanager.TownList[i].is_knights = false;
+                        }
+                        else
+                        {
+                            gamemanager.TownList[11].knights = gamemanager.TownList[i].knights;
+                            gamemanager.TownList[i].knights = no_one;
+                            gamemanager.TownList[11].is_knights = true;
+                            gamemanager.TownList[i].is_knights = false;
+                        }
                     }
                 }
             }

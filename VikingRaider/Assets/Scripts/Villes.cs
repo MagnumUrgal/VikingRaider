@@ -49,6 +49,7 @@ public class Villes : MonoBehaviour
     public int current_event { get; set; }
     public bool is_knights { get; set; }
     public Soldat knights { get; set; }
+    public bool is_trebuchet { get; set; }
     public Soldat trebuchet { get; set; }
     public int pos { get; set; }
     public int raided { get; set; }
@@ -62,6 +63,7 @@ public Villes(string _name, int _fortif, int _gold, Soldat _unite,
         is_event = false;
         is_knights = false;
         is_king = false;
+        is_trebuchet = false;
         current_event = 0;
         nameVilles = _name;
         fortification = _fortif;
@@ -86,6 +88,7 @@ public Villes(string _name, int _fortif, int _gold, Soldat _unite,
         is_event = false;
         is_knights = false;
         is_king = false;
+        is_trebuchet = false;
         nameVilles = _name;
         fortification = _fortif;
         gold = _gold;

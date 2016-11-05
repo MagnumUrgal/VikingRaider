@@ -34,7 +34,6 @@ public class GameManager : MonoBehaviour {
         drakkar = new Drakkar(gameName, 0, viking, merc, 8);
 
         // init des villes
-
         Soldat knights = new Soldat(3, 3, 4, 2, 20, "Chevaliers Errants");
         Soldat trebuchet = new Soldat(20, 1, 20, 15, 1, "Trébuchet");
         Soldat no_one = new Soldat(0, 0, 0, 0, 0, "personne");
@@ -76,7 +75,7 @@ public class GameManager : MonoBehaviour {
             15, 16, 17,
             18, 19
             };
-
+        
         for (int i = 0; i < nameList.Count; i++)
         {
             // rand garnisons
@@ -101,6 +100,7 @@ public class GameManager : MonoBehaviour {
                     Fortif = 3;
                     break;
             }
+
 
             // rand productivity
             int randProd = UnityEngine.Random.Range(0, 3);
@@ -149,6 +149,13 @@ public class GameManager : MonoBehaviour {
 
 
         }
+        int trebuchet_city = UnityEngine.Random.Range(0, 11);
+        TownList[trebuchet_city].trebuchet = trebuchet;
+        TownList[trebuchet_city].is_trebuchet = true;
+
+        int knight_start_city = UnityEngine.Random.Range(0, 11);
+        TownList[knight_start_city].knights = knights;
+        TownList[knight_start_city].is_knights = true;
 
         // METTRE UN TIME ICI
 
