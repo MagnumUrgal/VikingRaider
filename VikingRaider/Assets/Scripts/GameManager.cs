@@ -36,6 +36,7 @@ public class GameManager : MonoBehaviour {
         // init des villes
         Soldat knights = new Soldat(3, 3, 4, 2, 20, "Chevaliers Errants");
         Soldat trebuchet = new Soldat(20, 1, 20, 15, 1, "Trébuchet");
+        Soldat no_one = new Soldat(0, 0, 0, 0, 0, "personne");
         TownList = new List<Villes>();
 
         // listes des noms
@@ -138,7 +139,7 @@ public class GameManager : MonoBehaviour {
             spotList.RemoveAt(rand);
 
             Villes city = Villages.transform.GetChild(childNum).gameObject.AddComponent<Villes>() as Villes;
-            city.set(nameList[i], Fortif, Gold, garnison, Capt, Perc, Prod, knights, Pos);
+            city.set(nameList[i], Fortif, Gold, garnison, Capt, Perc, Prod, no_one, no_one, Pos);
 
 
             // ajout de la ville créée à la liste

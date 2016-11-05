@@ -19,7 +19,22 @@ public class Time : MonoBehaviour
 
     }
 
-    public void updateTurn(GameManager gamemanager)
+    void Start()
+    {
+
+        Soldat no_one = new Soldat(0, 0, 0, 0, 0, "personne");
+        Soldat escorte = new Soldat(1, 1, 1, 1, 35, "escortemariage");
+        Soldat probleme = new Soldat(1, 1, 1, 1, -20, "pb");
+        townEvents mariage = new townEvents(3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, "Un mariage de personnes importantes va bientôt se dérouler en ville. Je pense qu’il y aura pas mal de personne fortunées présentes, avec aussi un peu plus de soldats, mais ça reste des soldats, hin hin hin.", escorte, 1.2f);
+        townEvents epidemie = new townEvents(5, 0, 0, -1, 0, 0, 0, 0, 0, 0, 2, "Ca craint, la ville a été touchée par une épidémie, et croyez moi c’est pas beau à voir.Bon du coup ça va être plus facile de voler, ils sont bien trop mal en point pour se défendre correctement !", probleme, 0f);
+        townEvents priest = new townEvents(2,1,0,50,0,0,0,0,0,0,3, "Ces fanatiques ont galvanisé leurs paysans en sacrifiant diverses bestioles (et aussi des gens je crois) à leur Dieu, et bah je peux vous dire que ça marche plutôt pas mal, maintenant ce sont des paysans de compète, du genre dopé aux amphétamines !",no_one,0);
+        townEvents famine = new townEvents(4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, "Dans cette ville ils n’ont déjà pas assez de bouffe pour subvenir aux besoins de tous les habitants. Oui c’est la misère. Le pillage sera pas terrible mais au moins ils sont déjà affaiblis.",probleme, 0.6f);
+        Events Hollandais = new Events(2, 0, 0, -2, 0, 5,"Hollandais volant",no_one);
+    }
+
+
+
+public void updateTurn(GameManager gamemanager)
     {
         //update villes
         currentTurn += 1;
@@ -152,3 +167,4 @@ public class Time : MonoBehaviour
         }
     }
 }
+

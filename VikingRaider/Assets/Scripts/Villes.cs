@@ -56,7 +56,8 @@ public class Villes : MonoBehaviour
 
 
 public Villes(string _name, int _fortif, int _gold, Soldat _unite, 
-        int _capture, int _perception, float _productivity, Soldat _knights, Soldat _trebuchet, int _pos, int _current_event)
+        int _capture, int _perception, float _productivity, Soldat _knights,
+        Soldat _trebuchet, int _pos)
     {
         is_event = false;
         is_knights = false;
@@ -80,7 +81,7 @@ public Villes(string _name, int _fortif, int _gold, Soldat _unite,
     }
 
     public void set(string _name, int _fortif, int _gold, Soldat _unite,
-        int _capture, int _perception, float _productivity, Soldat _knights, int _pos)
+        int _capture, int _perception, float _productivity, Soldat _knights, Soldat _trebuchet, int _pos)
     {
         is_event = false;
         is_knights = false;
@@ -91,6 +92,7 @@ public Villes(string _name, int _fortif, int _gold, Soldat _unite,
         gold_known = new Known();
         garnison = _unite;
         garni_known = new Known();
+        trebuchet = _trebuchet;
         capture = _capture;
         perception = _perception;
         productivity = _productivity;
@@ -98,5 +100,7 @@ public Villes(string _name, int _fortif, int _gold, Soldat _unite,
         knights = _knights;
         pos = _pos;
         raided = 43;
+        special = new Special();
+        current_event = 0;
     }
 }
