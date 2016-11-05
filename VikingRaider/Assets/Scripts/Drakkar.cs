@@ -13,10 +13,10 @@ public class Drakkar : MonoBehaviour
     public List<Espion> espion_list;
     public int min_members;
 
-    public Drakkar(string _name, int _or, Soldat _viking /*,Soldat _mfaibles*/, Soldat _mmoyens /*,Soldat _mforts*/, int _minMembers)
+    public Drakkar(string _name, int _gold, Soldat _viking /*,Soldat _mfaibles*/, Soldat _mmoyens /*,Soldat _mforts*/, int _minMembers)
     {
         nameDrakkar = _name;
-        gold = _or;
+        gold = _gold;
         viking = _viking;
        // merc_faibles = _mfaibles;
         merc_moyens = _mmoyens;
