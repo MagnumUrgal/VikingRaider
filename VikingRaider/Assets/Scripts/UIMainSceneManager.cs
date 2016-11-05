@@ -17,6 +17,13 @@ public class UIMainSceneManager : MonoBehaviour
     private GameObject Notifications;
     //private GameObject Villages;
 
+
+    private GameObject fortFortFortifie;
+    private GameObject fortPeuFortifie;
+    private GameObject fortNonFortifie;
+
+    private Texture2D villeInfoTexture;
+
     private Text GarnisonText;
     private Text GoldText;
     private Text DeadSpyText;
@@ -31,6 +38,11 @@ public class UIMainSceneManager : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        fortFortFortifie = (GameObject)Resources.Load("");
+        fortPeuFortifie = (GameObject)Resources.Load("");
+        fortNonFortifie = (GameObject)Resources.Load("");
+        villeInfoTexture = (Texture2D)Resources.Load("");
+
         botPanel = GameObject.Find("BotPanelButtons");
         topPanel = GameObject.Find("TopPanelButtons");
         botPanelHover = GameObject.Find("BotPanelHoverButtons");
@@ -71,7 +83,7 @@ public class UIMainSceneManager : MonoBehaviour
         {
             Villes cursorOnThisVille;
             cursorOnThisVille = hit.collider.GetComponent<Villes>();
-            drawVilleInfo(cursorOnThisVille);
+            drawVilleInfo(cursorOnThisVille, Input.mousePosition);
         }
     }
 
@@ -232,15 +244,31 @@ public class UIMainSceneManager : MonoBehaviour
         }
     }
 
-    void drawVilleInfo(Villes ville)
+    void drawVilleInfo(Villes ville, Vector2 mouseScreenPos)
     {
+        //GUI.Box(new Rect(mouseScreenPos.x, mouseScreenPos.y, 100, 90), villeInfoTexture);
+        //GUI.Box(new Rect(mouseScreenPos.x, mouseScreenPos.y, 100, 90), "Nom : " + ville.name + "\n Garnison connue :" + ville.garni_known);
 
     }
 
     //C'est une classe Villes sans s en vrai, ne représente qu'une ville
     public void InstantiateCity(Villes city)
     {
+        GameObject obj;
+        if (city.fortification == 0)
+        {
+            obj = (GameObject)Instantiate(fortNonFortifie, city.transform);
+        }
+        else if(city.fortification == 1)
+        {
+            obj = (GameObject)Instantiate(fortPeuFortifie, city.transform);
+        }
+        else
+        {
+            obj = (GameObject)Instantiate(fortFortFortifie, city.transform);
+        }
 
+        obj.name = city.name + city.fortification;
     }
 
 }
