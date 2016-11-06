@@ -106,7 +106,8 @@ public class Time : MonoBehaviour
         city.productivity -= ev.modifProd;
         city.fear -= ev.modifFear;
         // voir si le cast suivant ne produit pas d'erreurs
-        city.gold = city.gold / (int)ev.goldmult;
+
+        city.gold = (int) (city.gold / ev.goldmult);
     }
 
     public void applyEvent(Events ev, Drakkar drakkar)
@@ -166,7 +167,7 @@ public class Time : MonoBehaviour
                 gamemanager.TownList[i].gold =
                     (int)Math.Floor(gamemanager.TownList[i].gold * gamemanager.TownList[i].productivity);
                 gamemanager.TownList[i].productivity += 0.005f;
-                if (gamemanager.TownList[i].raided > 3)
+                if (currentTurn-gamemanager.TownList[i].raided > 3)
                 {
                     gamemanager.TownList[i].raided = 43;
                     gamemanager.TownList[i].gold = 30000;

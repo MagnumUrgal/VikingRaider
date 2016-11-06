@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Events : MonoBehaviour
+public class Events 
 {
     public int nbRound { get; set; }
     public int modifAtk { get; set; }

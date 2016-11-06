@@ -193,6 +193,7 @@ public class Actions : MonoBehaviour {
         time.raidcount += 1;
         town.fear += 0.05f;
         town.productivity = 0.95f;
+        town.raided = time.currentTurn;
         bool end = false;
         //Urgal : print pertes humaines
         int initialSoldiersNumber = joueur.viking.number;
