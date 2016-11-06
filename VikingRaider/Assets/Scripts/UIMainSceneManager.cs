@@ -303,20 +303,17 @@ public class UIMainSceneManager : MonoBehaviour
         if (resultType == ResultType.KNIGHTS)
         {
             IsKnightNotificationPanel.SetActive(true);
-            IsKnightNotificationPanel.GetComponent<Text>().text = info;
-            // A FINIR
+            IsKnightNotificationPanel.GetComponentInChildren<Text>().text = info;
         } 
         else if (resultType == ResultType.TREBUCHET)
         {
             IsTrebuchetNotificationPanel.SetActive(true);
-            IsTrebuchetNotificationPanel.GetComponent<Text>().text = info;
-            // A FINIR
+            IsTrebuchetNotificationPanel.GetComponentInChildren<Text>().text = info;
         }
         else if (resultType == ResultType.EVENT)
         {
             IsEventNotificationPanel.SetActive(true);
-            IsEventNotificationPanel.GetComponent<Text>().text = info;
-            // A FINIR
+            IsEventNotificationPanel.GetComponentInChildren<Text>().text = info;
         }
     }
 
