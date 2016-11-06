@@ -203,13 +203,14 @@ public class GameManager : MonoBehaviour {
         // METTRE UN TIME ICI
 
         // Generateur de logs pour test
-        /*
+        
         string lines = "";
         
             for (int k = 0; k < TownList.Count; k++)
             {
                 Villes city = TownList[k];
-                lines = lines + city.nameVilles + ": fortif = " + city.fortification.ToString() + ", gold = " + city.gold.ToString() + ", garnisons = " + city.garnison.number.ToString() + ", capture = " + city.capture.ToString() + ", perception = " + city.perception.ToString() + ", productivity = " + city.productivity.ToString() + ", pos = " + city.pos.ToString() + "\r\n";
+                lines = lines + city.nameVilles + ": fortif = " + city.fortification.ToString() + ", gold = " + city.gold.ToString() + ", garnisons = " + city.garnison.number.ToString() + ", capture = " + city.capture.ToString() + ", perception = " 
+                + city.perception.ToString() + ", productivity = " + city.productivity.ToString() + ", pos = " + city.pos.ToString() + ", knights" + city.is_knights.ToString()  + ", trebuchet" + city.is_trebuchet.ToString() +"\r\n";
             }
         
         
@@ -219,7 +220,7 @@ public class GameManager : MonoBehaviour {
         file.WriteLine(lines);
 
         file.Close();
-        */
+        
     }
     public void defeat (Drakkar joueur)
     {
