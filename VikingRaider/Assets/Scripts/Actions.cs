@@ -43,13 +43,13 @@ public class Actions : MonoBehaviour {
         if (town.is_knights)
         {
             //todo urgal, add message knights
-            string descr = "Blabla Knights";
+            string descr = ""; //"Blabla Knights";
             UIManager.DrawSpySpecial(descr, ResultType.KNIGHTS, spy, town);
         }
         if (town.is_trebuchet)
         {
             //todo urgal, add message trebuchet
-            string descr = "Blabla Trebuchet";
+            string descr = ""; //"Blabla Trebuchet";
             UIManager.DrawSpySpecial(descr, ResultType.TREBUCHET, spy, town);
         }
         if (town.is_event)
