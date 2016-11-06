@@ -208,8 +208,6 @@ public class Actions : MonoBehaviour {
         int initialMercenaireNumber = joueur.merc_moyens.number;
         while ( !end )
         {
-            Debug.Log(joueur.viking.number);
-            Debug.Log("debut de tour");
             int attaque_joueur = vikings_atk(joueur,town);
             //tour des vikings
             if (attaque_joueur >= garni_def(town))
@@ -294,8 +292,6 @@ public class Actions : MonoBehaviour {
                     {
                         //diminution de l'équipage
                         joueur.viking.number -= (int)Math.Floor((float)attaque_garni / joueur.viking.def);
-                        Debug.Log(joueur.viking.number);
-                        Debug.Log("vikings apres pertes");
                         if (garni_inti(town) > vikings_moral(joueur, town))
                         {
                             end = true;
