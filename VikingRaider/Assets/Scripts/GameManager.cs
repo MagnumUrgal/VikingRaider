@@ -215,7 +215,7 @@ public class GameManager : MonoBehaviour {
         
 
         // Write the string to a file.
-        System.IO.StreamWriter file = new System.IO.StreamWriter("C:\\Users\\Urgal\\Documents\\test.txt");
+        System.IO.StreamWriter file = new System.IO.StreamWriter("f:\\test.txt");
         file.WriteLine(lines);
 
         file.Close();
