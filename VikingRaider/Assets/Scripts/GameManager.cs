@@ -95,10 +95,10 @@ public class GameManager : MonoBehaviour {
         // liste des nombres de garnisons à répartir
         List<int> nbrList = new List<int>
         {
-            80, 100, 120,
-            150, 180, 200,
-            220, 250, 280,
-            350, 400, 480
+            80, 85, 90,
+            95, 100, 105,
+            110, 115, 120,
+            125, 130, 150
         };
 
         List<int> posList = new List<int>

@@ -74,7 +74,7 @@ public Villes(string _name, int _fortif, int _gold, Soldat _unite,
         capture = _capture;
         perception = _perception;
         productivity = _productivity;
-        fear = 1f;
+        fear = 1.05f;
         knights = _knights;
         trebuchet = _trebuchet;
         pos = _pos;
