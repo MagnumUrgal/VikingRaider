@@ -488,7 +488,7 @@ public class UIMainSceneManager : MonoBehaviour
         {
             CheatDebugPanel.transform.GetChild(0).GetComponent<Text>().text = "Last selected city :\nGarnison : " +
                 cursorOnThisVille.garnison + "\nOr : " + cursorOnThisVille.gold + "\nTrebuchets : " + cursorOnThisVille.is_trebuchet + "\nIs_event : " + cursorOnThisVille.is_event +
-                "\nPerception : " + cursorOnThisVille.perception;
+                "\nPerception : " + cursorOnThisVille.perception +"\nevID : " + cursorOnThisVille.current_event;
         }
     }
 
