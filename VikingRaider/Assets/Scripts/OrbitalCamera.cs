@@ -6,10 +6,14 @@ public class OrbitalCamera : MonoBehaviour {
     public float rotationSpeed = 60.0F;
     public float zoomSpeed = 0.5F;
     public float angleMax = 80.0f;
+    public GameObject Map;
 
     float xcam;
     float ycam;
     float zcam;
+
+    float MIN_X, MIN_Y, MIN_Z;
+    float MAX_X, MAX_Y, MAX_Z;
 
     Quaternion rotcam;
 
@@ -18,9 +22,20 @@ public class OrbitalCamera : MonoBehaviour {
         ycam = this.transform.position.y;
         zcam = this.transform.position.z;
         rotcam = this.transform.rotation;
+
+        MIN_Z = -20;
+        MAX_Z = -5;
+
+        MIN_X = -20;
+        MIN_Y = -10;
+
+        MAX_X = 20;
+        MAX_Y = 10;
     }
 	
 	void Update () {
+
+
 
         //rotation de la caméra autour de ses axes
         float horiz = Input.GetAxis("Horizontal");
@@ -39,8 +54,12 @@ public class OrbitalCamera : MonoBehaviour {
 
         float zoom = b_zoom * zoomSpeed;
         zoom *= 0.016f;
-        GetComponentInChildren<Camera>().transform.Translate(0, 0, zoom, Space.Self);
+        transform.Translate(0, 0, zoom, Space.Self);
 
+        transform.position = new Vector3(
+        Mathf.Clamp(transform.position.x, MIN_X, MAX_X),
+        Mathf.Clamp(transform.position.y, MIN_Y, MAX_Y),
+        Mathf.Clamp(transform.position.z, MIN_Z, MAX_Z));
 
         if (Input.GetKeyDown("space"))
         {
