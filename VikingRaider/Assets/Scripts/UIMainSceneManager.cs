@@ -27,7 +27,8 @@ public class UIMainSceneManager : MonoBehaviour
     private GameObject IsKnightNotificationPanel;
     private GameObject IsTrebuchetNotificationPanel;
     private GameObject IsEventNotificationPanel;
-
+    private GameObject BuyEspionPanel;
+    
     private Text GarnisonText;
     private Text GoldText;
     private Text DeadSpyText;
@@ -40,11 +41,13 @@ public class UIMainSceneManager : MonoBehaviour
     private Text EventText;
 
     private List<Upgrades> UpList;
+    private Espion currentSelectedEspion;
 
     private Villes cursorOnThisVille;
     private Villes VilleConcernedByAction;
     private Actions actionScript;
     private Time timeScript;
+    private GameManager gameManager;
 
     private List<string> historiqueList;
 
@@ -58,6 +61,7 @@ public class UIMainSceneManager : MonoBehaviour
     {
         actionScript = GameObject.Find("GameManager").GetComponent<Actions>();
         timeScript = GameObject.Find("GameManager").GetComponent<Time>();
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         fortFortFortifie = (GameObject)Resources.Load("ville_fortFortifié");
         fortPeuFortifie = (GameObject)Resources.Load("ville_peuFortifié");
         fortNonFortifie = (GameObject)Resources.Load("ville_nonFortifié");
@@ -80,6 +84,8 @@ public class UIMainSceneManager : MonoBehaviour
         ReturnFromNotificationButton = GameObject.Find("ReturnFromNotificationButton");
         goldButton = GameObject.Find("GoldButton");
         toursText = GameObject.Find("ToursText");
+        BuyEspionPanel = GameObject.Find("BuyEspionPanel");
+        currentSelectedEspion = null;
 
         GarnisonText = GameObject.Find("GarnisonText").GetComponent<Text>();
         GoldText = GameObject.Find("GoldText").GetComponent<Text>();
@@ -103,6 +109,7 @@ public class UIMainSceneManager : MonoBehaviour
         PillageLostText.transform.parent.gameObject.SetActive(false);
         PillageSurrenderText.transform.parent.gameObject.SetActive(false);
         GameOverText.transform.parent.gameObject.SetActive(false);
+        BuyEspionPanel.SetActive(false);
 
         IsKnightNotificationPanel.SetActive(false);
         IsTrebuchetNotificationPanel.SetActive(false);
@@ -328,6 +335,7 @@ public class UIMainSceneManager : MonoBehaviour
 
     public void DrawSpySpecial(string info, ResultType resultType, Espion spy, Villes town)
     {
+        Notifications.SetActive(true);
         if (resultType == ResultType.KNIGHTS)
         {
             IsKnightNotificationPanel.SetActive(true);
@@ -502,7 +510,7 @@ public class UIMainSceneManager : MonoBehaviour
 
     public void OnReturnFromNotificationButton()
     {
-        //Notifications.SetActive(false);
+        Notifications.SetActive(false);
         GarnisonText.transform.parent.gameObject.SetActive(false);
         GoldText.transform.parent.gameObject.SetActive(false);
         DeadSpyText.transform.parent.gameObject.SetActive(false);
@@ -644,6 +652,7 @@ public class UIMainSceneManager : MonoBehaviour
                 Amelioration.transform.GetChild(2).GetComponent<Text>().text = " ";
             }
         }
+        updateGoldGUI();
     }
 
     public void OnSecondPosition()
@@ -674,6 +683,7 @@ public class UIMainSceneManager : MonoBehaviour
                 Amelioration.transform.GetChild(2).GetComponent<Text>().text = " ";
             }
         }
+        updateGoldGUI();
     }
 
     public void OnThirdPosition()
@@ -703,7 +713,7 @@ public class UIMainSceneManager : MonoBehaviour
                 Amelioration.transform.GetChild(2).GetComponent<Text>().text = "L'épée encore plus énervée que le viking qui la porte.";
             }
         }
-        else if (Amelioration.GetComponent<Upgrades>().upgradeType == UpgradeType.COTMAIL)
+        else if (Amelioration.GetComponent<Upgrades>().upgradeType == UpgradeType.ULBSWORD)
         {
             if (drakkar.gold >= 80000)
             {
@@ -715,6 +725,7 @@ public class UIMainSceneManager : MonoBehaviour
                 Amelioration.transform.GetChild(2).GetComponent<Text>().text = " ";
             }
         }
+        updateGoldGUI();
     }
 
     public void OnFourthPosition()
@@ -726,7 +737,7 @@ public class UIMainSceneManager : MonoBehaviour
             {
                 drakkar.gold = drakkar.gold - 40000;
                 Amelioration.GetComponent<Upgrades>().UpgradeStat(drakkar, "moral", 1);
-                Amelioration.GetComponent<Upgrades>().upgradeType = UpgradeType.COTMAIL;
+                Amelioration.GetComponent<Upgrades>().upgradeType = UpgradeType.CUISIN;
                 Amelioration.transform.GetChild(0).GetComponent<Image>().sprite = (Sprite)Resources.Load<Sprite>("Cuisinier");
                 Amelioration.transform.GetChild(1).GetComponent<Text>().text = "50000";
                 Amelioration.transform.GetChild(2).GetComponent<Text>().text = "Quand même meilleur que le brouet aux endives de Bior.";
@@ -744,5 +755,44 @@ public class UIMainSceneManager : MonoBehaviour
                 Amelioration.transform.GetChild(2).GetComponent<Text>().text = " ";
             }
         }
+
+        updateGoldGUI();
+    }
+
+    public void OnBuyEspion()
+    {
+        BuyEspionPanel.SetActive(true);
+    }
+
+    public void OnFireMercenaire()
+    {
+        drakkar.merc_moyens.sub(1);
+    }
+
+    public void OnBuyMercenaire()
+    {
+        drakkar.merc_moyens.add(1);
+    }
+
+    public void OnBuyViking()
+    {
+        drakkar.viking.add(1);
+    }
+
+    public void OnBuyConfirmedEspion()
+    {
+        
+    }
+
+    public void OnCancelBuyEspion()
+    {
+
+    }
+
+    //ShopList = la liste des espions que je n'ai pas
+    public void OnCharacterSelected(int i)
+    {
+        /*if(i==0)
+            drakkar.espion_list*/
     }
 }
