@@ -177,7 +177,7 @@ public class Actions : MonoBehaviour {
     public void BattleRoyale(Drakkar joueur)
     {
         //TODO Urgal
-        SoundManager.PlayBruitage("Attaque");
+        SoundManager.PlayBruitage("attaque");
         Soldat garderoyale = new Soldat(7, 8, 100, 0, 100, "garderoyale");
         Soldat no_one = new Soldat(0, 0, 0, 0, 0, "personne");
         Villes roi = new Villes("roi", 0, 0, garderoyale, 0, 0, 0, no_one, no_one, 0);

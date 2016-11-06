@@ -10,6 +10,7 @@ public class UIMenuSceneManager : MonoBehaviour {
     private GameObject highScoresReturnButton;
 
     void Start () {
+        SoundManager.PlayMusique("menu");
         initialMenuPanel = GameObject.Find("InitialMenuPanel");
         highScoresPanel = GameObject.Find("HighScoresPanel");
         highScoresReturnButton = GameObject.Find("HighScoresReturnButton");
