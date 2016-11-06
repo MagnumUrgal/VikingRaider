@@ -241,14 +241,14 @@ public class GameManager : MonoBehaviour {
             Application.Quit();
         }
     }
-    public int victory (Drakkar joueur)
+    public void victory (Drakkar joueur)
     {
         //TODO Urgal
         SoundManager.PlayBruitage("victory");
         int score = (int)Math.Floor ((double) joueur.gold / (joueur.viking.number + 1));
-        return score;
+        UImanager.victory(score);
     }
-    public int partir (Drakkar joueur)
+    public void partir (Drakkar joueur)
     {
         if (joueur.min_members < joueur.viking.number)
         {
@@ -256,13 +256,7 @@ public class GameManager : MonoBehaviour {
             //END GAME pop-up victoire
             SoundManager.PlayBruitage("victory");
             int score = (int)Math.Floor((double)joueur.gold / (joueur.viking.number + 1));
-            return score;
-        }
-        else
-        {
-            //TODO Urgal
-            //popup de "nope, pas assez de gens pour rentrer, trouve de quoi recruter"
-            return 0;
+            victory(joueur);
         }
     }
 }
