@@ -43,6 +43,7 @@ public class Actions : MonoBehaviour {
         if (town.is_knights)
         {
             //todo urgal, add message knights
+
         }
         if (town.is_trebuchet)
         {
