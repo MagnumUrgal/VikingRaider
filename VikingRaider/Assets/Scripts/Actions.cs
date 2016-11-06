@@ -108,17 +108,13 @@ public class Actions : MonoBehaviour {
     public int vikings_def(Drakkar joueur)
     {
         int result = joueur.viking.number * joueur.viking.def
-    //  + joueur.merc_faibles.number * joueur.merc_faibles.def
     + joueur.merc_moyens.number * joueur.merc_moyens.def;
-    //+ joueur.merc_forts.number * joueur.merc_forts.def;
 
         return result;
     }
     public int vikings_moral(Drakkar joueur, Villes town)
     {
-        
-                return joueur.viking.number * (joueur.viking.moral);
-        
+        return joueur.viking.number * (joueur.viking.moral);
     }
     public int vikings_inti(Drakkar joueur, Villes town) { 
     {
