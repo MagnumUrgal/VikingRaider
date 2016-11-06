@@ -57,13 +57,38 @@ public class Actions : MonoBehaviour {
             //todo urgal
             string descr = time.getdescrpevent(town.current_event);
             UIManager.DrawSpySpecial(descr, ResultType.EVENT, spy, town);
+            switch (town.current_event)
+            {
+                case 1:
+                    SoundManager.PlayBruitage("wedding");
+                    break;
+                case 2:
+                    SoundManager.PlayBruitage("autre_event");
+                    break;
+                case 3:
+                    SoundManager.PlayBruitage("priest");
+                    break;
+                case 4:
+                    SoundManager.PlayBruitage("autre_event");
+                    break;
+                case 5:
+                    SoundManager.PlayBruitage("dutchman");
+                    break;
+                default:
+                    SoundManager.PlayBruitage("autre_event");
+                    break;
+            }
+        }
+        else
+        {
+            SoundManager.PlayBruitage("spy");
         }
     }
     
 
 	public void Espionnage(Drakkar joueur, Espion spy, Villes town, Time time)
     {
-        SoundManager.PlayBruitage("Spy");
+        
         if (town.perception>spy.discretion)
         {
             time.max_turn -= 1;
@@ -196,7 +221,7 @@ public class Actions : MonoBehaviour {
     //résolution
     public void Pillage(Drakkar joueur, Villes town, Time time)
     {
-        SoundManager.PlayBruitage("Attaque");
+        SoundManager.PlayBruitage("attaque");
         time.max_turn -= 1;
         time.raidcount += 1;
         town.fear += 0.05f;
