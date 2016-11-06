@@ -18,7 +18,6 @@ public class GameManager : MonoBehaviour {
     public Espion Willy;
     public Espion Flantier;
     
-
     //Urgal : liaison avec UIMainSceneManager
     [HideInInspector]
     public UIMainSceneManager UImanager;
