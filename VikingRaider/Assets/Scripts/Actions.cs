@@ -116,28 +116,13 @@ public class Actions : MonoBehaviour {
     }
     public int vikings_moral(Drakkar joueur, Villes town)
     {
-        switch (town.fortification)
-        {
-           
-            case 2:
-                return joueur.viking.number * (joueur.viking.moral - 1)
-              + joueur.merc_moyens.number * 0;
-            default:
-                return joueur.viking.number * (joueur.viking.moral)
-              + joueur.merc_moyens.number * joueur.merc_moyens.moral;
-        }
+        
+                return joueur.viking.number * (joueur.viking.moral);
+        
     }
-    public int vikings_inti(Drakkar joueur, Villes town)
+    public int vikings_inti(Drakkar joueur, Villes town) { 
     {
-        switch (town.fortification)
-        {
-
-            case 0:
-                return joueur.viking.number * (joueur.viking.intimidate)
-              + joueur.merc_moyens.number * joueur.merc_moyens.intimidate ;
-            default:
-                return joueur.viking.number * (joueur.viking.intimidate-1)
-              + joueur.merc_moyens.number * 0;
+              return joueur.viking.number * (joueur.viking.intimidate);
         }
     }
 
@@ -224,6 +209,8 @@ public class Actions : MonoBehaviour {
         int initialMercenaireNumber = joueur.merc_moyens.number;
         while ( !end )
         {
+            Debug.Log(joueur.viking.number);
+            Debug.Log("debut de tour");
             int attaque_joueur = vikings_atk(joueur,town);
             //tour des vikings
             if (attaque_joueur >= garni_def(town))
@@ -255,6 +242,8 @@ public class Actions : MonoBehaviour {
                         //Urgal : cas ou la ville se rend
                         UIManager.DrawPillageResult(town.gold, initialSoldiersNumber - joueur.viking.number, 
                             initialMercenaireNumber - joueur.merc_moyens.number, ResultType.PILLAGESURRENDER, town);
+                        Debug.Log(joueur.viking.number);
+                        Debug.Log("nombre de viking  urgal");
                         town.gold = 0;
                         end = true;
                     }
@@ -287,56 +276,62 @@ public class Actions : MonoBehaviour {
                 }
                 //sinon on continue
             }
-            //fin du tour des vikings, tour de la garnison
-            int attaque_garni = garni_atk(town);
-            if (attaque_garni > vikings_def(joueur))
+            //fin du tour des vikings, tour de la garnison 
+            // uniquement si !end
+            if (!end)
             {
-                //Urgal : le joueur Game Over
-                UIManager.DrawPillageResult(0, initialSoldiersNumber - joueur.viking.number,
-                    initialMercenaireNumber - joueur.merc_moyens.number, ResultType.PILLAGEGAMEOVER, town);
-                end = true;
-            }
-            else if (attaque_garni > joueur.merc_moyens.number * joueur.merc_moyens.def)
-            {
-                //cas du rekt des merc ou de pas de merc
-                attaque_garni -= joueur.merc_moyens.number * joueur.merc_moyens.def;
-                joueur.merc_moyens.number = 0;
-                if (attaque_joueur > 0)
+                int attaque_garni = garni_atk(town);
+                if (attaque_garni >= vikings_def(joueur))
                 {
-                    //diminution de l'équipage
-                    joueur.viking.number -= (int)Math.Floor((float)attaque_garni / joueur.viking.def);
-                    if (garni_inti(town) > vikings_moral(joueur,town))
+                    //Urgal : le joueur Game Over
+                    UIManager.DrawPillageResult(0, initialSoldiersNumber - joueur.viking.number,
+                        initialMercenaireNumber - joueur.merc_moyens.number, ResultType.PILLAGEGAMEOVER, town);
+                    end = true;
+                }
+                else if (attaque_garni > joueur.merc_moyens.number * joueur.merc_moyens.def)
+                {
+                    //cas du rekt des merc ou de pas de merc
+                    attaque_garni -= joueur.merc_moyens.number * joueur.merc_moyens.def;
+                    joueur.merc_moyens.number = 0;
+                    if (attaque_joueur > 0)
+                    {
+                        //diminution de l'équipage
+                        joueur.viking.number -= (int)Math.Floor((float)attaque_garni / joueur.viking.def);
+                        Debug.Log(joueur.viking.number);
+                        Debug.Log("vikings apres pertes");
+                        if (garni_inti(town) > vikings_moral(joueur, town))
+                        {
+                            end = true;
+                            //Urgal : cas ou les vikings se barrent
+                            UIManager.DrawPillageResult(town.gold, initialSoldiersNumber - joueur.viking.number,
+                                initialMercenaireNumber - joueur.merc_moyens.number, ResultType.PILLAGELOST, town);
+                        }
+                        //sinon on continue
+                    }
+                    else if (garni_inti(town) > vikings_moral(joueur, town))
                     {
                         end = true;
                         //Urgal : cas ou les vikings se barrent
-                        UIManager.DrawPillageResult(town.gold, initialSoldiersNumber - joueur.viking.number, 
+                        UIManager.DrawPillageResult(town.gold, initialSoldiersNumber - joueur.viking.number,
                             initialMercenaireNumber - joueur.merc_moyens.number, ResultType.PILLAGELOST, town);
                     }
                     //sinon on continue
-                }
-                else if (garni_inti(town) > vikings_moral(joueur,town))
-                {
-                    end = true;
-                    //Urgal : cas ou les vikings se barrent
-                    UIManager.DrawPillageResult(town.gold, initialSoldiersNumber - joueur.viking.number, 
-                        initialMercenaireNumber - joueur.merc_moyens.number, ResultType.PILLAGELOST, town);
-                }
-                //sinon on continue
 
-            }
-            else
-            {
-                //diminution de l'équipage
-                joueur.merc_moyens.number -= (int)Math.Floor((float)attaque_garni / joueur.merc_moyens.def);
-                if (garni_inti(town) > vikings_moral(joueur,town))
+                }
+                else
                 {
-                    end = true;
-                    //Urgal : cas ou les vikings se barrent
-                    UIManager.DrawPillageResult(town.gold, initialSoldiersNumber - joueur.viking.number,
-                        initialMercenaireNumber - joueur.merc_moyens.number, ResultType.PILLAGELOST, town);
+                    //diminution de l'équipage
+                    joueur.merc_moyens.number -= (int)Math.Floor((float)attaque_garni / joueur.merc_moyens.def);
+                    if (garni_inti(town) > vikings_moral(joueur, town))
+                    {
+                        end = true;
+                        //Urgal : cas ou les vikings se barrent
+                        UIManager.DrawPillageResult(town.gold, initialSoldiersNumber - joueur.viking.number,
+                            initialMercenaireNumber - joueur.merc_moyens.number, ResultType.PILLAGELOST, town);
+                    }
                 }
             }
-            //sinon on continue
+            //sinon on continue*
         }
         timeScript.updateTurn(gameManager);
     }
