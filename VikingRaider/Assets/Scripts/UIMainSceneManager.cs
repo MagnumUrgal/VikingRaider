@@ -23,7 +23,6 @@ public class UIMainSceneManager : MonoBehaviour
     private GameObject fortNonFortifie;
     private GameObject goldButton;
     private GameObject toursText;
-    private GameObject CheatDebugPanel;
     private GameObject IsKnightNotificationPanel;
     private GameObject IsTrebuchetNotificationPanel;
     private GameObject IsEventNotificationPanel;
@@ -63,8 +62,7 @@ public class UIMainSceneManager : MonoBehaviour
         fortFortFortifie = (GameObject)Resources.Load("ville_fortFortifié");
         fortPeuFortifie = (GameObject)Resources.Load("ville_peuFortifié");
         fortNonFortifie = (GameObject)Resources.Load("ville_nonFortifié");
-
-        CheatDebugPanel = GameObject.Find("CheatDebugPanel");
+        
         IsKnightNotificationPanel = GameObject.Find("IsKnightNotificationPanel");
         IsTrebuchetNotificationPanel = GameObject.Find("IsTrebuchetNotificationPanel");
         IsEventNotificationPanel = GameObject.Find("IsEventNotificationPanel");
@@ -214,13 +212,18 @@ public class UIMainSceneManager : MonoBehaviour
         if (!EquipagePanel.activeSelf)
         {
             EquipagePanel.SetActive(true);
-            EquipagePanel.transform.GetChild(0).GetComponent<Text>().text = "Viking : " + drakkar.viking.number + ".\nMercenaires : " + drakkar.merc_moyens.number +
-                ".\nEspions : " + drakkar.espion_list.Count + ".";
+            updateDrawEquipageBilan();
         }
         else
         {
             EquipagePanel.SetActive(false);
         }
+    }
+
+    public void updateDrawEquipageBilan()
+    {
+        EquipagePanel.transform.GetChild(0).GetComponent<Text>().text = "Viking : " + drakkar.viking.number + ".\nMercenaires : " + drakkar.merc_moyens.number +
+            ".\nEspions : " + drakkar.espion_list.Count + ".";
     }
 
     public void OnAmeliorationButton()
@@ -556,16 +559,6 @@ public class UIMainSceneManager : MonoBehaviour
         toursText.GetComponent<Text>().text = "<color=white><b>" + currentTurn + "  /  " + maxTurn + "</b></color>";
     }
 
-    public void Update()
-    {
-        if (cursorOnThisVille != null)
-        {
-            CheatDebugPanel.transform.GetChild(0).GetComponent<Text>().text = "Last selected city :\nGarnison : " +
-                cursorOnThisVille.garnison + "\nOr : " + cursorOnThisVille.gold + "\nTrebuchets : " + cursorOnThisVille.is_trebuchet + "\nIs_event : " + cursorOnThisVille.is_event +
-                "\nPerception : " + cursorOnThisVille.perception + "\nevID : " + cursorOnThisVille.current_event + "\nknights : " + cursorOnThisVille.is_knights;
-        }
-    }
-
     void addPillageToHistoriqueList(int goldWin, int pertesSoldiers, int pertesMercenaires, ResultType resultType, Villes town)
     {
         string toPrint = "Le pillage sur " + town.nameVilles;
@@ -781,7 +774,10 @@ public class UIMainSceneManager : MonoBehaviour
     {
         if (drakkar.gold > 500)
         {
+            drakkar.gold = drakkar.gold - 500;
+            updateGoldGUI();
             drakkar.merc_moyens.add(1);
+            updateDrawEquipageBilan();
         }
     }
 
@@ -790,7 +786,9 @@ public class UIMainSceneManager : MonoBehaviour
         if (drakkar.gold > 5000)
         {
             drakkar.gold = drakkar.gold - 5000;
+            updateGoldGUI();
             drakkar.viking.add(1);
+            updateDrawEquipageBilan();
         }
     }
 
@@ -799,38 +797,29 @@ public class UIMainSceneManager : MonoBehaviour
         if (drakkar.gold > 15000)
         {
             gameManager.drakkar.gold = drakkar.gold - 5000;
-            string nameEspion = "";
+            updateGoldGUI();
             if (currentSelectedEspion == 1)
             {
                 gameManager.drakkar.espion_list.Add(gameManager.Blake);
-                nameEspion = "Blake";
             }
             else if(currentSelectedEspion == 2)
             {
                 gameManager.drakkar.espion_list.Add(gameManager.Flantier);
-                nameEspion = "Flantier";
             }
             else if (currentSelectedEspion == 3)
             {
                 gameManager.drakkar.espion_list.Add(gameManager.Sammy);
-                nameEspion = "Sammy";
             }
             else if (currentSelectedEspion == 4)
             {
                 gameManager.drakkar.espion_list.Add(gameManager.Willy);
-                nameEspion = "Willy";
-            }
-
-            for (int i = 0; i < gameManager.drakkar.espion_list.Count; i++)
-            {
-                if (gameManager.drakkar.espion_list[i].namePerso == nameEspion)
-                {
-                    gameManager.ShopList.RemoveAt(i);
-                    break;
-                }
             }
             
+            
             BuyEspionPanel.transform.GetChild(0).GetChild(currentSelectedEspion - 1).GetComponent<Image>().sprite = Resources.Load<Sprite>("Espion_block");
+            updateDrawEquipageBilan();
+            Debug.Log(drakkar.espion_list.Count);
+            BuyEspionPanel.SetActive(false);
         }
     }
 
@@ -844,5 +833,15 @@ public class UIMainSceneManager : MonoBehaviour
     public void OnCharacterSelected(int i)
     {
         currentSelectedEspion = i;
+    }
+
+    public void OnDragonTail()
+    {
+
+    }
+
+    public void defeat()
+    {
+
     }
 }

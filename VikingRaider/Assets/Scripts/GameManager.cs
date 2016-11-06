@@ -63,27 +63,29 @@ public class GameManager : MonoBehaviour {
                 ShopList.Add(Sammy);
                 ShopList.Add(Willy);
                 ShopList.Add(Flantier);
+                UImanager.EspionOwnedDisplayStart();
                 break;
             case 1:
                 drakkar.espion_list.Add(Sammy);
                 ShopList.Add(Blake);
                 ShopList.Add(Willy);
                 ShopList.Add(Flantier);
+                UImanager.EspionOwnedDisplayStart();
                 break;
             case 2:
                 drakkar.espion_list.Add(Willy);
                 ShopList.Add(Sammy);
                 ShopList.Add(Blake);
                 ShopList.Add(Flantier);
+                UImanager.EspionOwnedDisplayStart();
                 break;
             case 3:
                 drakkar.espion_list.Add(Flantier);
                 ShopList.Add(Sammy);
                 ShopList.Add(Willy);
                 ShopList.Add(Blake);
-                break;
-
                 UImanager.EspionOwnedDisplayStart();
+                break;
         }
 
         // init des villes
@@ -230,9 +232,14 @@ public class GameManager : MonoBehaviour {
 
         file.Close();*/
     }
-    public void feat (Drakkar joueur)
+    public void defeat (Drakkar joueur)
     {
         //TODO Urgal
+        if(joueur.viking.number < joueur.min_members)
+        {
+            UImanager.defeat();
+            Application.Quit();
+        }
     }
     public int victory (Drakkar joueur)
     {
