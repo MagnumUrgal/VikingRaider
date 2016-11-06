@@ -17,6 +17,7 @@ public class UIMainSceneManager : MonoBehaviour
     private GameObject Notifications;
     private GameObject CityInfoPanel;
     private GameObject ChoseSpyPanel;
+    private GameObject ReturnFromNotificationButton;
     private GameObject fortFortFortifie;
     private GameObject fortPeuFortifie;
     private GameObject fortNonFortifie;
@@ -28,16 +29,22 @@ public class UIMainSceneManager : MonoBehaviour
     private Text PillageLostText;
     private Text PillageSurrenderText;
     private Text GameOverText;
-    
+
+    private Villes cursorOnThisVille;
+    private Villes VilleConcernedByAction;
+    private Actions actionScript;
+    private Time timeScript;
+
     public Sprite voidSpySprite;
 
     [HideInInspector]
-    public Villes cursorOnThisVille;
     public Drakkar drakkar; //is set by the GameManager
 
     // Use this for initialization
     void Awake()
     {
+        actionScript = GameObject.Find("GameManager").GetComponent<Actions>();
+        timeScript = GameObject.Find("GameManager").GetComponent<Time>();
         fortFortFortifie = (GameObject)Resources.Load("ville_fortFortifié");
         fortPeuFortifie = (GameObject)Resources.Load("ville_peuFortifié");
         fortNonFortifie = (GameObject)Resources.Load("ville_nonFortifié");
@@ -53,6 +60,7 @@ public class UIMainSceneManager : MonoBehaviour
         Notifications = GameObject.Find("Notifications");
         CityInfoPanel = GameObject.Find("CityInfoPanel");
         ChoseSpyPanel = GameObject.Find("ChoseSpyPanel");
+        ReturnFromNotificationButton = GameObject.Find("ReturnFromNotificationButton");
 
         GarnisonText = GameObject.Find("GarnisonText").GetComponent<Text>();
         GoldText = GameObject.Find("GoldText").GetComponent<Text>();
@@ -67,9 +75,16 @@ public class UIMainSceneManager : MonoBehaviour
         AmeliorationPanel.SetActive(false);
         HistoriquePanel.SetActive(false);
         MenuPanel.SetActive(false);
-        Notifications.SetActive(false);
         CityInfoPanel.SetActive(false);
         ChoseSpyPanel.SetActive(false);
+        Notifications.SetActive(false);
+        GarnisonText.transform.parent.gameObject.SetActive(false);
+        GoldText.transform.parent.gameObject.SetActive(false);
+        DeadSpyText.transform.parent.gameObject.SetActive(false);
+        PillageWinText.transform.parent.gameObject.SetActive(false);
+        PillageLostText.transform.parent.gameObject.SetActive(false);
+        PillageSurrenderText.transform.parent.gameObject.SetActive(false);
+        GameOverText.transform.parent.gameObject.SetActive(false);
 
         updateSizeWindow();
     }
@@ -81,20 +96,22 @@ public class UIMainSceneManager : MonoBehaviour
 
     void OnGUI()
     {
-        if (!EquipagePanel.activeSelf && !AmeliorationPanel.activeSelf && !HistoriquePanel.activeSelf && !MenuPanel.activeSelf && !Notifications.activeSelf 
-            && !RectTransformUtility.RectangleContainsScreenPoint(CityInfoPanel.GetComponentInChildren<RectTransform>(), Input.mousePosition))
+        if (!(CityInfoPanel.activeSelf && RectTransformUtility.RectangleContainsScreenPoint(CityInfoPanel.GetComponentInChildren<RectTransform>(), Input.mousePosition)))
         {
-            RaycastHit hit;
-            bool b = Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit);
-            if (b && hit.collider.GetComponent<Villes>())
+            if (!EquipagePanel.activeSelf && !AmeliorationPanel.activeSelf && !HistoriquePanel.activeSelf && !MenuPanel.activeSelf && !Notifications.activeSelf)
             {
-                cursorOnThisVille = hit.collider.GetComponent<Villes>();
-                drawVilleInfo(cursorOnThisVille, Input.mousePosition);
-            }
-            else
-            {
-                cursorOnThisVille = null;
-                CityInfoPanel.SetActive(false);
+                RaycastHit hit;
+                bool b = Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit);
+                if (b && hit.collider.GetComponent<Villes>())
+                {
+                    cursorOnThisVille = hit.collider.GetComponent<Villes>();
+                    drawVilleInfo(cursorOnThisVille, Input.mousePosition);
+                }
+                else
+                {
+                    cursorOnThisVille = null;
+                    CityInfoPanel.SetActive(false);
+                }
             }
         }
     }
@@ -112,11 +129,6 @@ public class UIMainSceneManager : MonoBehaviour
         topPanel.GetComponent<GridLayoutGroup>().spacing = new Vector2(Screen.width / 1.25f, 0);
 
         Notifications.GetComponent<RectTransform>().sizeDelta = new Vector2(Screen.width / 2.5f, Screen.height / 2.5f);
-    }
-
-    public void updateInfosAfterTour()
-    {
-
     }
 
     public void OnEquipageButton()
@@ -224,14 +236,26 @@ public class UIMainSceneManager : MonoBehaviour
     {
         if (resultType == ResultType.GARNISON)
         {
+            Notifications.SetActive(true);
+            GarnisonText.transform.parent.gameObject.SetActive(true);
+            ReturnFromNotificationButton.SetActive(true);
+            CityInfoPanel.SetActive(false);
             GarnisonText.text = "Votre espion " + spy.namePerso + " revient victorieux de sa mission d'espionnage dans la ville [ville todo]. Il y a découvert l'étendue des forces présentes : " + info + " hommes.";
         }
         else if (resultType == ResultType.GOLD)
         {
+            Notifications.SetActive(true);
+            GoldText.transform.parent.gameObject.SetActive(true);
+            ReturnFromNotificationButton.SetActive(true);
+            CityInfoPanel.SetActive(false);
             GoldText.text = "Votre espion " + spy.namePerso + " revient victorieux de sa mission d'espionnage dans la ville [ville todo]. Il y a découvert l'étendue des richesses présentes : " + info + " Or.";
         }
         else if (resultType == ResultType.DEADSPY)
         {
+            Notifications.SetActive(true);
+            DeadSpyText.transform.parent.gameObject.SetActive(true);
+            ReturnFromNotificationButton.SetActive(true);
+            CityInfoPanel.SetActive(false);
             DeadSpyText.text = "Votre espion " + spy.namePerso + " n'est jamais revenu de sa mission d'espionnage dans la ville [ville todo].";
         }
     }
@@ -240,19 +264,35 @@ public class UIMainSceneManager : MonoBehaviour
     {
         if(resultType == ResultType.PILLAGEWIN)
         {
-            PillageWinText.text = "Votre assaut sur la ville [ville todo] est un succès ! Vous avez gagné " + goldWin + " Or.\n Vous avez perdu " + pertesSoldiers + " soldats. \n Vous avez perdu " + pertesMercenaires + " mercenaires.";
+            Notifications.SetActive(true);
+            PillageWinText.transform.parent.gameObject.SetActive(true);
+            ReturnFromNotificationButton.SetActive(true);
+            CityInfoPanel.SetActive(false);
+            PillageWinText.text = "Votre assaut sur la ville [ville todo] est un succès ! \nVous avez gagné " + goldWin + " Or.\n Vous avez perdu " + pertesSoldiers + " soldats. \n Vous avez perdu " + pertesMercenaires + " mercenaires.";
         }
         else if (resultType == ResultType.PILLAGESURRENDER)
         {
-            PillageSurrenderText.text = "La ville [ville todo] se rend ! Vous avez gagné " + goldWin + " Or.\n Vous avez perdu " + pertesSoldiers + " soldats. \n Vous avez perdu " + pertesMercenaires + " mercenaires.";
+            Notifications.SetActive(true);
+            PillageSurrenderText.transform.parent.gameObject.SetActive(true);
+            ReturnFromNotificationButton.SetActive(true);
+            CityInfoPanel.SetActive(false);
+            PillageSurrenderText.text = "La ville [ville todo] se rend ! \nVous avez gagné " + goldWin + " Or.\n Vous avez perdu " + pertesSoldiers + " soldats. \n Vous avez perdu " + pertesMercenaires + " mercenaires.";
         }
         else if (resultType == ResultType.PILLAGELOST)
         {
-            PillageLostText.text = "Ville [ville todo] : Défaite.\n Soldats perdus : " + pertesSoldiers + ".\nMercenaires perdus : " + pertesMercenaires + ".";
+            Notifications.SetActive(true);
+            PillageLostText.transform.parent.gameObject.SetActive(true);
+            ReturnFromNotificationButton.SetActive(true);
+            CityInfoPanel.SetActive(false);
+            PillageLostText.text = "Ville [ville todo] : Défaite.\nSoldats perdus : " + pertesSoldiers + ".\nMercenaires perdus : " + pertesMercenaires + ".";
         }
         else if (resultType == ResultType.PILLAGEGAMEOVER)
         {
-            GameOverText.text = "Vous avez attaqué [ville todo]. C'est une défaite écrasante. Le Valhalla vous accueille.";
+            Notifications.SetActive(true);
+            GameOverText.transform.parent.gameObject.SetActive(true);
+            ReturnFromNotificationButton.SetActive(true);
+            CityInfoPanel.SetActive(false);
+            GameOverText.text = "Vous avez attaqué [ville todo]. \nC'est une défaite écrasante. \nLe Valhalla vous accueille.";
         }
     }
 
@@ -314,6 +354,7 @@ public class UIMainSceneManager : MonoBehaviour
     {
         if(cursorOnThisVille != null)
         {
+            VilleConcernedByAction = cursorOnThisVille;
             ChoseSpyPanel.SetActive(true);
             int i = 0;
             foreach (Espion e in drakkar.espion_list)
@@ -341,7 +382,9 @@ public class UIMainSceneManager : MonoBehaviour
     {
         if(drakkar.espion_list.Count > 0)
         {
-
+            actionScript.Espionnage(drakkar, drakkar.espion_list[0], VilleConcernedByAction,timeScript);
+            VilleConcernedByAction = null;
+            ChoseSpyPanel.SetActive(false);
         }
     }
 
@@ -349,22 +392,55 @@ public class UIMainSceneManager : MonoBehaviour
     {
         if (drakkar.espion_list.Count > 1)
         {
-
+            actionScript.Espionnage(drakkar, drakkar.espion_list[1], VilleConcernedByAction, timeScript);
+            VilleConcernedByAction = null;
+            ChoseSpyPanel.SetActive(false);
         }
 
     }
 
     public void OnSpyThreeButton()
     {
-
         if (drakkar.espion_list.Count > 2)
         {
-
+            actionScript.Espionnage(drakkar, drakkar.espion_list[2], VilleConcernedByAction, timeScript);
+            VilleConcernedByAction = null;
+            ChoseSpyPanel.SetActive(false);
         }
+    }
+
+    public void OnReturnSpyButton()
+    {
+        VilleConcernedByAction = null;
+        ChoseSpyPanel.SetActive(false);
+    }
+
+    public void OnReturnFromNotificationButton()
+    {
+        Notifications.SetActive(false);
+        GarnisonText.transform.parent.gameObject.SetActive(false);
+        GoldText.transform.parent.gameObject.SetActive(false);
+        DeadSpyText.transform.parent.gameObject.SetActive(false);
+        PillageWinText.transform.parent.gameObject.SetActive(false);
+        PillageLostText.transform.parent.gameObject.SetActive(false);
+        PillageSurrenderText.transform.parent.gameObject.SetActive(false);
+        GameOverText.transform.parent.gameObject.SetActive(false);
+        ReturnFromNotificationButton.SetActive(false);
     }
 
     public void OnRaidButton()
     {
-
+        if (cursorOnThisVille != null)
+        {
+            VilleConcernedByAction = cursorOnThisVille;
+            if (!VilleConcernedByAction.is_king)
+            {
+                actionScript.Pillage(drakkar, VilleConcernedByAction, timeScript);
+            }
+            else
+            {
+                actionScript.BattleRoyale(drakkar);
+            }
+        }
     }
 }

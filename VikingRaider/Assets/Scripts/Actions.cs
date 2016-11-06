@@ -5,7 +5,7 @@ using System;
 
 public class Actions : MonoBehaviour {
     //Urgal : liaison de l'UIMainSceneManager
-    public UIMainSceneManager UIManager;
+    private UIMainSceneManager UIManager;
 
     //Urgal : liaison de l'UIMainSceneManager
     void Start()
@@ -47,7 +47,8 @@ public class Actions : MonoBehaviour {
         }
         if (town.is_event)
         {
-            //todo urgal, use (town.current_id) dans la fonction (getdescrpevent de time) qui renvoie un string
+            //todo urgal
+            string descrption = time.getdescrpevent(town.current_event);
         }
     }
     

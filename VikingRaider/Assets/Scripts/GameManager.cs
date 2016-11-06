@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour {
     public Drakkar drakkar;
 
     //Urgal : liaison avec UIMainSceneManager
+    [HideInInspector]
     public UIMainSceneManager UImanager;
 
     void Awake()
