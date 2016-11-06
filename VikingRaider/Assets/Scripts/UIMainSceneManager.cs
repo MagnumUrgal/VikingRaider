@@ -39,6 +39,8 @@ public class UIMainSceneManager : MonoBehaviour
     private Text TrebText;
     private Text EventText;
 
+    private List<Upgrades> UpList;
+
     private Villes cursorOnThisVille;
     private Villes VilleConcernedByAction;
     private Actions actionScript;
@@ -109,6 +111,7 @@ public class UIMainSceneManager : MonoBehaviour
         updateSizeWindow();
 
         historiqueList = new List<string>();
+        UpList = new List<Upgrades>();
     }
 
     void Start()
@@ -573,5 +576,26 @@ public class UIMainSceneManager : MonoBehaviour
     public void OnReturnEvents()
     {
         IsEventNotificationPanel.SetActive(false);
+    }
+
+    public void OnFirstPosition()
+    {
+        GameObject Amelioration = AmeliorationPanel.transform.GetChild(0).gameObject;
+        //if(Amelioration.GetComponent<Upgrades>())
+    }
+
+    public void OnSecondPosition()
+    {
+        GameObject Amelioration = AmeliorationPanel.transform.GetChild(1).gameObject;
+    }
+
+    public void OnThirdPosition()
+    {
+        GameObject Amelioration = AmeliorationPanel.transform.GetChild(2).gameObject;
+    }
+
+    public void OnFourthPosition()
+    {
+        GameObject Amelioration = AmeliorationPanel.transform.GetChild(3).gameObject;
     }
 }
