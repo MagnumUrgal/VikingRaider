@@ -46,6 +46,8 @@ public class GameManager : MonoBehaviour {
         Espion Willy = new Espion(1, 10, 2, "Willy", "Homme à l’origine douteuse se prétendant espion. Il est plutôt médiocre, mais à le mérite d’être volontaire. Willy a des spasmes étranges et parle parfois à Willy.");
         Espion Flantier = new Espion(0, 13, 3, "Flantier", "Travaillant toujours avec classe et élégance, cet espion qui a bien roulé sa bosse connaît les ficelles du métier. Cependant, ses capacités de fuite et d’intimidation sont grandement compromises à cause de son âge avancé.");
 
+        List<Espion> ShopList = new List<Espion>(3);
+
         int randEspion = UnityEngine.Random.Range(0, 4);
         switch (randEspion)
         {
@@ -201,30 +203,23 @@ public class GameManager : MonoBehaviour {
         // METTRE UN TIME ICI
 
         // Generateur de logs pour test
-        /*
+        
         string lines = "";
-        Time tps = new Time();
-
-        for (int t = 0; t < 9; t++)
-        {
-            lines = lines + "Tour " + tps.currentTurn + ", Raid = " + tps.raidcount.ToString() + "\r\n \r\n";
+        
             for (int k = 0; k < TownList.Count; k++)
             {
                 Villes city = TownList[k];
                 lines = lines + city.nameVilles + ": fortif = " + city.fortification.ToString() + ", gold = " + city.gold.ToString() + ", garnisons = " + city.garnison.number.ToString() + ", capture = " + city.capture.ToString() + ", perception = " + city.perception.ToString() + ", productivity = " + city.productivity.ToString() + ", pos = " + city.pos.ToString() + "\r\n";
             }
-            lines = lines + "\r\n \r\n \r\n";
-            tps.raidcount += 1;
-            tps.updateTurn(this);
-        }
+        
         
 
         // Write the string to a file.
-        System.IO.StreamWriter file = new System.IO.StreamWriter("f:\\test.txt");
+        System.IO.StreamWriter file = new System.IO.StreamWriter("C:\\Users\\Urgal\\Documents\\test.txt");
         file.WriteLine(lines);
 
         file.Close();
-        */
+        
     }
     public void defeat (Drakkar joueur)
     {
