@@ -117,31 +117,6 @@ public class UIMainSceneManager : MonoBehaviour
     void Start()
     {
         updateGoldGUI();
-        AmeliorationPanel.transform.GetChild(0).gameObject.AddComponent<Upgrades>();
-        AmeliorationPanel.transform.GetChild(0).GetComponent<Upgrades>().upgradeType = UpgradeType.CASSIMP;
-        AmeliorationPanel.transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = (Sprite)Resources.Load("CasqueSimple");
-        AmeliorationPanel.transform.GetChild(0).GetChild(1).GetComponent<Text>().text = "20 000";
-        AmeliorationPanel.transform.GetChild(0).GetChild(2).GetComponent<Text>().text = "Par Odin ! C’est un casque Lebohaume !";
-
-        AmeliorationPanel.transform.GetChild(1).gameObject.AddComponent<Upgrades>();
-        AmeliorationPanel.transform.GetChild(1).GetComponent<Upgrades>().upgradeType = UpgradeType.BOTFOUR;
-        AmeliorationPanel.transform.GetChild(1).GetChild(0).GetComponent<Image>().sprite = (Sprite)Resources.Load("BottesFourrées");
-        AmeliorationPanel.transform.GetChild(1).GetChild(1).GetComponent<Text>().text = "20 000";
-        AmeliorationPanel.transform.GetChild(1).GetChild(2).GetComponent<Text>().text = "Le confort de la maison même au combat.";
-
-        AmeliorationPanel.transform.GetChild(2).gameObject.AddComponent<Upgrades>();
-        AmeliorationPanel.transform.GetChild(2).GetComponent<Upgrades>().upgradeType = UpgradeType.HACGUER;
-        AmeliorationPanel.transform.GetChild(2).GetChild(0).GetComponent<Image>().sprite = (Sprite)Resources.Load("HacheGuerre");
-        AmeliorationPanel.transform.GetChild(2).GetChild(1).GetComponent<Text>().text = "30 000";
-        AmeliorationPanel.transform.GetChild(2).GetChild(2).GetComponent<Text>().text = "Woaw, c’est une durandil ! Une vraie de vraie ! D’occasion !";
-
-        AmeliorationPanel.transform.GetChild(3).gameObject.AddComponent<Upgrades>();
-        AmeliorationPanel.transform.GetChild(3).GetComponent<Upgrades>().upgradeType = UpgradeType.BARDE;
-        AmeliorationPanel.transform.GetChild(3).GetChild(0).GetComponent<Image>().sprite = (Sprite)Resources.Load("Barde");
-        AmeliorationPanel.transform.GetChild(3).GetChild(1).GetComponent<Text>().text = "40 000";
-        AmeliorationPanel.transform.GetChild(3).GetChild(2).GetComponent<Text>().text = "Parce qu'avec son chant, on n'entend pas vos hurlements.";
-
-
     }
 
     void OnGUI()
@@ -168,7 +143,7 @@ public class UIMainSceneManager : MonoBehaviour
 
     public void updateSizeWindow()
     {
-        Screen.SetResolution(1616, 909, true);//TODO à essayer en build
+        Screen.SetResolution(1616,909, true);//TODO à essayer en build
         botPanel.GetComponent<GridLayoutGroup>().cellSize = new Vector2(Screen.width / 15, Screen.width / 15);
         botPanel.GetComponent<GridLayoutGroup>().spacing = new Vector2(Screen.width / 8, 0);
 
@@ -199,7 +174,7 @@ public class UIMainSceneManager : MonoBehaviour
         if (!EquipagePanel.activeSelf)
         {
             EquipagePanel.SetActive(true);
-            EquipagePanel.transform.GetChild(0).GetComponent<Text>().text = "Viking : " + drakkar.viking.number + ".\nMercenaires : " + drakkar.merc_moyens.number +
+            EquipagePanel.transform.GetChild(0).GetComponent<Text>().text = "Viking : " + drakkar.viking.number + ".\nMercenaires : " + drakkar.merc_moyens.number + 
                 ".\nEspions : " + drakkar.espion_list.Count + ".";
         }
         else
@@ -313,7 +288,7 @@ public class UIMainSceneManager : MonoBehaviour
             GoldText.transform.parent.gameObject.SetActive(true);
             ReturnFromNotificationButton.SetActive(true);
             CityInfoPanel.SetActive(false);
-            GoldText.text = "Votre espion " + spy.namePerso + " revient victorieux de sa mission d'espionnage dans la ville " + town.nameVilles + ". Il y a découvert l'étendue des richesses présentes : " + info + " Or.";
+            GoldText.text = "Votre espion " + spy.namePerso + " revient victorieux de sa mission d'espionnage dans la ville " + town.nameVilles +  ". Il y a découvert l'étendue des richesses présentes : " + info + " Or.";
         }
         else if (resultType == ResultType.DEADSPY)
         {
@@ -332,7 +307,7 @@ public class UIMainSceneManager : MonoBehaviour
         {
             IsKnightNotificationPanel.SetActive(true);
             IsKnightNotificationPanel.GetComponentInChildren<Text>().text = info;
-        }
+        } 
         else if (resultType == ResultType.TREBUCHET)
         {
             IsTrebuchetNotificationPanel.SetActive(true);
@@ -388,7 +363,7 @@ public class UIMainSceneManager : MonoBehaviour
         {
             CityInfoPanel.SetActive(true);
             CityInfoPanel.GetComponent<RectTransform>().anchoredPosition = mouseScreenPos;
-            string toPrint = ville.nameVilles + "\n" + "Fortifications : " + ville.fortification + "\n";
+            string toPrint = "Nom : " + ville.nameVilles + "\n" + "Fortifications : " + ville.fortification + "\n";
             if (ville.garni_known.is_known)
             {
                 if (timeScript.currentTurn - ville.garni_known.turn_known > 10)
@@ -421,7 +396,7 @@ public class UIMainSceneManager : MonoBehaviour
         {
             obj = (GameObject)Instantiate(fortNonFortifie, city.transform);
         }
-        else if (city.fortification == 1)
+        else if(city.fortification == 1)
         {
             obj = (GameObject)Instantiate(fortPeuFortifie, city.transform);
         }
@@ -438,7 +413,7 @@ public class UIMainSceneManager : MonoBehaviour
 
     public void OnSpyButton()
     {
-        if (cursorOnThisVille != null)
+        if(cursorOnThisVille != null)
         {
             VilleConcernedByAction = cursorOnThisVille;
             ChoseSpyPanel.SetActive(true);
@@ -449,11 +424,11 @@ public class UIMainSceneManager : MonoBehaviour
                 ChoseSpyPanel.transform.GetChild(i).GetComponent<Image>().sprite = (Sprite)Resources.Load(e.namePerso);
                 i++;
             }
-            if (drakkar.espion_list.Count < 3)
+            if(drakkar.espion_list.Count < 3)
             {
                 ChoseSpyPanel.transform.GetChild(2).GetComponent<Image>().sprite = voidSpySprite;
             }
-            if (drakkar.espion_list.Count < 2)
+            if(drakkar.espion_list.Count < 2)
             {
                 ChoseSpyPanel.transform.GetChild(1).GetComponent<Image>().sprite = voidSpySprite;
             }
@@ -466,9 +441,9 @@ public class UIMainSceneManager : MonoBehaviour
 
     public void OnSpyOneButton()
     {
-        if (drakkar.espion_list.Count > 0)
+        if(drakkar.espion_list.Count > 0)
         {
-            actionScript.Espionnage(drakkar, drakkar.espion_list[0], VilleConcernedByAction, timeScript);
+            actionScript.Espionnage(drakkar, drakkar.espion_list[0], VilleConcernedByAction,timeScript);
             VilleConcernedByAction = null;
             ChoseSpyPanel.SetActive(false);
         }
@@ -502,7 +477,7 @@ public class UIMainSceneManager : MonoBehaviour
 
     public void OnReturnFromNotificationButton()
     {
-        //Notifications.SetActive(false);
+        Notifications.SetActive(false);
         GarnisonText.transform.parent.gameObject.SetActive(false);
         GoldText.transform.parent.gameObject.SetActive(false);
         DeadSpyText.transform.parent.gameObject.SetActive(false);
@@ -546,14 +521,14 @@ public class UIMainSceneManager : MonoBehaviour
         {
             CheatDebugPanel.transform.GetChild(0).GetComponent<Text>().text = "Last selected city :\nGarnison : " +
                 cursorOnThisVille.garnison + "\nOr : " + cursorOnThisVille.gold + "\nTrebuchets : " + cursorOnThisVille.is_trebuchet + "\nIs_event : " + cursorOnThisVille.is_event +
-                "\nPerception : " + cursorOnThisVille.perception + "\nevID : " + cursorOnThisVille.current_event + "\nknights : " + cursorOnThisVille.is_knights;
+                "\nPerception : " + cursorOnThisVille.perception +"\nevID : " + cursorOnThisVille.current_event +"\nknights : " + cursorOnThisVille.is_knights;
         }
     }
 
     void addPillageToHistoriqueList(int goldWin, int pertesSoldiers, int pertesMercenaires, ResultType resultType, Villes town)
     {
         string toPrint = "Le pillage sur " + town.nameVilles;
-        if (resultType == ResultType.PILLAGEWIN)
+        if(resultType == ResultType.PILLAGEWIN)
         {
             toPrint += " a rapporté " + goldWin + " Or, a coûté " + pertesSoldiers + " vikings et " + pertesMercenaires + " mercenaires.";
         }
@@ -574,7 +549,7 @@ public class UIMainSceneManager : MonoBehaviour
 
     void addEspionnageToHistoriqueList(int info, ResultType resultType, Espion spy, Villes town)
     {
-        if (resultType == ResultType.GOLD)
+        if(resultType == ResultType.GOLD)
         {
             historiqueList.Add(town.nameVilles + " possède " + town.gold_known.value_known + " Or. Merci " + spy.namePerso + ".");
         }
@@ -606,143 +581,21 @@ public class UIMainSceneManager : MonoBehaviour
     public void OnFirstPosition()
     {
         GameObject Amelioration = AmeliorationPanel.transform.GetChild(0).gameObject;
-        if (Amelioration.GetComponent<Upgrades>().upgradeType == UpgradeType.CASSIMP)
-        {
-            if (drakkar.gold >= 20000)
-            {
-                drakkar.gold = drakkar.gold - 20000;
-                Amelioration.GetComponent<Upgrades>().UpgradeStat(drakkar, "def", 1);
-                Amelioration.GetComponent<Upgrades>().upgradeType = UpgradeType.CASCORN;
-                Amelioration.transform.GetChild(0).GetComponent<Image>().sprite = (Sprite)Resources.Load("CasqueCorne");
-                Amelioration.transform.GetChild(1).GetComponent<Text>().text = "30 000";
-                Amelioration.transform.GetChild(2).GetComponent<Text>().text = "CROOOOM";
-            }
-        }
-        else if (Amelioration.GetComponent<Upgrades>().upgradeType == UpgradeType.CASCORN)
-        {
-            if (drakkar.gold >= 30000)
-            {
-                drakkar.gold = drakkar.gold - 30000;
-                Amelioration.GetComponent<Upgrades>().UpgradeStat(drakkar, "def", 1);
-                Amelioration.GetComponent<Upgrades>().UpgradeStat(drakkar, "intimidate", 1);
-                Amelioration.GetComponent<Upgrades>().upgradeType = UpgradeType.CASEMBR;
-                Amelioration.transform.GetChild(0).GetComponent<Image>().sprite = (Sprite)Resources.Load("CasqueEmbrase");
-                Amelioration.transform.GetChild(1).GetComponent<Text>().text = "50 000";
-                Amelioration.transform.GetChild(2).GetComponent<Text>().text = "Les légions de Hel marchent désormais sur le monde.";
-            }
-        }
-        else if (Amelioration.GetComponent<Upgrades>().upgradeType == UpgradeType.CASEMBR)
-        {
-            if (drakkar.gold >= 50000)
-            {
-                drakkar.gold = drakkar.gold - 50000;
-                Amelioration.GetComponent<Upgrades>().UpgradeStat(drakkar, "def", 1);
-                Amelioration.GetComponent<Upgrades>().UpgradeStat(drakkar, "intimidate", 1);
-                Amelioration.GetComponent<Upgrades>().upgradeType = UpgradeType.NOTHING;
-                Amelioration.transform.GetChild(0).GetComponent<Image>().sprite = (Sprite)Resources.Load("ItemNothing");
-                Amelioration.transform.GetChild(1).GetComponent<Text>().text = " ";
-                Amelioration.transform.GetChild(2).GetComponent<Text>().text = " ";
-            }
-        }
+        if(Amelioration.GetComponent<Upgrades>())
     }
 
     public void OnSecondPosition()
     {
         GameObject Amelioration = AmeliorationPanel.transform.GetChild(1).gameObject;
-        if (Amelioration.GetComponent<Upgrades>().upgradeType == UpgradeType.BOTFOUR)
-        {
-            if (drakkar.gold >= 20000)
-            {
-                drakkar.gold = drakkar.gold - 20000;
-                Amelioration.GetComponent<Upgrades>().UpgradeStat(drakkar, "moral", 1);
-                Amelioration.GetComponent<Upgrades>().upgradeType = UpgradeType.MASCOT;
-                Amelioration.transform.GetChild(0).GetComponent<Image>().sprite = (Sprite)Resources.Load("Mascotte");
-                Amelioration.transform.GetChild(1).GetComponent<Text>().text = "20000";
-                Amelioration.transform.GetChild(2).GetComponent<Text>().text = "C’est mignon, c’est chou, mais notre virilité en prend un coup.";
-            }
-        }
-        else if(Amelioration.GetComponent<Upgrades>().upgradeType == UpgradeType.MASCOT)
-        {
-            if (drakkar.gold >= 20000)
-            {
-                drakkar.gold = drakkar.gold - 20000;
-                Amelioration.GetComponent<Upgrades>().UpgradeStat(drakkar, "moral", 1);
-                Amelioration.GetComponent<Upgrades>().UpgradeStat(drakkar, "intimidate", -1);
-                Amelioration.GetComponent<Upgrades>().upgradeType = UpgradeType.NOTHING;
-                Amelioration.transform.GetChild(0).GetComponent<Image>().sprite = (Sprite)Resources.Load("ItemNothing");
-                Amelioration.transform.GetChild(1).GetComponent<Text>().text = " ";
-                Amelioration.transform.GetChild(2).GetComponent<Text>().text = " ";
-            }
-        }
     }
 
     public void OnThirdPosition()
     {
         GameObject Amelioration = AmeliorationPanel.transform.GetChild(2).gameObject;
-        if (Amelioration.GetComponent<Upgrades>().upgradeType == UpgradeType.HACGUER)
-        {
-            if (drakkar.gold >= 30000)
-            {
-                drakkar.gold = drakkar.gold - 30000;
-                Amelioration.GetComponent<Upgrades>().UpgradeStat(drakkar, "atk", 1);
-                Amelioration.GetComponent<Upgrades>().upgradeType = UpgradeType.COTMAIL;
-                Amelioration.transform.GetChild(0).GetComponent<Image>().sprite = (Sprite)Resources.Load("CotteMaille");
-                Amelioration.transform.GetChild(1).GetComponent<Text>().text = "40000";
-                Amelioration.transform.GetChild(2).GetComponent<Text>().text = "Pour quoi faire ? La douleur n’est qu’une simple information.";
-            }
-        }
-        else if (Amelioration.GetComponent<Upgrades>().upgradeType == UpgradeType.COTMAIL)
-        {
-            if (drakkar.gold >= 40000)
-            {
-                drakkar.gold = drakkar.gold - 40000;
-                Amelioration.GetComponent<Upgrades>().UpgradeStat(drakkar, "def", 1);
-                Amelioration.GetComponent<Upgrades>().upgradeType = UpgradeType.ULBSWORD;
-                Amelioration.transform.GetChild(0).GetComponent<Image>().sprite = (Sprite)Resources.Load("UlbertSword");
-                Amelioration.transform.GetChild(1).GetComponent<Text>().text = "80000";
-                Amelioration.transform.GetChild(2).GetComponent<Text>().text = "L'épée encore plus énervée que le viking qui la porte.";
-            }
-        }
-        else if (Amelioration.GetComponent<Upgrades>().upgradeType == UpgradeType.COTMAIL)
-        {
-            if (drakkar.gold >= 80000)
-            {
-                drakkar.gold = drakkar.gold - 80000;
-                Amelioration.GetComponent<Upgrades>().UpgradeStat(drakkar, "atk", 3);
-                Amelioration.GetComponent<Upgrades>().upgradeType = UpgradeType.NOTHING;
-                Amelioration.transform.GetChild(0).GetComponent<Image>().sprite = (Sprite)Resources.Load("ItemNothing");
-                Amelioration.transform.GetChild(1).GetComponent<Text>().text = " ";
-                Amelioration.transform.GetChild(2).GetComponent<Text>().text = " ";
-            }
-        }
     }
 
     public void OnFourthPosition()
     {
         GameObject Amelioration = AmeliorationPanel.transform.GetChild(3).gameObject;
-        if (Amelioration.GetComponent<Upgrades>().upgradeType == UpgradeType.BARDE)
-        {
-            if (drakkar.gold >= 40000)
-            {
-                drakkar.gold = drakkar.gold - 40000;
-                Amelioration.GetComponent<Upgrades>().UpgradeStat(drakkar, "moral", 1);
-                Amelioration.GetComponent<Upgrades>().upgradeType = UpgradeType.COTMAIL;
-                Amelioration.transform.GetChild(0).GetComponent<Image>().sprite = (Sprite)Resources.Load("Cuisinier");
-                Amelioration.transform.GetChild(1).GetComponent<Text>().text = "50000";
-                Amelioration.transform.GetChild(2).GetComponent<Text>().text = "Quand même meilleur que le brouet aux endives de Bior.";
-            }
-        }
-        else if (Amelioration.GetComponent<Upgrades>().upgradeType == UpgradeType.CUISIN)
-        {
-            if (drakkar.gold >= 50000)
-            {
-                drakkar.gold = drakkar.gold - 50000;
-                Amelioration.GetComponent<Upgrades>().UpgradeStat(drakkar, "moral", 1);
-                Amelioration.GetComponent<Upgrades>().upgradeType = UpgradeType.NOTHING;
-                Amelioration.transform.GetChild(0).GetComponent<Image>().sprite = (Sprite)Resources.Load("ItemNothing");
-                Amelioration.transform.GetChild(1).GetComponent<Text>().text = " ";
-                Amelioration.transform.GetChild(2).GetComponent<Text>().text = " ";
-            }
-        }
     }
 }

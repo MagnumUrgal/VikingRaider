@@ -1,11 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public enum UpgradeType {CASSIMP, CASCORN, CASEMBR, BOTFOUR, MASCOT, HACGUER, COTMAIL, BARDE, CUISIN};
+public enum UpgradeType {CASSIMP, CASCORN, CASEMBR, BOTFOUR, MASCOT, HACGUER, COTMAIL, BARDE, CUISIN, ULBSWORD, NOTHING};
 
 public class Upgrades : MonoBehaviour
 {
-
+    public UpgradeType upgradeType;
     // potentiellement mettre les autres valeurs, et le GameManager ne fera que changer les valeurs ici
     protected int costViking { get; set; }
     // protected int costMercFai { get; set; }
