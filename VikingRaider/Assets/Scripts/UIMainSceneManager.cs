@@ -153,6 +153,8 @@ public class UIMainSceneManager : MonoBehaviour
         if (!EquipagePanel.activeSelf)
         {
             EquipagePanel.SetActive(true);
+            EquipagePanel.transform.GetChild(0).GetComponent<Text>().text = "Viking : " + drakkar.viking.number + ".\nMercenaires : " + drakkar.merc_moyens.number + 
+                ".\nEspions : " + drakkar.espion_list.Count + ".";
         }
         else
         {
