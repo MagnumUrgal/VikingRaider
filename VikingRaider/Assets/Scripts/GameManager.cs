@@ -11,6 +11,8 @@ public class GameManager : MonoBehaviour {
     private GameObject Villages;
     public List<Espion> ShopList;
 
+
+
     [HideInInspector]
     public Drakkar drakkar;
 
@@ -39,6 +41,8 @@ public class GameManager : MonoBehaviour {
         Villages = GameObject.Find("Villages");
         //init du roi
         king = false;
+
+        SoundManager.PlayMusique("main"); 
 
         // init des espions
         Espion Blake = new Espion(2, 15, 3, "Blake", "Un espion assez compétent et discret, mais au charisme d’un hanneton malade. A tendance à attirer les problèmes mais compense par sa vitesse de course.");

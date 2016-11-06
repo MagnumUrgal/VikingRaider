@@ -177,17 +177,7 @@ public class SoundManager : Singleton<SoundManager>
     void InstanceChangeMusique(string name)
     {
         StartCoroutine(FadeMusique(name));
-        AudioClip originalClip;
-        originalClip = null;
-        switch (name)
-        {
-            case "main":
-                originalClip = main;
-                break;
-            case "menu":
-                originalClip = menu;
-                break;
-        }
+      
     }
 
     /// <summary>
@@ -254,7 +244,7 @@ public class SoundManager : Singleton<SoundManager>
     /// Joue un son sur la piste de musique
     /// </summary>
     /// <param name="name">Nom de la musique à jouer</param>
-    private static void PlayMusique(string name)
+    public static void PlayMusique(string name)
     {
         Instance.InstancePlayMusique(name);
     }
@@ -266,7 +256,15 @@ public class SoundManager : Singleton<SoundManager>
     {
         source.Stop();
         AudioClip originalClip = null;
-        //TODO ajouter un swich pour chaque musique
+        switch (name)
+        {
+            case "main":
+                originalClip = main;
+                break;
+            case "menu":
+                originalClip = menu;
+                break;
+        }
         source.clip = originalClip;
         source.Play();
     }
