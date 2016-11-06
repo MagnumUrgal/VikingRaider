@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour {
     public List<Villes> TownList;
     public bool king;
     private GameObject Villages;
+    public List<Espion> ShopList;
 
     [HideInInspector]
     public Drakkar drakkar;
@@ -38,6 +39,41 @@ public class GameManager : MonoBehaviour {
         Villages = GameObject.Find("Villages");
         //init du roi
         king = false;
+
+        // init des espions
+        Espion Blake = new Espion(2, 15, 3, "Blake", "Un espion assez compétent et discret, mais au charisme d’un hanneton malade. A tendance à attirer les problèmes mais compense par sa vitesse de course.");
+        Espion Sammy = new Espion(4, 18, 0, "Sammy", "Vient au calme, voit bien et pars vite, sans se soucier d’avoir été vu par 99% de la ville. Forcément, l'intérêt des infos ramenées est proportionnel à la méfiance générée chez les gueux.");
+        Espion Willy = new Espion(1, 10, 2, "Willy", "Homme à l’origine douteuse se prétendant espion. Il est plutôt médiocre, mais à le mérite d’être volontaire. Willy a des spasmes étranges et parle parfois à Willy.");
+        Espion Flantier = new Espion(0, 13, 3, "Flantier", "Travaillant toujours avec classe et élégance, cet espion qui a bien roulé sa bosse connaît les ficelles du métier. Cependant, ses capacités de fuite et d’intimidation sont grandement compromises à cause de son âge avancé.");
+
+        int randEspion = UnityEngine.Random.Range(0, 4);
+        switch (randEspion)
+        {
+            case 0:
+                drakkar.espion_list.Add(Blake);
+                ShopList.Add(Sammy);
+                ShopList.Add(Willy);
+                ShopList.Add(Flantier);
+                break;
+            case 1:
+                drakkar.espion_list.Add(Sammy);
+                ShopList.Add(Blake);
+                ShopList.Add(Willy);
+                ShopList.Add(Flantier);
+                break;
+            case 2:
+                drakkar.espion_list.Add(Willy);
+                ShopList.Add(Sammy);
+                ShopList.Add(Blake);
+                ShopList.Add(Flantier);
+                break;
+            case 3:
+                drakkar.espion_list.Add(Flantier);
+                ShopList.Add(Sammy);
+                ShopList.Add(Willy);
+                ShopList.Add(Blake);
+                break;
+        }
 
         // init des villes
         Soldat knights = new Soldat(3, 3, 4, 2, 20, "Chevaliers Errants");
@@ -106,7 +142,6 @@ public class GameManager : MonoBehaviour {
                     Fortif = 3;
                     break;
             }
-
 
             // rand productivity
             int randProd = UnityEngine.Random.Range(0, 3);

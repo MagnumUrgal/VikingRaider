@@ -88,7 +88,6 @@ public class Time : MonoBehaviour
             default:
                 return "error, event does not exit";
                     }
-        
     }
 
     public void disapplyEventCity(townEvents ev, Villes city)
