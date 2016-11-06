@@ -160,6 +160,19 @@ public class Time : MonoBehaviour
     {
         //update villes
         currentTurn += 1;
+
+        if (gamemanager.drakkar.merc_moyens.number != 0)
+        {
+            if (gamemanager.drakkar.merc_moyens.number * 1000 <= gamemanager.drakkar.gold)
+            {
+                gamemanager.drakkar.gold -= gamemanager.drakkar.merc_moyens.number * 1000;
+            }
+            else
+            {
+                gamemanager.drakkar.merc_moyens.number = 0;
+            }
+        }
+
         UIManager.updateTurnsGUI(currentTurn, max_turn);
         if (currentTurn >= max_turn)
         {
