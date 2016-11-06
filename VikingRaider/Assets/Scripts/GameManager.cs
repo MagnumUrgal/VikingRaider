@@ -232,9 +232,14 @@ public class GameManager : MonoBehaviour {
 
         file.Close();*/
     }
-    public void feat (Drakkar joueur)
+    public void defeat (Drakkar joueur)
     {
         //TODO Urgal
+        if(joueur.viking.number < joueur.min_members)
+        {
+            UImanager.defeat();
+            Application.Quit();
+        }
     }
     public int victory (Drakkar joueur)
     {
