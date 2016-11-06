@@ -679,6 +679,7 @@ public class UIMainSceneManager : MonoBehaviour
         {
             if (drakkar.gold >= 20000)
             {
+                SoundManager.PlayBruitage("chaton");
                 drakkar.gold = drakkar.gold - 20000;
                 Amelioration.GetComponent<Upgrades>().UpgradeStat(drakkar, "moral", 1);
                 Amelioration.GetComponent<Upgrades>().UpgradeStat(drakkar, "intimidate", -1);
