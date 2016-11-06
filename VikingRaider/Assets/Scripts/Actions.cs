@@ -20,7 +20,7 @@ public class Actions : MonoBehaviour {
     {
         int quality = 20 - spy.perception;
         int info = UnityEngine.Random.Range(1, 3);
-         if (info == 1)
+        if (info == 1)
         {
             town.garni_known.is_known = true;
             town.garni_known.turn_known = time.currentTurn;

@@ -57,6 +57,8 @@ public class Time : MonoBehaviour
     {
         CurrentEventTurn = ev.nbRound;
         city.current_event = ev.id;
+        city.is_event = true;
+
         Soldat army = city.garnison;
         army.atk += ev.modifAtk;
         army.def += ev.modifDef;
@@ -97,6 +99,8 @@ public class Time : MonoBehaviour
     public void disapplyEventCity(townEvents ev, Villes city)
     {
         city.current_event = 0;
+        city.is_event = false;
+
         Soldat army = city.garnison;
         army.atk -= ev.modifAtk;
         army.def -= ev.modifDef;
@@ -112,9 +116,6 @@ public class Time : MonoBehaviour
         // voir si le cast suivant ne produit pas d'erreurs
 
         city.gold = (int) (city.gold / ev.goldmult);
-        Debug.Log(city.gold);
-        Debug.Log(ev.id);
-        Debug.Log(city.pos);
     }
 
     public void applyEvent(Events ev, Drakkar drakkar)
@@ -306,7 +307,6 @@ public class Time : MonoBehaviour
             //update event
             if (event_occuring)
             {
-                Debug.Log(current_event.description);
                 CurrentEventTurn -= 1;
                 if (CurrentEventTurn == 0)
                 {
@@ -317,8 +317,6 @@ public class Time : MonoBehaviour
                     }
                     else if (current_event.id != 0)
                     {
-                        Debug.Log("Wesh");
-                        Debug.Log("eventID: " + current_event.id);
                         int indexTown = 0;
                         for (int j = 0; j < gamemanager.TownList.Count; j++)
                         {
@@ -328,7 +326,6 @@ public class Time : MonoBehaviour
                                 break;
                             }
                         }
-                        Debug.Log("town: " + gamemanager.TownList[indexTown].nameVilles);
                         disapplyEventCity((townEvents)current_event, gamemanager.TownList[indexTown]);
                     }
                     CurrentEventTown = "";
@@ -339,7 +336,6 @@ public class Time : MonoBehaviour
             // pas d'event en cours
             {
                 int proba = UnityEngine.Random.Range(0, factProba);
-                Debug.Log("proba: " + proba);
                 if (proba == 0)
                 {
                     factProba = 10;
