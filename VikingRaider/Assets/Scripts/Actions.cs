@@ -28,7 +28,7 @@ public class Actions : MonoBehaviour {
             int success = UnityEngine.Random.Range(100 - quality, 100 + quality);
             town.garni_known.value_known = (int)Math.Floor((float) success * percent);
             //Urgal : espionnage de la garnison
-            UIManager.DrawSpyResult(town.garni_known.value_known, ResultType.GARNISON, spy);
+            UIManager.DrawSpyResult(town.garni_known.value_known, ResultType.GARNISON, spy, town);
         }
         else 
         {
@@ -38,7 +38,7 @@ public class Actions : MonoBehaviour {
             int success = UnityEngine.Random.Range(100 - quality, 100 + quality);
             town.gold_known.value_known = (int)Math.Floor(success * percent);
             //Urgal : espionnage de l'or
-            UIManager.DrawSpyResult(town.gold_known.value_known, ResultType.GOLD, spy);
+            UIManager.DrawSpyResult(town.gold_known.value_known, ResultType.GOLD, spy, town);
         }
         if (town.is_knights)
         {
@@ -64,7 +64,7 @@ public class Actions : MonoBehaviour {
             if (town.capture>spy.fuite)
             {
                 //Urgal : delete espion
-                UIManager.DrawSpyResult(0, ResultType.DEADSPY, spy);
+                UIManager.DrawSpyResult(0, ResultType.DEADSPY, spy, town);
             }
             else
             {
@@ -210,7 +210,7 @@ public class Actions : MonoBehaviour {
                 town.is_trebuchet = false;
                 joueur.gold += town.gold;
                 //Urgal : victoire 
-                UIManager.DrawPillageResult(town.gold, initialSoldiersNumber - joueur.viking.number, initialMercenaireNumber - joueur.merc_moyens.number, ResultType.PILLAGEWIN);
+                UIManager.DrawPillageResult(town.gold, initialSoldiersNumber - joueur.viking.number, initialMercenaireNumber - joueur.merc_moyens.number, ResultType.PILLAGEWIN, town);
                 town.gold = 0;
                 end = true;
             }
@@ -229,7 +229,7 @@ public class Actions : MonoBehaviour {
                         joueur.gold += town.gold;
                         //Urgal : cas ou la ville se rend
                         UIManager.DrawPillageResult(town.gold, initialSoldiersNumber - joueur.viking.number, 
-                            initialMercenaireNumber - joueur.merc_moyens.number, ResultType.PILLAGESURRENDER);
+                            initialMercenaireNumber - joueur.merc_moyens.number, ResultType.PILLAGESURRENDER, town);
                         town.gold = 0;
                         end = true;
                     }
@@ -240,7 +240,7 @@ public class Actions : MonoBehaviour {
                     joueur.gold += town.gold;
                     //Urgal : cas ou plus d'attaque restante, mais les defenseurs se rendent quand même
                     UIManager.DrawPillageResult(town.gold, initialSoldiersNumber - joueur.viking.number,
-                        initialMercenaireNumber - joueur.merc_moyens.number, ResultType.PILLAGEWIN);
+                        initialMercenaireNumber - joueur.merc_moyens.number, ResultType.PILLAGEWIN, town);
                     town.gold = 0;
                     end = true;
                 }
@@ -257,7 +257,7 @@ public class Actions : MonoBehaviour {
                     joueur.gold += town.gold;
                     //Urgal : cas où la ville se rend
                     UIManager.DrawPillageResult(town.gold, initialSoldiersNumber - joueur.viking.number,
-                        initialMercenaireNumber - joueur.merc_moyens.number, ResultType.PILLAGESURRENDER);
+                        initialMercenaireNumber - joueur.merc_moyens.number, ResultType.PILLAGESURRENDER, town);
                     town.gold = 0;
                 }
                 //sinon on continue
@@ -267,7 +267,7 @@ public class Actions : MonoBehaviour {
             if (attaque_garni > vikings_def(joueur))
             {
                 //Urgal : le joueur Game Over
-                UIManager.DrawPillageResult(0, initialSoldiersNumber - joueur.viking.number, initialMercenaireNumber - joueur.merc_moyens.number, ResultType.PILLAGEGAMEOVER);
+                UIManager.DrawPillageResult(0, initialSoldiersNumber - joueur.viking.number, initialMercenaireNumber - joueur.merc_moyens.number, ResultType.PILLAGEGAMEOVER, town);
                 end = true;
             }
             else if (attaque_garni > joueur.merc_moyens.number * joueur.merc_moyens.def)
@@ -283,7 +283,7 @@ public class Actions : MonoBehaviour {
                     {
                         end = true;
                         //Urgal : cas ou les vikings se barrent
-                        UIManager.DrawPillageResult(town.gold, initialSoldiersNumber - joueur.viking.number, initialMercenaireNumber - joueur.merc_moyens.number, ResultType.PILLAGELOST);
+                        UIManager.DrawPillageResult(town.gold, initialSoldiersNumber - joueur.viking.number, initialMercenaireNumber - joueur.merc_moyens.number, ResultType.PILLAGELOST, town);
                     }
                     //sinon on continue
                 }
@@ -291,7 +291,7 @@ public class Actions : MonoBehaviour {
                 {
                     end = true;
                     //Urgal : cas ou les vikings se barrent
-                    UIManager.DrawPillageResult(town.gold, initialSoldiersNumber - joueur.viking.number, initialMercenaireNumber - joueur.merc_moyens.number, ResultType.PILLAGELOST);
+                    UIManager.DrawPillageResult(town.gold, initialSoldiersNumber - joueur.viking.number, initialMercenaireNumber - joueur.merc_moyens.number, ResultType.PILLAGELOST, town);
                 }
                 //sinon on continue
 
@@ -305,7 +305,7 @@ public class Actions : MonoBehaviour {
                     end = true;
                     //Urgal : cas ou les vikings se barrent
                     UIManager.DrawPillageResult(town.gold, initialSoldiersNumber - joueur.viking.number,
-                        initialMercenaireNumber - joueur.merc_moyens.number, ResultType.PILLAGELOST);
+                        initialMercenaireNumber - joueur.merc_moyens.number, ResultType.PILLAGELOST, town);
                 }
             }
             //sinon on continue

@@ -240,7 +240,7 @@ public class UIMainSceneManager : MonoBehaviour
     }
 
     //Liaison avec le script Action
-    public void DrawSpyResult(int info, ResultType resultType, Espion spy)
+    public void DrawSpyResult(int info, ResultType resultType, Espion spy, Villes town)
     {
         if (resultType == ResultType.GARNISON)
         {
@@ -248,7 +248,7 @@ public class UIMainSceneManager : MonoBehaviour
             GarnisonText.transform.parent.gameObject.SetActive(true);
             ReturnFromNotificationButton.SetActive(true);
             CityInfoPanel.SetActive(false);
-            GarnisonText.text = "Votre espion " + spy.namePerso + " revient victorieux de sa mission d'espionnage dans la ville [ville todo]. Il y a découvert l'étendue des forces présentes : " + info + " hommes.";
+            GarnisonText.text = "Votre espion " + spy.namePerso + " revient victorieux de sa mission d'espionnage dans la ville " + town.nameVilles + ". Il y a découvert l'étendue des forces présentes : " + info + " hommes.";
         }
         else if (resultType == ResultType.GOLD)
         {
@@ -256,7 +256,7 @@ public class UIMainSceneManager : MonoBehaviour
             GoldText.transform.parent.gameObject.SetActive(true);
             ReturnFromNotificationButton.SetActive(true);
             CityInfoPanel.SetActive(false);
-            GoldText.text = "Votre espion " + spy.namePerso + " revient victorieux de sa mission d'espionnage dans la ville [ville todo]. Il y a découvert l'étendue des richesses présentes : " + info + " Or.";
+            GoldText.text = "Votre espion " + spy.namePerso + " revient victorieux de sa mission d'espionnage dans la ville " + town.nameVilles +  ". Il y a découvert l'étendue des richesses présentes : " + info + " Or.";
         }
         else if (resultType == ResultType.DEADSPY)
         {
@@ -264,11 +264,11 @@ public class UIMainSceneManager : MonoBehaviour
             DeadSpyText.transform.parent.gameObject.SetActive(true);
             ReturnFromNotificationButton.SetActive(true);
             CityInfoPanel.SetActive(false);
-            DeadSpyText.text = "Votre espion " + spy.namePerso + " n'est jamais revenu de sa mission d'espionnage dans la ville [ville todo].";
+            DeadSpyText.text = "Votre espion " + spy.namePerso + " n'est jamais revenu de sa mission d'espionnage dans la ville " + town.nameVilles + ".";
         }
     }
 
-    public void DrawPillageResult(int goldWin, int pertesSoldiers, int pertesMercenaires, ResultType resultType)
+    public void DrawPillageResult(int goldWin, int pertesSoldiers, int pertesMercenaires, ResultType resultType, Villes town)
     {
         if(resultType == ResultType.PILLAGEWIN)
         {
@@ -276,7 +276,7 @@ public class UIMainSceneManager : MonoBehaviour
             PillageWinText.transform.parent.gameObject.SetActive(true);
             ReturnFromNotificationButton.SetActive(true);
             CityInfoPanel.SetActive(false);
-            PillageWinText.text = "Votre assaut sur la ville [ville todo] est un succès ! \nVous avez gagné " + goldWin + " Or.\n Vous avez perdu " + pertesSoldiers + " soldats. \n Vous avez perdu " + pertesMercenaires + " mercenaires.";
+            PillageWinText.text = "Votre assaut sur la ville " + town.nameVilles + " est un succès ! \nVous avez gagné " + goldWin + " Or.\n Vous avez perdu " + pertesSoldiers + " soldats. \n Vous avez perdu " + pertesMercenaires + " mercenaires.";
         }
         else if (resultType == ResultType.PILLAGESURRENDER)
         {
@@ -284,7 +284,7 @@ public class UIMainSceneManager : MonoBehaviour
             PillageSurrenderText.transform.parent.gameObject.SetActive(true);
             ReturnFromNotificationButton.SetActive(true);
             CityInfoPanel.SetActive(false);
-            PillageSurrenderText.text = "La ville [ville todo] se rend ! \nVous avez gagné " + goldWin + " Or.\n Vous avez perdu " + pertesSoldiers + " soldats. \n Vous avez perdu " + pertesMercenaires + " mercenaires.";
+            PillageSurrenderText.text = "La ville " + town.nameVilles + " se rend ! \nVous avez gagné " + goldWin + " Or.\n Vous avez perdu " + pertesSoldiers + " soldats. \n Vous avez perdu " + pertesMercenaires + " mercenaires.";
         }
         else if (resultType == ResultType.PILLAGELOST)
         {
@@ -292,7 +292,7 @@ public class UIMainSceneManager : MonoBehaviour
             PillageLostText.transform.parent.gameObject.SetActive(true);
             ReturnFromNotificationButton.SetActive(true);
             CityInfoPanel.SetActive(false);
-            PillageLostText.text = "Ville [ville todo] : Défaite.\nSoldats perdus : " + pertesSoldiers + ".\nMercenaires perdus : " + pertesMercenaires + ".";
+            PillageLostText.text = "Ville " + town.nameVilles + " : Défaite.\nSoldats perdus : " + pertesSoldiers + ".\nMercenaires perdus : " + pertesMercenaires + ".";
         }
         else if (resultType == ResultType.PILLAGEGAMEOVER)
         {
@@ -300,7 +300,7 @@ public class UIMainSceneManager : MonoBehaviour
             GameOverText.transform.parent.gameObject.SetActive(true);
             ReturnFromNotificationButton.SetActive(true);
             CityInfoPanel.SetActive(false);
-            GameOverText.text = "Vous avez attaqué [ville todo]. \nC'est une défaite écrasante. \nLe Valhalla vous accueille.";
+            GameOverText.text = "Vous avez attaqué " + town.nameVilles + ". \nC'est une défaite écrasante. \nLe Valhalla vous accueille.";
         }
     }
 
