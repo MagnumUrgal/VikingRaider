@@ -43,13 +43,13 @@ public class Actions : MonoBehaviour {
         if (town.is_knights)
         {
             //todo urgal, add message knights
-            string descr = "Blabla Knights";
+            string descr = ""; //"Blabla Knights";
             UIManager.DrawSpySpecial(descr, ResultType.KNIGHTS, spy, town);
         }
         if (town.is_trebuchet)
         {
             //todo urgal, add message trebuchet
-            string descr = "Blabla Trebuchet";
+            string descr = ""; //"Blabla Trebuchet";
             UIManager.DrawSpySpecial(descr, ResultType.TREBUCHET, spy, town);
         }
         if (town.is_event)
@@ -57,13 +57,38 @@ public class Actions : MonoBehaviour {
             //todo urgal
             string descr = time.getdescrpevent(town.current_event);
             UIManager.DrawSpySpecial(descr, ResultType.EVENT, spy, town);
+            switch (town.current_event)
+            {
+                case 1:
+                    SoundManager.PlayBruitage("wedding");
+                    break;
+                case 2:
+                    SoundManager.PlayBruitage("autre_event");
+                    break;
+                case 3:
+                    SoundManager.PlayBruitage("priest");
+                    break;
+                case 4:
+                    SoundManager.PlayBruitage("autre_event");
+                    break;
+                case 5:
+                    SoundManager.PlayBruitage("dutchman");
+                    break;
+                default:
+                    SoundManager.PlayBruitage("autre_event");
+                    break;
+            }
+        }
+        else
+        {
+            SoundManager.PlayBruitage("spy");
         }
     }
     
 
 	public void Espionnage(Drakkar joueur, Espion spy, Villes town, Time time)
     {
-        SoundManager.PlayBruitage("Spy");
+        
         if (town.perception>spy.discretion)
         {
             time.max_turn -= 1;
@@ -152,7 +177,7 @@ public class Actions : MonoBehaviour {
     public void BattleRoyale(Drakkar joueur)
     {
         //TODO Urgal
-        SoundManager.PlayBruitage("Attaque");
+        SoundManager.PlayBruitage("attaque");
         Soldat garderoyale = new Soldat(7, 8, 100, 0, 100, "garderoyale");
         Soldat no_one = new Soldat(0, 0, 0, 0, 0, "personne");
         Villes roi = new Villes("roi", 0, 0, garderoyale, 0, 0, 0, no_one, no_one, 0);
@@ -196,7 +221,7 @@ public class Actions : MonoBehaviour {
     //résolution
     public void Pillage(Drakkar joueur, Villes town, Time time)
     {
-        SoundManager.PlayBruitage("Attaque");
+        SoundManager.PlayBruitage("attaque");
         time.max_turn -= 1;
         time.raidcount += 1;
         town.fear += 0.05f;

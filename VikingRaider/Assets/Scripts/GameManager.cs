@@ -236,6 +236,7 @@ public class GameManager : MonoBehaviour {
         //TODO Urgal
         if(joueur.viking.number < joueur.min_members)
         {
+            SoundManager.PlayBruitage("echec");
             UImanager.defeat();
             Application.Quit();
         }
@@ -243,6 +244,7 @@ public class GameManager : MonoBehaviour {
     public void victory (Drakkar joueur)
     {
         //TODO Urgal
+        SoundManager.PlayBruitage("win");
         int score = (int)Math.Floor ((double) joueur.gold / (joueur.viking.number + 1));
         UImanager.victory(score);
     }
@@ -252,6 +254,7 @@ public class GameManager : MonoBehaviour {
         {
             //TODO Urgal
             //END GAME pop-up victoire
+            SoundManager.PlayBruitage("win");
             int score = (int)Math.Floor((double)joueur.gold / (joueur.viking.number + 1));
             victory(joueur);
         }
