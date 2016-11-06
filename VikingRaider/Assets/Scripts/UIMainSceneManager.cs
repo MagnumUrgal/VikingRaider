@@ -23,6 +23,7 @@ public class UIMainSceneManager : MonoBehaviour
     private GameObject fortNonFortifie;
     private GameObject goldButton;
     private GameObject toursText;
+    private GameObject CheatDebugPanel;
 
     private Text GarnisonText;
     private Text GoldText;
@@ -50,7 +51,8 @@ public class UIMainSceneManager : MonoBehaviour
         fortFortFortifie = (GameObject)Resources.Load("ville_fortFortifié");
         fortPeuFortifie = (GameObject)Resources.Load("ville_peuFortifié");
         fortNonFortifie = (GameObject)Resources.Load("ville_nonFortifié");
-        //voidSpySprite = //(Sprite)Resources.Load("voidSpySprite"); //TODO
+
+        CheatDebugPanel = GameObject.Find("CheatDebugPanel");
 
         botPanel = GameObject.Find("BotPanelButtons");
         topPanel = GameObject.Find("TopPanelButtons");
@@ -459,5 +461,15 @@ public class UIMainSceneManager : MonoBehaviour
     public void updateTurnsGUI(int currentTurn, int maxTurn)
     {
         toursText.GetComponent<Text>().text = "<color=white><b>" + currentTurn + "  /  " + maxTurn + "</b></color>";
+    }
+
+    public void Update()
+    {
+        if (cursorOnThisVille != null)
+        {
+            CheatDebugPanel.transform.GetChild(0).GetComponent<Text>().text = "Last selected city :\nGarnison : " +
+                cursorOnThisVille.garnison + "\nOr : " + cursorOnThisVille.gold + "\nTrebuchets : " + cursorOnThisVille.is_trebuchet + "\nIs_event : " + cursorOnThisVille.is_event +
+                "\nPerception : " + cursorOnThisVille.perception;
+        }
     }
 }
