@@ -11,7 +11,8 @@ public class Time : MonoBehaviour
     public Events current_event { get; set; }
     public int CurrentEventTurn { get; set; }
     public string CurrentEventTown { get; set; }
-    
+
+    private UIMainSceneManager UIManager;
 
     public Soldat no_one;
     public Soldat escorte;
@@ -37,6 +38,8 @@ public class Time : MonoBehaviour
 
     void Start()
     {
+        UIManager = GameObject.Find("Canvas").GetComponent<UIMainSceneManager>();
+        UIManager.updateTurnsGUI(1, 42);
         no_one = new Soldat(0, 0, 0, 0, 0, "personne");
         escorte = new Soldat(1, 1, 1, 1, 35, "escortemariage");
         probleme = new Soldat(1, 1, 1, 1, -20, "pb");
@@ -151,6 +154,7 @@ public class Time : MonoBehaviour
     {
         //update villes
         currentTurn += 1;
+        UIManager.updateTurnsGUI(currentTurn, max_turn);
         if (currentTurn >= max_turn)
         {
             gamemanager.king = true;
