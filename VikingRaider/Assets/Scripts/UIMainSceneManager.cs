@@ -119,25 +119,25 @@ public class UIMainSceneManager : MonoBehaviour
         updateGoldGUI();
         AmeliorationPanel.transform.GetChild(0).gameObject.AddComponent<Upgrades>();
         AmeliorationPanel.transform.GetChild(0).GetComponent<Upgrades>().upgradeType = UpgradeType.CASSIMP;
-        AmeliorationPanel.transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = (Sprite)Resources.Load("CasqueSimple");
+        AmeliorationPanel.transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = (Sprite)Resources.Load<Sprite>("CasqueSimple");
         AmeliorationPanel.transform.GetChild(0).GetChild(1).GetComponent<Text>().text = "20 000";
         AmeliorationPanel.transform.GetChild(0).GetChild(2).GetComponent<Text>().text = "Par Odin ! C’est un casque Lebohaume !";
 
         AmeliorationPanel.transform.GetChild(1).gameObject.AddComponent<Upgrades>();
         AmeliorationPanel.transform.GetChild(1).GetComponent<Upgrades>().upgradeType = UpgradeType.BOTFOUR;
-        AmeliorationPanel.transform.GetChild(1).GetChild(0).GetComponent<Image>().sprite = (Sprite)Resources.Load("BottesFourrées");
+        AmeliorationPanel.transform.GetChild(1).GetChild(0).GetComponent<Image>().sprite = (Sprite)Resources.Load<Sprite>("BotteFourree");
         AmeliorationPanel.transform.GetChild(1).GetChild(1).GetComponent<Text>().text = "20 000";
         AmeliorationPanel.transform.GetChild(1).GetChild(2).GetComponent<Text>().text = "Le confort de la maison même au combat.";
 
         AmeliorationPanel.transform.GetChild(2).gameObject.AddComponent<Upgrades>();
         AmeliorationPanel.transform.GetChild(2).GetComponent<Upgrades>().upgradeType = UpgradeType.HACGUER;
-        AmeliorationPanel.transform.GetChild(2).GetChild(0).GetComponent<Image>().sprite = (Sprite)Resources.Load("HacheGuerre");
+        AmeliorationPanel.transform.GetChild(2).GetChild(0).GetComponent<Image>().sprite = (Sprite)Resources.Load<Sprite>("HacheGuerre");
         AmeliorationPanel.transform.GetChild(2).GetChild(1).GetComponent<Text>().text = "30 000";
         AmeliorationPanel.transform.GetChild(2).GetChild(2).GetComponent<Text>().text = "Woaw, c’est une durandil ! Une vraie de vraie ! D’occasion !";
 
         AmeliorationPanel.transform.GetChild(3).gameObject.AddComponent<Upgrades>();
         AmeliorationPanel.transform.GetChild(3).GetComponent<Upgrades>().upgradeType = UpgradeType.BARDE;
-        AmeliorationPanel.transform.GetChild(3).GetChild(0).GetComponent<Image>().sprite = (Sprite)Resources.Load("Barde");
+        AmeliorationPanel.transform.GetChild(3).GetChild(0).GetComponent<Image>().sprite = (Sprite)Resources.Load<Sprite>("Barde");
         AmeliorationPanel.transform.GetChild(3).GetChild(1).GetComponent<Text>().text = "40 000";
         AmeliorationPanel.transform.GetChild(3).GetChild(2).GetComponent<Text>().text = "Parce qu'avec son chant, on n'entend pas vos hurlements.";
 
@@ -613,7 +613,7 @@ public class UIMainSceneManager : MonoBehaviour
                 drakkar.gold = drakkar.gold - 20000;
                 Amelioration.GetComponent<Upgrades>().UpgradeStat(drakkar, "def", 1);
                 Amelioration.GetComponent<Upgrades>().upgradeType = UpgradeType.CASCORN;
-                Amelioration.transform.GetChild(0).GetComponent<Image>().sprite = (Sprite)Resources.Load("CasqueCorne");
+                Amelioration.transform.GetChild(0).GetComponent<Image>().sprite = (Sprite)Resources.Load<Sprite>("CasqueCorne");
                 Amelioration.transform.GetChild(1).GetComponent<Text>().text = "30 000";
                 Amelioration.transform.GetChild(2).GetComponent<Text>().text = "CROOOOM";
             }
@@ -626,7 +626,7 @@ public class UIMainSceneManager : MonoBehaviour
                 Amelioration.GetComponent<Upgrades>().UpgradeStat(drakkar, "def", 1);
                 Amelioration.GetComponent<Upgrades>().UpgradeStat(drakkar, "intimidate", 1);
                 Amelioration.GetComponent<Upgrades>().upgradeType = UpgradeType.CASEMBR;
-                Amelioration.transform.GetChild(0).GetComponent<Image>().sprite = (Sprite)Resources.Load("CasqueEmbrase");
+                Amelioration.transform.GetChild(0).GetComponent<Image>().sprite = (Sprite)Resources.Load<Sprite>("CasqueEmbrase");
                 Amelioration.transform.GetChild(1).GetComponent<Text>().text = "50 000";
                 Amelioration.transform.GetChild(2).GetComponent<Text>().text = "Les légions de Hel marchent désormais sur le monde.";
             }
@@ -639,7 +639,7 @@ public class UIMainSceneManager : MonoBehaviour
                 Amelioration.GetComponent<Upgrades>().UpgradeStat(drakkar, "def", 1);
                 Amelioration.GetComponent<Upgrades>().UpgradeStat(drakkar, "intimidate", 1);
                 Amelioration.GetComponent<Upgrades>().upgradeType = UpgradeType.NOTHING;
-                Amelioration.transform.GetChild(0).GetComponent<Image>().sprite = (Sprite)Resources.Load("ItemNothing");
+                Amelioration.transform.GetChild(0).GetComponent<Image>().sprite = (Sprite)Resources.Load<Sprite>("ItemNothing");
                 Amelioration.transform.GetChild(1).GetComponent<Text>().text = " ";
                 Amelioration.transform.GetChild(2).GetComponent<Text>().text = " ";
             }
@@ -656,7 +656,7 @@ public class UIMainSceneManager : MonoBehaviour
                 drakkar.gold = drakkar.gold - 20000;
                 Amelioration.GetComponent<Upgrades>().UpgradeStat(drakkar, "moral", 1);
                 Amelioration.GetComponent<Upgrades>().upgradeType = UpgradeType.MASCOT;
-                Amelioration.transform.GetChild(0).GetComponent<Image>().sprite = (Sprite)Resources.Load("Mascotte");
+                Amelioration.transform.GetChild(0).GetComponent<Image>().sprite = (Sprite)Resources.Load<Sprite>("Mascotte");
                 Amelioration.transform.GetChild(1).GetComponent<Text>().text = "20000";
                 Amelioration.transform.GetChild(2).GetComponent<Text>().text = "C’est mignon, c’est chou, mais notre virilité en prend un coup.";
             }
@@ -669,7 +669,7 @@ public class UIMainSceneManager : MonoBehaviour
                 Amelioration.GetComponent<Upgrades>().UpgradeStat(drakkar, "moral", 1);
                 Amelioration.GetComponent<Upgrades>().UpgradeStat(drakkar, "intimidate", -1);
                 Amelioration.GetComponent<Upgrades>().upgradeType = UpgradeType.NOTHING;
-                Amelioration.transform.GetChild(0).GetComponent<Image>().sprite = (Sprite)Resources.Load("ItemNothing");
+                Amelioration.transform.GetChild(0).GetComponent<Image>().sprite = (Sprite)Resources.Load<Sprite>("ItemNothing");
                 Amelioration.transform.GetChild(1).GetComponent<Text>().text = " ";
                 Amelioration.transform.GetChild(2).GetComponent<Text>().text = " ";
             }
@@ -686,7 +686,7 @@ public class UIMainSceneManager : MonoBehaviour
                 drakkar.gold = drakkar.gold - 30000;
                 Amelioration.GetComponent<Upgrades>().UpgradeStat(drakkar, "atk", 1);
                 Amelioration.GetComponent<Upgrades>().upgradeType = UpgradeType.COTMAIL;
-                Amelioration.transform.GetChild(0).GetComponent<Image>().sprite = (Sprite)Resources.Load("CotteMaille");
+                Amelioration.transform.GetChild(0).GetComponent<Image>().sprite = (Sprite)Resources.Load<Sprite>("CotteMaille");
                 Amelioration.transform.GetChild(1).GetComponent<Text>().text = "40000";
                 Amelioration.transform.GetChild(2).GetComponent<Text>().text = "Pour quoi faire ? La douleur n’est qu’une simple information.";
             }
@@ -698,7 +698,7 @@ public class UIMainSceneManager : MonoBehaviour
                 drakkar.gold = drakkar.gold - 40000;
                 Amelioration.GetComponent<Upgrades>().UpgradeStat(drakkar, "def", 1);
                 Amelioration.GetComponent<Upgrades>().upgradeType = UpgradeType.ULBSWORD;
-                Amelioration.transform.GetChild(0).GetComponent<Image>().sprite = (Sprite)Resources.Load("UlbertSword");
+                Amelioration.transform.GetChild(0).GetComponent<Image>().sprite = (Sprite)Resources.Load<Sprite>("UlbertSword");
                 Amelioration.transform.GetChild(1).GetComponent<Text>().text = "80000";
                 Amelioration.transform.GetChild(2).GetComponent<Text>().text = "L'épée encore plus énervée que le viking qui la porte.";
             }
@@ -710,7 +710,7 @@ public class UIMainSceneManager : MonoBehaviour
                 drakkar.gold = drakkar.gold - 80000;
                 Amelioration.GetComponent<Upgrades>().UpgradeStat(drakkar, "atk", 3);
                 Amelioration.GetComponent<Upgrades>().upgradeType = UpgradeType.NOTHING;
-                Amelioration.transform.GetChild(0).GetComponent<Image>().sprite = (Sprite)Resources.Load("ItemNothing");
+                Amelioration.transform.GetChild(0).GetComponent<Image>().sprite = (Sprite)Resources.Load<Sprite>("ItemNothing");
                 Amelioration.transform.GetChild(1).GetComponent<Text>().text = " ";
                 Amelioration.transform.GetChild(2).GetComponent<Text>().text = " ";
             }
@@ -727,7 +727,7 @@ public class UIMainSceneManager : MonoBehaviour
                 drakkar.gold = drakkar.gold - 40000;
                 Amelioration.GetComponent<Upgrades>().UpgradeStat(drakkar, "moral", 1);
                 Amelioration.GetComponent<Upgrades>().upgradeType = UpgradeType.COTMAIL;
-                Amelioration.transform.GetChild(0).GetComponent<Image>().sprite = (Sprite)Resources.Load("Cuisinier");
+                Amelioration.transform.GetChild(0).GetComponent<Image>().sprite = (Sprite)Resources.Load<Sprite>("Cuisinier");
                 Amelioration.transform.GetChild(1).GetComponent<Text>().text = "50000";
                 Amelioration.transform.GetChild(2).GetComponent<Text>().text = "Quand même meilleur que le brouet aux endives de Bior.";
             }
@@ -739,7 +739,7 @@ public class UIMainSceneManager : MonoBehaviour
                 drakkar.gold = drakkar.gold - 50000;
                 Amelioration.GetComponent<Upgrades>().UpgradeStat(drakkar, "moral", 1);
                 Amelioration.GetComponent<Upgrades>().upgradeType = UpgradeType.NOTHING;
-                Amelioration.transform.GetChild(0).GetComponent<Image>().sprite = (Sprite)Resources.Load("ItemNothing");
+                Amelioration.transform.GetChild(0).GetComponent<Image>().sprite = (Sprite)Resources.Load<Sprite>("ItemNothing");
                 Amelioration.transform.GetChild(1).GetComponent<Text>().text = " ";
                 Amelioration.transform.GetChild(2).GetComponent<Text>().text = " ";
             }
