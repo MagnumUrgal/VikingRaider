@@ -220,7 +220,6 @@ public class GameManager : MonoBehaviour {
         file.WriteLine(lines);
 
         file.Close();*/
-        */
     }
     public void defeat (Drakkar joueur)
     {

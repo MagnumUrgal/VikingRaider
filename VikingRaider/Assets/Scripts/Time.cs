@@ -96,6 +96,7 @@ public class Time : MonoBehaviour
 
     public void disapplyEventCity(townEvents ev, Villes city)
     {
+        city.current_event = 0;
         Soldat army = city.garnison;
         army.atk -= ev.modifAtk;
         army.def -= ev.modifDef;
@@ -280,84 +281,12 @@ public class Time : MonoBehaviour
 
                     }
                 }
-
-                //update event
-                if (event_occuring)
-                {
-                    CurrentEventTurn -= 1;
-                    if (CurrentEventTurn == 0)
-                    {
-                        if (current_event.id == 5)
-                        {
-                            disapplyEvent(current_event, gamemanager.drakkar);
-                        } 
-                        else if (current_event.id != 0)
-                        {
-                            int indexTown = 0;
-                            for(int j = 0; j < gamemanager.TownList.Count; j++)
-                            {
-                                if (gamemanager.TownList[i].nameVilles == CurrentEventTown)
-                                {
-                                    indexTown = j;
-                                    break;
-                                }
-                            }
-                            disapplyEventCity((townEvents)current_event, gamemanager.TownList[indexTown]);
-                        }
-                        event_occuring = false;
-                        CurrentEventTown = "";
-                        current_event = None;
-                    }
-                }
-                else
-                // pas d'event en cours
-                {
-                    int proba = UnityEngine.Random.Range(0, factProba);
-                    if (proba == 0)
-                    {
-                        factProba = 10;
-                        event_occuring = true;
-                        int evId = UnityEngine.Random.Range(0, 5);
-                        switch (evId)
-                        {
-                            case 0:
-                                current_event = mariage;
-                                break;
-                            case 1:
-                                current_event = epidemie;
-                                break;
-                            case 2:
-                                current_event = priest;
-                                break;
-                            case 3:
-                                current_event = famine;
-                                break;
-                            case 4:
-                                current_event = Hollandais;
-                                break;
-                        }
-                        if (evId == 4)
-                        {
-                            applyEvent(current_event, gamemanager.drakkar);
-                        }
-                        else
-                        {
-                            int randCity = UnityEngine.Random.Range(0, gamemanager.TownList.Count);
-                            CurrentEventTown = gamemanager.TownList[randCity].nameVilles;
-                            applyEventCity((townEvents)current_event, gamemanager.TownList[randCity]);
-                        }
-                    }
-                    else
-                    {
-                        factProba -= 1;
-                    }
-                }
                 //gestion des chevaliers
                 if (gamemanager.TownList[i].is_knights)
                 {
-                    if (currentTurn%3==0)
+                    if (currentTurn % 3 == 0)
                     {
-                        if(i>0)
+                        if (i > 0)
                         {
                             gamemanager.TownList[i - 1].knights = gamemanager.TownList[i].knights;
                             gamemanager.TownList[i].knights = no_one;
@@ -372,6 +301,82 @@ public class Time : MonoBehaviour
                             gamemanager.TownList[i].is_knights = false;
                         }
                     }
+                }
+            }
+            //update event
+            if (event_occuring)
+            {
+                Debug.Log(current_event.description);
+                CurrentEventTurn -= 1;
+                if (CurrentEventTurn == 0)
+                {
+                    event_occuring = false;
+                    if (current_event.id == 5)
+                    {
+                        disapplyEvent(current_event, gamemanager.drakkar);
+                    }
+                    else if (current_event.id != 0)
+                    {
+                        Debug.Log("Wesh");
+                        Debug.Log("eventID: " + current_event.id);
+                        int indexTown = 0;
+                        for (int j = 0; j < gamemanager.TownList.Count; j++)
+                        {
+                            if (gamemanager.TownList[j].nameVilles == CurrentEventTown)
+                            {
+                                indexTown = j;
+                                break;
+                            }
+                        }
+                        Debug.Log("town: " + gamemanager.TownList[indexTown].nameVilles);
+                        disapplyEventCity((townEvents)current_event, gamemanager.TownList[indexTown]);
+                    }
+                    CurrentEventTown = "";
+                    current_event = None;
+                }
+            }
+            else
+            // pas d'event en cours
+            {
+                int proba = UnityEngine.Random.Range(0, factProba);
+                Debug.Log("proba: " + proba);
+                if (proba == 0)
+                {
+                    factProba = 10;
+                    event_occuring = true;
+                    int evId = UnityEngine.Random.Range(0, 5);
+                    switch (evId)
+                    {
+                        case 0:
+                            current_event = mariage;
+                            break;
+                        case 1:
+                            current_event = epidemie;
+                            break;
+                        case 2:
+                            current_event = priest;
+                            break;
+                        case 3:
+                            current_event = famine;
+                            break;
+                        case 4:
+                            current_event = Hollandais;
+                            break;
+                    }
+                    if (evId == 4)
+                    {
+                        applyEvent(current_event, gamemanager.drakkar);
+                    }
+                    else
+                    {
+                        int randCity = UnityEngine.Random.Range(0, gamemanager.TownList.Count);
+                        CurrentEventTown = gamemanager.TownList[randCity].nameVilles;     
+                        applyEventCity((townEvents)current_event, gamemanager.TownList[randCity]);
+                    }
+                }
+                else
+                {
+                    factProba -= 1;
                 }
             }
         }
