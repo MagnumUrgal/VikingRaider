@@ -38,6 +38,8 @@ public class UIMainSceneManager : MonoBehaviour
     private Actions actionScript;
     private Time timeScript;
 
+    private List<string> historiqueList;
+
     public Sprite voidSpySprite;
 
     [HideInInspector]
@@ -93,6 +95,8 @@ public class UIMainSceneManager : MonoBehaviour
         GameOverText.transform.parent.gameObject.SetActive(false);
 
         updateSizeWindow();
+
+        historiqueList = new List<string>();
     }
 
     void Start()
@@ -206,6 +210,19 @@ public class UIMainSceneManager : MonoBehaviour
 
         if (!HistoriquePanel.activeSelf)
         {
+            HistoriquePanel.transform.GetChild(0).GetComponent<Text>().text = "";
+            if (historiqueList.Count > 0)
+            {
+                for (int i = 1; i < 10; i++)
+                {
+                    if (i <= historiqueList.Count)
+                    {
+                        HistoriquePanel.transform.GetChild(0).GetComponent<Text>().text += "[Tour " + (timeScript.currentTurn - i) + "] ";
+                        HistoriquePanel.transform.GetChild(0).GetComponent<Text>().text += historiqueList[historiqueList.Count - i];
+                        HistoriquePanel.transform.GetChild(0).GetComponent<Text>().text += "\n";
+                    }
+                }
+            }
             HistoriquePanel.SetActive(true);
         }
         else
@@ -266,6 +283,7 @@ public class UIMainSceneManager : MonoBehaviour
             CityInfoPanel.SetActive(false);
             DeadSpyText.text = "Votre espion " + spy.namePerso + " n'est jamais revenu de sa mission d'espionnage dans la ville " + town.nameVilles + ".";
         }
+        addEspionnageToHistoriqueList(info, resultType, spy, town);
     }
 
     public void DrawPillageResult(int goldWin, int pertesSoldiers, int pertesMercenaires, ResultType resultType, Villes town)
@@ -302,6 +320,7 @@ public class UIMainSceneManager : MonoBehaviour
             CityInfoPanel.SetActive(false);
             GameOverText.text = "Vous avez attaqué " + town.nameVilles + ". \nC'est une défaite écrasante. \nLe Valhalla vous accueille.";
         }
+        addPillageToHistoriqueList(goldWin, pertesSoldiers, pertesMercenaires, resultType, town);
     }
 
     void drawVilleInfo(Villes ville, Vector2 mouseScreenPos)
@@ -470,6 +489,44 @@ public class UIMainSceneManager : MonoBehaviour
             CheatDebugPanel.transform.GetChild(0).GetComponent<Text>().text = "Last selected city :\nGarnison : " +
                 cursorOnThisVille.garnison + "\nOr : " + cursorOnThisVille.gold + "\nTrebuchets : " + cursorOnThisVille.is_trebuchet + "\nIs_event : " + cursorOnThisVille.is_event +
                 "\nPerception : " + cursorOnThisVille.perception;
+        }
+    }
+
+    void addPillageToHistoriqueList(int goldWin, int pertesSoldiers, int pertesMercenaires, ResultType resultType, Villes town)
+    {
+        string toPrint = "Le pillage sur " + town.nameVilles;
+        if(resultType == ResultType.PILLAGEWIN)
+        {
+            toPrint += " a rapporté " + goldWin + " Or, a coûté " + pertesSoldiers + " vikings et " + pertesMercenaires + " mercenaires.";
+        }
+        else if (resultType == ResultType.PILLAGESURRENDER)
+        {
+            toPrint += " a rapporté " + goldWin + " Or, a coûté " + pertesSoldiers + " vikings et " + pertesMercenaires + " mercenaires. Le village s'est rendu.";
+        }
+        else if (resultType == ResultType.PILLAGELOST)
+        {
+            toPrint += " était une cuisante défaite. Vous avez perdu " + pertesSoldiers + " vikings et " + pertesMercenaires + " mercenaires.";
+        }
+        else if (resultType == ResultType.PILLAGEGAMEOVER)
+        {
+            toPrint += " était une cuisante défaite. Vous avez perdu " + pertesSoldiers + " vikings et " + pertesMercenaires + " mercenaires. Vous avez tout perdu.";
+        }
+        historiqueList.Add(toPrint);
+    }
+
+    void addEspionnageToHistoriqueList(int info, ResultType resultType, Espion spy, Villes town)
+    {
+        if(resultType == ResultType.GOLD)
+        {
+            historiqueList.Add(town.nameVilles + " possède " + town.gold_known.value_known + " Or. Merci " + spy.namePerso + ".");
+        }
+        else if (resultType == ResultType.GARNISON)
+        {
+            historiqueList.Add(town.nameVilles + " possède " + town.garni_known.value_known + " hommes. Merci " + spy.namePerso + ".");
+        }
+        else if (resultType == ResultType.DEADSPY)
+        {
+            historiqueList.Add(spy.namePerso + ", " + town.nameVilles + ", RIP.");
         }
     }
 }

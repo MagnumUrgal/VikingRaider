@@ -220,7 +220,6 @@ public class GameManager : MonoBehaviour {
         file.WriteLine(lines);
 
         file.Close();*/
-        */
     }
     public void defeat (Drakkar joueur)
     {
@@ -247,6 +246,5 @@ public class GameManager : MonoBehaviour {
             //popup de "nope, pas assez de gens pour rentrer, trouve de quoi recruter"
             return 0;
         }
-
     }
 }
