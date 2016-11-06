@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+public enum UpgradeType {CASSIMP, CASCORN, CASEMBR, BOTFOUR, MASCOT, HACGUER, COTMAIL, BARDE, CUISIN};
+
 public class Upgrades : MonoBehaviour
 {
 
