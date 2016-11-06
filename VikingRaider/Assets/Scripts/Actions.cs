@@ -16,14 +16,14 @@ public class Actions : MonoBehaviour {
     public void getinfo (Villes town, Espion spy, Time time)
     {
         int quality = 20 - spy.perception;
-        int info = UnityEngine.Random.Range(1, 2);
+        int info = UnityEngine.Random.Range(1, 3);
          if (info == 1)
         {
             town.garni_known.is_known = true;
             town.garni_known.turn_known = time.currentTurn;
             float percent = town.garnison.number / 100;
             int success = UnityEngine.Random.Range(100 - quality, 100 + quality);
-            town.garni_known.value_known = (int)Math.Floor(success * percent);
+            town.garni_known.value_known = (int)Math.Floor((float) success * percent);
             //Urgal : espionnage de la garnison
             UIManager.DrawSpyResult(town.garni_known.value_known, ResultType.GARNISON, spy);
         }
@@ -214,7 +214,7 @@ public class Actions : MonoBehaviour {
                 if (attaque_joueur > 0)
                 {
                     //diminution de la garnison
-                    town.garnison.number = (int)Math.Floor((float) attaque_joueur / (town.garnison.def + town.fortification));
+                    town.garnison.number -= (int)Math.Floor((float) attaque_joueur / (town.garnison.def + town.fortification));
                     if (vikings_inti(joueur)>garni_moral(town))
                     {
                         joueur.gold += town.gold;
@@ -241,7 +241,7 @@ public class Actions : MonoBehaviour {
             {
                 //cas ou les knights se font pas tous peter
                 //diminution de la garnison
-                town.knights.number = (int)Math.Floor((float)attaque_joueur / (town.knights.def + town.fortification));
+                town.knights.number -= (int)Math.Floor((float)attaque_joueur / (town.knights.def + town.fortification));
                 if (vikings_inti(joueur) > garni_moral(town))
                 {
                     end = true;
@@ -269,7 +269,7 @@ public class Actions : MonoBehaviour {
                 if (attaque_joueur > 0)
                 {
                     //diminution de l'équipage
-                    joueur.viking.number = (int)Math.Floor((float)attaque_garni / joueur.viking.def);
+                    joueur.viking.number -= (int)Math.Floor((float)attaque_garni / joueur.viking.def);
                     if (garni_inti(town) > vikings_moral(joueur))
                     {
                         end = true;
@@ -290,7 +290,7 @@ public class Actions : MonoBehaviour {
             else
             {
                 //diminution de l'équipage
-                joueur.merc_moyens.number = (int)Math.Floor((float)attaque_garni / joueur.merc_moyens.def);
+                joueur.merc_moyens.number -= (int)Math.Floor((float)attaque_garni / joueur.merc_moyens.def);
                 if (garni_inti(town) > vikings_moral(joueur))
                 {
                     end = true;
