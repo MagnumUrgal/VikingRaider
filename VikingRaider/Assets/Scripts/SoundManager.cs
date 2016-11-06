@@ -154,6 +154,9 @@ public class SoundManager : Singleton<SoundManager>
             case "victory":
                 originalClip = win;
                 break;
+            default:
+                Debug.LogWarning("le bruitage" + name + "n'est pas reconnu");
+                break;
         }
         sourceBruitage.PlayOneShot(originalClip);
     }

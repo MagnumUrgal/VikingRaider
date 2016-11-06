@@ -60,28 +60,28 @@ public class Actions : MonoBehaviour {
             switch (town.current_event)
             {
                 case 1:
-                    SoundManager.PlayBruitage("wedding");
+                    SoundManager.PlayBruitage("mariage");
                     break;
                 case 2:
-                    SoundManager.PlayBruitage("autre_event");
+                    SoundManager.PlayBruitage("event");
                     break;
                 case 3:
                     SoundManager.PlayBruitage("priest");
                     break;
                 case 4:
-                    SoundManager.PlayBruitage("autre_event");
+                    SoundManager.PlayBruitage("event");
                     break;
                 case 5:
-                    SoundManager.PlayBruitage("dutchman");
+                    SoundManager.PlayBruitage("hollandais");
                     break;
                 default:
-                    SoundManager.PlayBruitage("autre_event");
+                    SoundManager.PlayBruitage("event");
                     break;
             }
         }
         else
         {
-            SoundManager.PlayBruitage("spy");
+            SoundManager.PlayBruitage("espionnage");
         }
     }
     
@@ -177,7 +177,7 @@ public class Actions : MonoBehaviour {
     public void BattleRoyale(Drakkar joueur)
     {
         //TODO Urgal
-        SoundManager.PlayBruitage("attaque");
+        SoundManager.PlayBruitage("pillage");
         Soldat garderoyale = new Soldat(7, 8, 100, 0, 100, "garderoyale");
         Soldat no_one = new Soldat(0, 0, 0, 0, 0, "personne");
         Villes roi = new Villes("roi", 0, 0, garderoyale, 0, 0, 0, no_one, no_one, 0);
@@ -221,7 +221,7 @@ public class Actions : MonoBehaviour {
     //résolution
     public void Pillage(Drakkar joueur, Villes town, Time time)
     {
-        SoundManager.PlayBruitage("attaque");
+        SoundManager.PlayBruitage("pillage");
         time.max_turn -= 1;
         time.raidcount += 1;
         town.fear += 0.05f;
