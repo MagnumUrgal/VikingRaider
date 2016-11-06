@@ -32,6 +32,7 @@ public class Time : MonoBehaviour
         event_occuring = false;
         raidcount = 0;
         max_turn = 42;
+        CurrentEventTurn = 0;
     }
 
     void Start()
