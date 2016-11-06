@@ -44,8 +44,8 @@ public class Time : MonoBehaviour
         escorte = new Soldat(1, 1, 1, 1, 35, "escortemariage");
         probleme = new Soldat(1, 1, 1, 1, -20, "pb");
         mariage = new townEvents(3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, "Un mariage de personnes importantes va bientôt se dérouler en ville. Je pense qu’il y aura pas mal de personne fortunées présentes, avec aussi un peu plus de soldats, mais ça reste des soldats, hin hin hin.", escorte, 1.2f);
-        epidemie = new townEvents(5, 0, 0, -1, 0, 0, 0, 0, 0, 0, 2, "Ca craint, la ville a été touchée par une épidémie, et croyez moi c’est pas beau à voir.Bon du coup ça va être plus facile de voler, ils sont bien trop mal en point pour se défendre correctement !", probleme, 0f);
-        priest = new townEvents(2,1,0,50,0,0,0,0,0,0,3, "Ces fanatiques ont galvanisé leurs paysans en sacrifiant diverses bestioles (et aussi des gens je crois) à leur Dieu, et bah je peux vous dire que ça marche plutôt pas mal, maintenant ce sont des paysans de compète, du genre dopé aux amphétamines !",no_one,0);
+        epidemie = new townEvents(5, 0, 0, -1, 0, 0, 0, 0, 0, 0, 2, "Ca craint, la ville a été touchée par une épidémie, et croyez moi c’est pas beau à voir.Bon du coup ça va être plus facile de voler, ils sont bien trop mal en point pour se défendre correctement !", probleme, 1f);
+        priest = new townEvents(2,1,0,50,0,0,0,0,0,0,3, "Ces fanatiques ont galvanisé leurs paysans en sacrifiant diverses bestioles (et aussi des gens je crois) à leur Dieu, et bah je peux vous dire que ça marche plutôt pas mal, maintenant ce sont des paysans de compète, du genre dopé aux amphétamines !",no_one,1f);
         famine = new townEvents(4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, "Dans cette ville ils n’ont déjà pas assez de bouffe pour subvenir aux besoins de tous les habitants. Oui c’est la misère. Le pillage sera pas terrible mais au moins ils sont déjà affaiblis.",probleme, 0.6f);
         Hollandais = new Events(2, 0, 0, -2, 0, 5,"Hollandais volant", no_one);
         None = new Events(0, 0, 0, 0, 0, 0, "Rien d'intéressant", no_one);
