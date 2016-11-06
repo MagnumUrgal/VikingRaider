@@ -244,7 +244,7 @@ public class GameManager : MonoBehaviour {
     public int victory (Drakkar joueur)
     {
         //TODO Urgal
-        SoundManager.PlayBruitage("win");
+        SoundManager.PlayBruitage("victory");
         int score = (int)Math.Floor ((double) joueur.gold / (joueur.viking.number + 1));
         return score;
     }
@@ -254,7 +254,7 @@ public class GameManager : MonoBehaviour {
         {
             //TODO Urgal
             //END GAME pop-up victoire
-            SoundManager.PlayBruitage("win");
+            SoundManager.PlayBruitage("victory");
             int score = (int)Math.Floor((double)joueur.gold / (joueur.viking.number + 1));
             return score;
         }
