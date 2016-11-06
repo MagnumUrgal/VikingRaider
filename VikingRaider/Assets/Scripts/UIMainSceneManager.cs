@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 public enum ResultType { GARNISON, GOLD, DEADSPY, TREBUCHET, KNIGHTS, EVENT, PILLAGEWIN, PILLAGESURRENDER, PILLAGELOST, PILLAGEGAMEOVER };
 
@@ -27,6 +28,10 @@ public class UIMainSceneManager : MonoBehaviour
     private GameObject IsTrebuchetNotificationPanel;
     private GameObject IsEventNotificationPanel;
     private GameObject BuyEspionPanel;
+
+    private GameObject DefeatPanel;
+    private GameObject VictoryPanel;
+    private bool WaitForClickToGoToMenu;
     
     private Text GarnisonText;
     private Text GoldText;
@@ -83,6 +88,9 @@ public class UIMainSceneManager : MonoBehaviour
         BuyEspionPanel = GameObject.Find("BuyEspionPanel");
         currentSelectedEspion = 0;
 
+        DefeatPanel = GameObject.Find("DefeatPanel");
+        VictoryPanel = GameObject.Find("VictoryPanel");
+
         GarnisonText = GameObject.Find("GarnisonText").GetComponent<Text>();
         GoldText = GameObject.Find("GoldText").GetComponent<Text>();
         DeadSpyText = GameObject.Find("DeadSpyText").GetComponent<Text>();
@@ -111,6 +119,9 @@ public class UIMainSceneManager : MonoBehaviour
         IsTrebuchetNotificationPanel.SetActive(false);
         IsEventNotificationPanel.SetActive(false);
 
+        DefeatPanel.SetActive(false);
+        VictoryPanel.SetActive(false);
+
         updateSizeWindow();
 
         historiqueList = new List<string>();
@@ -119,6 +130,8 @@ public class UIMainSceneManager : MonoBehaviour
 
     void Start()
     {
+        WaitForClickToGoToMenu = false;
+
         updateGoldGUI();
         AmeliorationPanel.transform.GetChild(0).gameObject.AddComponent<Upgrades>();
         AmeliorationPanel.transform.GetChild(0).GetComponent<Upgrades>().upgradeType = UpgradeType.CASSIMP;
@@ -147,11 +160,12 @@ public class UIMainSceneManager : MonoBehaviour
 
     void OnGUI()
     {
-        if (Input.GetMouseButtonDown(0) && !(CityInfoPanel.activeSelf && 
-            RectTransformUtility.RectangleContainsScreenPoint(CityInfoPanel.GetComponentInChildren<RectTransform>(), Input.mousePosition)))
-        {
-            /*if (!(CityInfoPanel.activeSelf && RectTransformUtility.RectangleContainsScreenPoint(CityInfoPanel.GetComponentInChildren<RectTransform>(), Input.mousePosition)))
-            {*/
+        if (!WaitForClickToGoToMenu) {
+            if (Input.GetMouseButtonDown(0) && !(CityInfoPanel.activeSelf &&
+                RectTransformUtility.RectangleContainsScreenPoint(CityInfoPanel.GetComponentInChildren<RectTransform>(), Input.mousePosition)))
+            {
+                /*if (!(CityInfoPanel.activeSelf && RectTransformUtility.RectangleContainsScreenPoint(CityInfoPanel.GetComponentInChildren<RectTransform>(), Input.mousePosition)))
+                {*/
                 if (!EquipagePanel.activeSelf && !AmeliorationPanel.activeSelf && !HistoriquePanel.activeSelf && !MenuPanel.activeSelf)
                 {
                     RaycastHit hit;
@@ -167,7 +181,15 @@ public class UIMainSceneManager : MonoBehaviour
                         CityInfoPanel.SetActive(false);
                     }
                 }
+            }
             /*}*/
+        }
+        else
+        {
+            if (Input.GetMouseButton(0))
+            {
+                SceneManager.LoadScene(0);
+            }
         }
     }
 
@@ -407,8 +429,6 @@ public class UIMainSceneManager : MonoBehaviour
 
     void drawVilleInfo(Villes ville, Vector2 mouseScreenPos)
     {
-        //if (!CityInfoPanel.activeSelf)
-        //{
             CityInfoPanel.SetActive(true);
             CityInfoPanel.GetComponent<RectTransform>().anchoredPosition = mouseScreenPos;
             string toPrint = ville.nameVilles + "\n" + "Fortifications : " + ville.fortification + "\n";
@@ -463,6 +483,7 @@ public class UIMainSceneManager : MonoBehaviour
     {
         if (cursorOnThisVille != null)
         {
+            Debug.Log("pi");
             VilleConcernedByAction = cursorOnThisVille;
             ChoseSpyPanel.SetActive(true);
             int i = 0;
@@ -501,6 +522,7 @@ public class UIMainSceneManager : MonoBehaviour
     {
         if (drakkar.espion_list.Count > 1)
         {
+            Debug.Log("caca");
             actionScript.Espionnage(drakkar, drakkar.espion_list[1], VilleConcernedByAction, timeScript);
             VilleConcernedByAction = null;
             ChoseSpyPanel.SetActive(false);
@@ -511,6 +533,7 @@ public class UIMainSceneManager : MonoBehaviour
     {
         if (drakkar.espion_list.Count > 2)
         {
+            Debug.Log("caca");
             actionScript.Espionnage(drakkar, drakkar.espion_list[2], VilleConcernedByAction, timeScript);
             VilleConcernedByAction = null;
             ChoseSpyPanel.SetActive(false);
@@ -846,6 +869,14 @@ public class UIMainSceneManager : MonoBehaviour
 
     public void defeat()
     {
+        DefeatPanel.SetActive(true);
+        WaitForClickToGoToMenu = true;
+    }
 
+    public void victory(int score)
+    {
+        VictoryPanel.SetActive(true);
+        VictoryPanel.transform.GetChild(0).GetComponent<Text>().text = "Score : " + score;
+        WaitForClickToGoToMenu = true;
     }
 }
