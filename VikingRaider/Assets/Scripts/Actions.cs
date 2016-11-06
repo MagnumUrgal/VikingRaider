@@ -43,16 +43,20 @@ public class Actions : MonoBehaviour {
         if (town.is_knights)
         {
             //todo urgal, add message knights
-
+            string descr = "Blabla Knights";
+            UIManager.DrawSpySpecial(descr, ResultType.KNIGHTS, spy, town);
         }
         if (town.is_trebuchet)
         {
             //todo urgal, add message trebuchet
+            string descr = "Blabla Trebuchet";
+            UIManager.DrawSpySpecial(descr, ResultType.TREBUCHET, spy, town);
         }
         if (town.is_event)
         {
             //todo urgal
-            string descrption = time.getdescrpevent(town.current_event);
+            string descr = time.getdescrpevent(town.current_event);
+            UIManager.DrawSpySpecial(descr, ResultType.EVENT, spy, town);
         }
     }
     
@@ -268,6 +272,7 @@ public class Actions : MonoBehaviour {
             if (attaque_garni > vikings_def(joueur))
             {
                 //Urgal : le joueur Game Over
+                //Calculer le nbr de personnes restantes
                 UIManager.DrawPillageResult(0, initialSoldiersNumber - joueur.viking.number, initialMercenaireNumber - joueur.merc_moyens.number, ResultType.PILLAGEGAMEOVER, town);
                 end = true;
             }

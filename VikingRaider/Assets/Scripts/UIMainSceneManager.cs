@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine.UI;
 using System.Collections.Generic;
 
-public enum ResultType { GARNISON, GOLD, DEADSPY, PILLAGEWIN, PILLAGESURRENDER, PILLAGELOST, PILLAGEGAMEOVER };
+public enum ResultType { GARNISON, GOLD, DEADSPY, TREBUCHET, KNIGHTS, EVENT, PILLAGEWIN, PILLAGESURRENDER, PILLAGELOST, PILLAGEGAMEOVER };
 
 public class UIMainSceneManager : MonoBehaviour
 {
@@ -24,6 +24,9 @@ public class UIMainSceneManager : MonoBehaviour
     private GameObject goldButton;
     private GameObject toursText;
     private GameObject CheatDebugPanel;
+    private GameObject IsKnightNotificationPanel;
+    private GameObject IsTrebuchetNotificationPanel;
+    private GameObject IsEventNotificationPanel;
 
     private Text GarnisonText;
     private Text GoldText;
@@ -32,6 +35,9 @@ public class UIMainSceneManager : MonoBehaviour
     private Text PillageLostText;
     private Text PillageSurrenderText;
     private Text GameOverText;
+    private Text KnightsText;
+    private Text TrebText;
+    private Text EventText;
 
     private Villes cursorOnThisVille;
     private Villes VilleConcernedByAction;
@@ -55,6 +61,9 @@ public class UIMainSceneManager : MonoBehaviour
         fortNonFortifie = (GameObject)Resources.Load("ville_nonFortifié");
 
         CheatDebugPanel = GameObject.Find("CheatDebugPanel");
+        IsKnightNotificationPanel = GameObject.Find("IsKnightNotificationPanel");
+        IsTrebuchetNotificationPanel = GameObject.Find("IsTrebuchetNotificationPanel");
+        IsEventNotificationPanel = GameObject.Find("IsEventNotificationPanel");
 
         botPanel = GameObject.Find("BotPanelButtons");
         topPanel = GameObject.Find("TopPanelButtons");
@@ -78,7 +87,6 @@ public class UIMainSceneManager : MonoBehaviour
         PillageSurrenderText = GameObject.Find("PillageSurrenderText").GetComponent<Text>();
         GameOverText = GameObject.Find("GameOverText").GetComponent<Text>();
 
-
         EquipagePanel.SetActive(false);
         AmeliorationPanel.SetActive(false);
         HistoriquePanel.SetActive(false);
@@ -93,6 +101,10 @@ public class UIMainSceneManager : MonoBehaviour
         PillageLostText.transform.parent.gameObject.SetActive(false);
         PillageSurrenderText.transform.parent.gameObject.SetActive(false);
         GameOverText.transform.parent.gameObject.SetActive(false);
+
+        IsKnightNotificationPanel.SetActive(false);
+        IsTrebuchetNotificationPanel.SetActive(false);
+        IsEventNotificationPanel.SetActive(false);
 
         updateSizeWindow();
 
@@ -125,7 +137,6 @@ public class UIMainSceneManager : MonoBehaviour
             }
         }
     }
-
 
     public void updateSizeWindow()
     {
@@ -287,9 +298,31 @@ public class UIMainSceneManager : MonoBehaviour
         addEspionnageToHistoriqueList(info, resultType, spy, town);
     }
 
+    public void DrawSpySpecial(string info, ResultType resultType, Espion spy, Villes town)
+    {
+        if (resultType == ResultType.KNIGHTS)
+        {
+            IsKnightNotificationPanel.SetActive(true);
+            IsKnightNotificationPanel.GetComponent<Text>().text = info;
+            // A FINIR
+        } 
+        else if (resultType == ResultType.TREBUCHET)
+        {
+            IsTrebuchetNotificationPanel.SetActive(true);
+            IsTrebuchetNotificationPanel.GetComponent<Text>().text = info;
+            // A FINIR
+        }
+        else if (resultType == ResultType.EVENT)
+        {
+            IsEventNotificationPanel.SetActive(true);
+            IsEventNotificationPanel.GetComponent<Text>().text = info;
+            // A FINIR
+        }
+    }
+
     public void DrawPillageResult(int goldWin, int pertesSoldiers, int pertesMercenaires, ResultType resultType, Villes town)
     {
-        if(resultType == ResultType.PILLAGEWIN)
+        if (resultType == ResultType.PILLAGEWIN)
         {
             Notifications.SetActive(true);
             PillageWinText.transform.parent.gameObject.SetActive(true);
@@ -489,7 +522,7 @@ public class UIMainSceneManager : MonoBehaviour
         {
             CheatDebugPanel.transform.GetChild(0).GetComponent<Text>().text = "Last selected city :\nGarnison : " +
                 cursorOnThisVille.garnison + "\nOr : " + cursorOnThisVille.gold + "\nTrebuchets : " + cursorOnThisVille.is_trebuchet + "\nIs_event : " + cursorOnThisVille.is_event +
-                "\nPerception : " + cursorOnThisVille.perception +"\nevID : " + cursorOnThisVille.current_event;
+                "\nPerception : " + cursorOnThisVille.perception +"\nevID : " + cursorOnThisVille.current_event +"\nknights : " + cursorOnThisVille.is_knights;
         }
     }
 
@@ -529,5 +562,20 @@ public class UIMainSceneManager : MonoBehaviour
         {
             historiqueList.Add(spy.namePerso + ", " + town.nameVilles + ", RIP.");
         }
+    }
+
+    public void OnReturnTrebuchet()
+    {
+        IsTrebuchetNotificationPanel.SetActive(false);
+    }
+
+    public void OnReturnKnights()
+    {
+        IsKnightNotificationPanel.SetActive(false);
+    }
+
+    public void OnReturnEvents()
+    {
+        IsEventNotificationPanel.SetActive(false);
     }
 }
