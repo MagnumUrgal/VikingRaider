@@ -21,6 +21,7 @@ public class UIMainSceneManager : MonoBehaviour
     private GameObject fortFortFortifie;
     private GameObject fortPeuFortifie;
     private GameObject fortNonFortifie;
+    private GameObject goldButton;
 
     private Text GarnisonText;
     private Text GoldText;
@@ -61,6 +62,7 @@ public class UIMainSceneManager : MonoBehaviour
         CityInfoPanel = GameObject.Find("CityInfoPanel");
         ChoseSpyPanel = GameObject.Find("ChoseSpyPanel");
         ReturnFromNotificationButton = GameObject.Find("ReturnFromNotificationButton");
+        goldButton = GameObject.Find("GoldButton");
 
         GarnisonText = GameObject.Find("GarnisonText").GetComponent<Text>();
         GoldText = GameObject.Find("GoldText").GetComponent<Text>();
@@ -91,7 +93,7 @@ public class UIMainSceneManager : MonoBehaviour
 
     void Start()
     {
-
+        updateGoldGUI();
     }
 
     void OnGUI()
@@ -426,6 +428,7 @@ public class UIMainSceneManager : MonoBehaviour
         PillageSurrenderText.transform.parent.gameObject.SetActive(false);
         GameOverText.transform.parent.gameObject.SetActive(false);
         ReturnFromNotificationButton.SetActive(false);
+        updateGoldGUI();
     }
 
     public void OnRaidButton()
@@ -442,5 +445,15 @@ public class UIMainSceneManager : MonoBehaviour
                 actionScript.BattleRoyale(drakkar);
             }
         }
+    }
+
+    public void updateGoldGUI()
+    {
+        goldButton.transform.GetChild(0).GetComponent<Text>().text = "<color=white><b>" + drakkar.gold.ToString() + "</b></color>";
+    }
+
+    public void updateTurnsGUI(int currentTurn, int maxTurn)
+    {
+
     }
 }

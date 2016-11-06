@@ -6,11 +6,14 @@ using System;
 public class Actions : MonoBehaviour {
     //Urgal : liaison de l'UIMainSceneManager
     private UIMainSceneManager UIManager;
-
+    private Time timeScript;
+    private GameManager gameManager;
     //Urgal : liaison de l'UIMainSceneManager
     void Start()
     {
         UIManager = GameObject.Find("Canvas").GetComponent<UIMainSceneManager>();
+        timeScript = this.GetComponent<Time>();
+        gameManager = this.GetComponent<GameManager>();
     }
 
     public void getinfo (Villes town, Espion spy, Time time)
@@ -71,6 +74,7 @@ public class Actions : MonoBehaviour {
         }
         else { getinfo(town, spy, time); }
 
+        timeScript.updateTurn(gameManager);
     }
 
 
@@ -305,5 +309,6 @@ public class Actions : MonoBehaviour {
             }
             //sinon on continue
         }
+        timeScript.updateTurn(gameManager);
     }
 }
