@@ -214,13 +214,18 @@ public class UIMainSceneManager : MonoBehaviour
         if (!EquipagePanel.activeSelf)
         {
             EquipagePanel.SetActive(true);
-            EquipagePanel.transform.GetChild(0).GetComponent<Text>().text = "Viking : " + drakkar.viking.number + ".\nMercenaires : " + drakkar.merc_moyens.number +
-                ".\nEspions : " + drakkar.espion_list.Count + ".";
+            updateDrawEquipageBilan();
         }
         else
         {
             EquipagePanel.SetActive(false);
         }
+    }
+
+    public void updateDrawEquipageBilan()
+    {
+        EquipagePanel.transform.GetChild(0).GetComponent<Text>().text = "Viking : " + drakkar.viking.number + ".\nMercenaires : " + drakkar.merc_moyens.number +
+            ".\nEspions : " + drakkar.espion_list.Count + ".";
     }
 
     public void OnAmeliorationButton()
@@ -556,6 +561,7 @@ public class UIMainSceneManager : MonoBehaviour
         toursText.GetComponent<Text>().text = "<color=white><b>" + currentTurn + "  /  " + maxTurn + "</b></color>";
     }
 
+    /*
     public void Update()
     {
         if (cursorOnThisVille != null)
@@ -564,7 +570,7 @@ public class UIMainSceneManager : MonoBehaviour
                 cursorOnThisVille.garnison + "\nOr : " + cursorOnThisVille.gold + "\nTrebuchets : " + cursorOnThisVille.is_trebuchet + "\nIs_event : " + cursorOnThisVille.is_event +
                 "\nPerception : " + cursorOnThisVille.perception + "\nevID : " + cursorOnThisVille.current_event + "\nknights : " + cursorOnThisVille.is_knights;
         }
-    }
+    }*/
 
     void addPillageToHistoriqueList(int goldWin, int pertesSoldiers, int pertesMercenaires, ResultType resultType, Villes town)
     {
@@ -781,7 +787,10 @@ public class UIMainSceneManager : MonoBehaviour
     {
         if (drakkar.gold > 500)
         {
+            drakkar.gold = drakkar.gold - 500;
+            updateGoldGUI();
             drakkar.merc_moyens.add(1);
+            updateDrawEquipageBilan();
         }
     }
 
@@ -790,7 +799,9 @@ public class UIMainSceneManager : MonoBehaviour
         if (drakkar.gold > 5000)
         {
             drakkar.gold = drakkar.gold - 5000;
+            updateGoldGUI();
             drakkar.viking.add(1);
+            updateDrawEquipageBilan();
         }
     }
 
@@ -799,38 +810,29 @@ public class UIMainSceneManager : MonoBehaviour
         if (drakkar.gold > 15000)
         {
             gameManager.drakkar.gold = drakkar.gold - 5000;
-            string nameEspion = "";
+            updateGoldGUI();
             if (currentSelectedEspion == 1)
             {
                 gameManager.drakkar.espion_list.Add(gameManager.Blake);
-                nameEspion = "Blake";
             }
             else if(currentSelectedEspion == 2)
             {
                 gameManager.drakkar.espion_list.Add(gameManager.Flantier);
-                nameEspion = "Flantier";
             }
             else if (currentSelectedEspion == 3)
             {
                 gameManager.drakkar.espion_list.Add(gameManager.Sammy);
-                nameEspion = "Sammy";
             }
             else if (currentSelectedEspion == 4)
             {
                 gameManager.drakkar.espion_list.Add(gameManager.Willy);
-                nameEspion = "Willy";
-            }
-
-            for (int i = 0; i < gameManager.drakkar.espion_list.Count; i++)
-            {
-                if (gameManager.drakkar.espion_list[i].namePerso == nameEspion)
-                {
-                    gameManager.ShopList.RemoveAt(i);
-                    break;
-                }
             }
             
+            
             BuyEspionPanel.transform.GetChild(0).GetChild(currentSelectedEspion - 1).GetComponent<Image>().sprite = Resources.Load<Sprite>("Espion_block");
+            updateDrawEquipageBilan();
+            Debug.Log(drakkar.espion_list.Count);
+            BuyEspionPanel.SetActive(false);
         }
     }
 

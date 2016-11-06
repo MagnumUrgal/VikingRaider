@@ -241,8 +241,6 @@ public class Actions : MonoBehaviour {
                         //Urgal : cas ou la ville se rend
                         UIManager.DrawPillageResult(town.gold, initialSoldiersNumber - joueur.viking.number, 
                             initialMercenaireNumber - joueur.merc_moyens.number, ResultType.PILLAGESURRENDER, town);
-                        Debug.Log(joueur.viking.number);
-                        Debug.Log("nombre de viking  urgal");
                         town.gold = 0;
                         end = true;
                     }
