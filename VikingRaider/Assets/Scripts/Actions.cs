@@ -69,6 +69,7 @@ public class Actions : MonoBehaviour {
             if (town.capture>spy.fuite)
             {
                 //Urgal : delete espion
+                joueur.delEspion(spy);
                 UIManager.DrawSpyResult(0, ResultType.DEADSPY, spy, town);
             }
             else

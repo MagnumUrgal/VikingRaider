@@ -221,7 +221,7 @@ public class GameManager : MonoBehaviour {
 
         file.Close();*/
     }
-    public void defeat (Drakkar joueur)
+    public void feat (Drakkar joueur)
     {
         //TODO Urgal
     }
