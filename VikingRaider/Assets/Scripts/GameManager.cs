@@ -26,8 +26,8 @@ public class GameManager : MonoBehaviour {
         // init gameName ici avec les input du joueur
 
         // init du drakkar
-        Soldat viking = new Soldat(3, 3, 3, 3, 30, "Vikings");
-        Soldat merc = new Soldat(1, 1, 1, 1, 0, "Mercenaires");
+        Soldat viking = new Soldat(3, 3, 2, 1, 40, "Vikings");
+        Soldat merc = new Soldat(1, 1, 0, 0, 0, "Mercenaires");
         drakkar = new Drakkar(gameName, 0, viking, merc, 8);
 
         UImanager.drakkar = drakkar;
@@ -127,7 +127,7 @@ public class GameManager : MonoBehaviour {
             int garnNum = nbrList[randGarn];
             nbrList.RemoveAt(randGarn);
 
-            Soldat garnison = new Soldat(1, 1, 1, 1, garnNum, "Garnisons");
+            Soldat garnison = new Soldat(1, 1, 2, 1, garnNum, "Garnisons");
 
             // rand fortification
             int Fortif = 0;
@@ -141,7 +141,7 @@ public class GameManager : MonoBehaviour {
                     Fortif = 1;
                     break;
                 case 2:
-                    Fortif = 3;
+                    Fortif = 2;
                     break;
             }
 
