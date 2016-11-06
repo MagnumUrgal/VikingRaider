@@ -795,7 +795,11 @@ public class UIMainSceneManager : MonoBehaviour
 
     public void OnFireMercenaire()
     {
-        drakkar.merc_moyens.sub(1);
+        if (drakkar.merc_moyens.number > 0)
+        {
+            drakkar.merc_moyens.sub(1);
+            updateDrawEquipageBilan();
+        }
     }
 
     public void OnBuyMercenaire()
