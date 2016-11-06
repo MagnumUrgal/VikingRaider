@@ -41,7 +41,7 @@ public class UIMainSceneManager : MonoBehaviour
     private Text EventText;
 
     private List<Upgrades> UpList;
-    private Espion currentSelectedEspion;
+    private int currentSelectedEspion;
 
     private Villes cursorOnThisVille;
     private Villes VilleConcernedByAction;
@@ -50,8 +50,6 @@ public class UIMainSceneManager : MonoBehaviour
     private GameManager gameManager;
 
     private List<string> historiqueList;
-
-    public Sprite voidSpySprite;
 
     [HideInInspector]
     public Drakkar drakkar; //is set by the GameManager
@@ -85,7 +83,7 @@ public class UIMainSceneManager : MonoBehaviour
         goldButton = GameObject.Find("GoldButton");
         toursText = GameObject.Find("ToursText");
         BuyEspionPanel = GameObject.Find("BuyEspionPanel");
-        currentSelectedEspion = null;
+        currentSelectedEspion = 0;
 
         GarnisonText = GameObject.Find("GarnisonText").GetComponent<Text>();
         GoldText = GameObject.Find("GoldText").GetComponent<Text>();
@@ -147,8 +145,6 @@ public class UIMainSceneManager : MonoBehaviour
         AmeliorationPanel.transform.GetChild(3).GetChild(0).GetComponent<Image>().sprite = (Sprite)Resources.Load<Sprite>("Barde");
         AmeliorationPanel.transform.GetChild(3).GetChild(1).GetComponent<Text>().text = "40 000";
         AmeliorationPanel.transform.GetChild(3).GetChild(2).GetComponent<Text>().text = "Parce qu'avec son chant, on n'entend pas vos hurlements.";
-
-
     }
 
     void OnGUI()
@@ -186,6 +182,18 @@ public class UIMainSceneManager : MonoBehaviour
         topPanel.GetComponent<GridLayoutGroup>().spacing = new Vector2(Screen.width / 1.25f, 0);
 
         Notifications.GetComponent<RectTransform>().sizeDelta = new Vector2(Screen.width / 2.5f, Screen.height / 2.5f);
+    }
+
+    public void EspionOwnedDisplayStart()
+    {
+        if (gameManager.drakkar.espion_list[0].namePerso == "Blake")
+            BuyEspionPanel.transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = Resources.Load<Sprite>("Espion_block");
+        if (gameManager.drakkar.espion_list[0].namePerso == "Flantier")
+            BuyEspionPanel.transform.GetChild(0).GetChild(1).GetComponent<Image>().sprite = Resources.Load<Sprite>("Espion_block");
+        if (gameManager.drakkar.espion_list[0].namePerso == "Sammy")
+            BuyEspionPanel.transform.GetChild(0).GetChild(2).GetComponent<Image>().sprite = Resources.Load<Sprite>("Espion_block");
+        if (gameManager.drakkar.espion_list[0].namePerso == "Willy")
+            BuyEspionPanel.transform.GetChild(0).GetChild(3).GetComponent<Image>().sprite = Resources.Load<Sprite>("Espion_block");
     }
 
     public void OnEquipageButton()
@@ -454,20 +462,20 @@ public class UIMainSceneManager : MonoBehaviour
             foreach (Espion e in drakkar.espion_list)
             {
                 //Les sprites des espions doivent porter le nom exact du personnage
-                ChoseSpyPanel.transform.GetChild(i).GetComponent<Image>().sprite = (Sprite)Resources.Load(e.namePerso);
+                ChoseSpyPanel.transform.GetChild(i).GetComponent<Image>().sprite = Resources.Load<Sprite>(e.namePerso);
                 i++;
             }
             if (drakkar.espion_list.Count < 3)
             {
-                ChoseSpyPanel.transform.GetChild(2).GetComponent<Image>().sprite = voidSpySprite;
+                ChoseSpyPanel.transform.GetChild(2).GetComponent<Image>().sprite = Resources.Load<Sprite>("Espion_block");
             }
             if (drakkar.espion_list.Count < 2)
             {
-                ChoseSpyPanel.transform.GetChild(1).GetComponent<Image>().sprite = voidSpySprite;
+                ChoseSpyPanel.transform.GetChild(1).GetComponent<Image>().sprite = Resources.Load<Sprite>("Espion_block");
             }
             if (drakkar.espion_list.Count == 0)
             {
-                ChoseSpyPanel.transform.GetChild(0).GetComponent<Image>().sprite = voidSpySprite;
+                ChoseSpyPanel.transform.GetChild(0).GetComponent<Image>().sprite = Resources.Load<Sprite>("Espion_block");
             }
         }
     }
@@ -771,28 +779,70 @@ public class UIMainSceneManager : MonoBehaviour
 
     public void OnBuyMercenaire()
     {
-        drakkar.merc_moyens.add(1);
+        if (drakkar.gold > 500)
+        {
+            drakkar.merc_moyens.add(1);
+        }
     }
 
     public void OnBuyViking()
     {
-        drakkar.viking.add(1);
+        if (drakkar.gold > 5000)
+        {
+            drakkar.gold = drakkar.gold - 5000;
+            drakkar.viking.add(1);
+        }
     }
 
     public void OnBuyConfirmedEspion()
     {
-        
+        if (drakkar.gold > 15000)
+        {
+            gameManager.drakkar.gold = drakkar.gold - 5000;
+            string nameEspion = "";
+            if (currentSelectedEspion == 1)
+            {
+                gameManager.drakkar.espion_list.Add(gameManager.Blake);
+                nameEspion = "Blake";
+            }
+            else if(currentSelectedEspion == 2)
+            {
+                gameManager.drakkar.espion_list.Add(gameManager.Flantier);
+                nameEspion = "Flantier";
+            }
+            else if (currentSelectedEspion == 3)
+            {
+                gameManager.drakkar.espion_list.Add(gameManager.Sammy);
+                nameEspion = "Sammy";
+            }
+            else if (currentSelectedEspion == 4)
+            {
+                gameManager.drakkar.espion_list.Add(gameManager.Willy);
+                nameEspion = "Willy";
+            }
+
+            for (int i = 0; i < gameManager.drakkar.espion_list.Count; i++)
+            {
+                if (gameManager.drakkar.espion_list[i].namePerso == nameEspion)
+                {
+                    gameManager.ShopList.RemoveAt(i);
+                    break;
+                }
+            }
+            
+            BuyEspionPanel.transform.GetChild(0).GetChild(currentSelectedEspion - 1).GetComponent<Image>().sprite = Resources.Load<Sprite>("Espion_block");
+        }
     }
 
     public void OnCancelBuyEspion()
     {
-
+        BuyEspionPanel.SetActive(false);
+        currentSelectedEspion = 0;
     }
 
     //ShopList = la liste des espions que je n'ai pas
     public void OnCharacterSelected(int i)
     {
-        /*if(i==0)
-            drakkar.espion_list*/
+        currentSelectedEspion = i;
     }
 }

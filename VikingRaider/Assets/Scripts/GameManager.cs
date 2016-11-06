@@ -13,6 +13,11 @@ public class GameManager : MonoBehaviour {
 
     [HideInInspector]
     public Drakkar drakkar;
+    public Espion Blake;
+    public Espion Sammy;
+    public Espion Willy;
+    public Espion Flantier;
+    
 
     //Urgal : liaison avec UIMainSceneManager
     [HideInInspector]
@@ -77,6 +82,8 @@ public class GameManager : MonoBehaviour {
                 ShopList.Add(Willy);
                 ShopList.Add(Blake);
                 break;
+
+                UImanager.EspionOwnedDisplayStart();
         }
 
         // init des villes
