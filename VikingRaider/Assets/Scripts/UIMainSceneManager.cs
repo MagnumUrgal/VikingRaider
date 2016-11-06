@@ -147,23 +147,27 @@ public class UIMainSceneManager : MonoBehaviour
 
     void OnGUI()
     {
-        if (!(CityInfoPanel.activeSelf && RectTransformUtility.RectangleContainsScreenPoint(CityInfoPanel.GetComponentInChildren<RectTransform>(), Input.mousePosition)))
+        if (Input.GetMouseButtonDown(0) && !(CityInfoPanel.activeSelf && 
+            RectTransformUtility.RectangleContainsScreenPoint(CityInfoPanel.GetComponentInChildren<RectTransform>(), Input.mousePosition)))
         {
-            if (!EquipagePanel.activeSelf && !AmeliorationPanel.activeSelf && !HistoriquePanel.activeSelf && !MenuPanel.activeSelf && !Notifications.activeSelf)
-            {
-                RaycastHit hit;
-                bool b = Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit);
-                if (b && hit.collider.GetComponent<Villes>())
+            /*if (!(CityInfoPanel.activeSelf && RectTransformUtility.RectangleContainsScreenPoint(CityInfoPanel.GetComponentInChildren<RectTransform>(), Input.mousePosition)))
+            {*/
+                if (!EquipagePanel.activeSelf && !AmeliorationPanel.activeSelf && !HistoriquePanel.activeSelf && !MenuPanel.activeSelf)
                 {
-                    cursorOnThisVille = hit.collider.GetComponent<Villes>();
-                    drawVilleInfo(cursorOnThisVille, Input.mousePosition);
+                    RaycastHit hit;
+                    bool b = Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit);
+                    if (b && hit.collider.GetComponent<Villes>())
+                    {
+                        cursorOnThisVille = hit.collider.GetComponent<Villes>();
+                        drawVilleInfo(cursorOnThisVille, Input.mousePosition);
+                    }
+                    else
+                    {
+                        cursorOnThisVille = null;
+                        CityInfoPanel.SetActive(false);
+                    }
                 }
-                else
-                {
-                    cursorOnThisVille = null;
-                    CityInfoPanel.SetActive(false);
-                }
-            }
+            /*}*/
         }
     }
 
@@ -403,8 +407,8 @@ public class UIMainSceneManager : MonoBehaviour
 
     void drawVilleInfo(Villes ville, Vector2 mouseScreenPos)
     {
-        if (!CityInfoPanel.activeSelf)
-        {
+        //if (!CityInfoPanel.activeSelf)
+        //{
             CityInfoPanel.SetActive(true);
             CityInfoPanel.GetComponent<RectTransform>().anchoredPosition = mouseScreenPos;
             string toPrint = ville.nameVilles + "\n" + "Fortifications : " + ville.fortification + "\n";
@@ -429,7 +433,7 @@ public class UIMainSceneManager : MonoBehaviour
                     toPrint = toPrint + "<color=green> Or : " + ville.gold_known.value_known + "</color>\n";
             }
             CityInfoPanel.transform.GetChild(0).GetComponent<Text>().text = toPrint;
-        }
+        //}
     }
 
     //C'est une classe Villes sans s en vrai, ne représente qu'une ville
@@ -814,11 +818,11 @@ public class UIMainSceneManager : MonoBehaviour
             {
                 gameManager.drakkar.espion_list.Add(gameManager.Willy);
             }
-            
-            
+
+            Debug.Log(gameManager.drakkar.espion_list.Contains(gameManager.Sammy));
+
             BuyEspionPanel.transform.GetChild(0).GetChild(currentSelectedEspion - 1).GetComponent<Image>().sprite = Resources.Load<Sprite>("Espion_block");
             updateDrawEquipageBilan();
-            Debug.Log(drakkar.espion_list.Count);
             BuyEspionPanel.SetActive(false);
         }
     }
