@@ -40,6 +40,8 @@ public class GameManager : MonoBehaviour {
         //init du roi
         king = false;
 
+        SoundManager.PlayMusique("main"); 
+
         // init des espions
         Espion Blake = new Espion(2, 15, 3, "Blake", "Un espion assez compétent et discret, mais au charisme d’un hanneton malade. A tendance à attirer les problèmes mais compense par sa vitesse de course.");
         Espion Sammy = new Espion(4, 18, 0, "Sammy", "Vient au calme, voit bien et pars vite, sans se soucier d’avoir été vu par 99% de la ville. Forcément, l'intérêt des infos ramenées est proportionnel à la méfiance générée chez les gueux.");
