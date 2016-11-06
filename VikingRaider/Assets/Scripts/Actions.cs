@@ -6,11 +6,14 @@ using System;
 public class Actions : MonoBehaviour {
     //Urgal : liaison de l'UIMainSceneManager
     private UIMainSceneManager UIManager;
-
+    private Time timeScript;
+    private GameManager gameManager;
     //Urgal : liaison de l'UIMainSceneManager
     void Start()
     {
         UIManager = GameObject.Find("Canvas").GetComponent<UIMainSceneManager>();
+        timeScript = this.GetComponent<Time>();
+        gameManager = this.GetComponent<GameManager>();
     }
 
     public void getinfo (Villes town, Espion spy, Time time)
@@ -21,7 +24,7 @@ public class Actions : MonoBehaviour {
         {
             town.garni_known.is_known = true;
             town.garni_known.turn_known = time.currentTurn;
-            float percent = town.garnison.number / 100;
+            float percent = (float) town.garnison.number / 100f;
             int success = UnityEngine.Random.Range(100 - quality, 100 + quality);
             town.garni_known.value_known = (int)Math.Floor((float) success * percent);
             //Urgal : espionnage de la garnison
@@ -63,10 +66,15 @@ public class Actions : MonoBehaviour {
                 //Urgal : delete espion
                 UIManager.DrawSpyResult(0, ResultType.DEADSPY, spy);
             }
-            else { getinfo(town, spy, time); }
+            else
+            {
+                getinfo(town, spy, time);
+                //todo faire la distinction de cas
+            }
         }
         else { getinfo(town, spy, time); }
 
+        timeScript.updateTurn(gameManager);
     }
 
 
@@ -301,5 +309,6 @@ public class Actions : MonoBehaviour {
             }
             //sinon on continue
         }
+        timeScript.updateTurn(gameManager);
     }
 }
