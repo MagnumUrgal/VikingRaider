@@ -22,6 +22,7 @@ public class UIMainSceneManager : MonoBehaviour
     private GameObject fortPeuFortifie;
     private GameObject fortNonFortifie;
     private GameObject goldButton;
+    private GameObject toursText;
 
     private Text GarnisonText;
     private Text GoldText;
@@ -63,6 +64,7 @@ public class UIMainSceneManager : MonoBehaviour
         ChoseSpyPanel = GameObject.Find("ChoseSpyPanel");
         ReturnFromNotificationButton = GameObject.Find("ReturnFromNotificationButton");
         goldButton = GameObject.Find("GoldButton");
+        toursText = GameObject.Find("ToursText");
 
         GarnisonText = GameObject.Find("GarnisonText").GetComponent<Text>();
         GoldText = GameObject.Find("GoldText").GetComponent<Text>();
@@ -307,20 +309,20 @@ public class UIMainSceneManager : MonoBehaviour
             string toPrint = "Nom : " + ville.nameVilles + "\n" + "Fortifications : " + ville.fortification + "\n";
             if (ville.garni_known.is_known)
             {
-                if (ville.garni_known.turn_known > 10)
+                if (timeScript.currentTurn - ville.garni_known.turn_known > 10)
                     toPrint = toPrint + "<color=red> Garnison : " + ville.garni_known.value_known + "</color>\n";
 
-                else if (ville.garni_known.turn_known > 4)
+                else if (timeScript.currentTurn - ville.garni_known.turn_known > 4)
                     toPrint = toPrint + "<color=orange> Garnison : " + ville.garni_known.value_known + "</color>\n";
                 else
                     toPrint = toPrint + "<color=green> Garnison : " + ville.garni_known.value_known + "</color>\n";
             }
             if (ville.gold_known.is_known)
             {
-                if (ville.gold_known.turn_known > 10)
+                if (timeScript.currentTurn - ville.gold_known.turn_known > 10)
                     toPrint = toPrint + "<color=red> Or : " + ville.gold_known.value_known + "</color>\n";
 
-                else if (ville.garni_known.turn_known > 4)
+                else if (timeScript.currentTurn - ville.garni_known.turn_known > 4)
                     toPrint = toPrint + "<color=orange> Or : " + ville.gold_known.value_known + "</color>\n";
                 else
                     toPrint = toPrint + "<color=green> Or : " + ville.gold_known.value_known + "</color>\n";
@@ -369,7 +371,7 @@ public class UIMainSceneManager : MonoBehaviour
             {
                 ChoseSpyPanel.transform.GetChild(2).GetComponent<Image>().sprite = voidSpySprite;
             }
-            if(drakkar.espion_list.Count < 1)
+            if(drakkar.espion_list.Count < 2)
             {
                 ChoseSpyPanel.transform.GetChild(1).GetComponent<Image>().sprite = voidSpySprite;
             }
@@ -449,11 +451,11 @@ public class UIMainSceneManager : MonoBehaviour
 
     public void updateGoldGUI()
     {
-        goldButton.transform.GetChild(0).GetComponent<Text>().text = "<color=white><b>" + drakkar.gold.ToString() + "</b></color>";
+        goldButton.transform.GetChild(0).GetComponent<Text>().text = "<color=white><b>" + drakkar.gold + "</b></color>";
     }
 
     public void updateTurnsGUI(int currentTurn, int maxTurn)
     {
-
+        toursText.GetComponent<Text>().text = "<color=white><b>" + currentTurn + "  /  " + maxTurn + "</b></color>";
     }
 }
