@@ -203,7 +203,7 @@ public class GameManager : MonoBehaviour {
         // METTRE UN TIME ICI
 
         // Generateur de logs pour test
-        
+        /*
         string lines = "";
         
             for (int k = 0; k < TownList.Count; k++)
@@ -220,7 +220,7 @@ public class GameManager : MonoBehaviour {
         file.WriteLine(lines);
 
         file.Close();*/
-        
+        */
     }
     public void defeat (Drakkar joueur)
     {
