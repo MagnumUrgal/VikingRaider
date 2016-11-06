@@ -56,4 +56,14 @@ public class Espion : Persos
         discretion = _discretion;
         description = _descr;
     }
+
+    public Espion(Espion spion) : base(spion.namePerso)
+    {
+        owned = false;
+        fuite = spion.fuite;
+        perception = spion.perception;
+        discretion = spion.discretion;
+        description = spion.description;
+
+    }
 }
