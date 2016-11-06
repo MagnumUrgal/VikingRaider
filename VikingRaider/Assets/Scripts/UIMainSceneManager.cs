@@ -129,6 +129,7 @@ public class UIMainSceneManager : MonoBehaviour
 
     public void updateSizeWindow()
     {
+        Screen.SetResolution(1616,909, false);
         botPanel.GetComponent<GridLayoutGroup>().cellSize = new Vector2(Screen.width / 15, Screen.width / 15);
         botPanel.GetComponent<GridLayoutGroup>().spacing = new Vector2(Screen.width / 8, 0);
 
