@@ -111,6 +111,9 @@ public class Time : MonoBehaviour
         // voir si le cast suivant ne produit pas d'erreurs
 
         city.gold = (int) (city.gold / ev.goldmult);
+        Debug.Log(city.gold);
+        Debug.Log(ev.id);
+        Debug.Log(city.pos);
     }
 
     public void applyEvent(Events ev, Drakkar drakkar)
