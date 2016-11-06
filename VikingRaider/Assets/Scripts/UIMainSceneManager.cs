@@ -865,7 +865,7 @@ public class UIMainSceneManager : MonoBehaviour
 
     public void OnDragonTail()
     {
-
+        gameManager.partir(drakkar);
     }
 
     public void defeat()
