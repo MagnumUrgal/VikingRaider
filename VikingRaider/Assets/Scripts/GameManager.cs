@@ -11,8 +11,6 @@ public class GameManager : MonoBehaviour {
     private GameObject Villages;
     public List<Espion> ShopList;
 
-
-
     [HideInInspector]
     public Drakkar drakkar;
 
